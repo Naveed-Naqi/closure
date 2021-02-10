@@ -6,6 +6,7 @@ We are creating Closure...
 
 - [Yash Mahtani](https://github.com/gasperjw1)
 - [Harold Peralta](https://github.com/HaroldisHarold)
+- [Naveed Naqi](https://github.com/Naveed-Naqi)
 
 ## Build
 
