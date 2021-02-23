@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import isEmpty from "is-empty";
 import { Link } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -23,6 +22,34 @@ const LoginView = (props) => {
   };
 
   return (
+
+    /*
+ <Grid container justify="center" direction="column" alignItems="center">
+      <Grid item>
+        <h1>ASCEND LOGO</h1>
+      </Grid>
+
+      <Card style={{ width: "60%" }}>
+        <CardHeader title="Login"></CardHeader>
+
+        <CardContent>
+          <FormTemplate
+            handleSubmit={login}
+            data={data}
+            cancel={false}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            submitButtonLabel="Login"
+          ></FormTemplate>
+
+          <br></br>
+          <div>
+            <Link to="/register">Need an account?</Link>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
+    */
     <Container>
       <h1>Login</h1>
 
