@@ -8,10 +8,13 @@ const databaseName = require("../utilities/databaseName");
 console.log("Opening database connection");
 
 // This is our entry point, we instantiate the Sequelize instance accordingly;
-const db = new Sequelize(
-  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
-  { logging: false }
-);
+const db = new Sequelize(databaseName, "postgres", "y6MsWEB5wVs9pVg7X94wfCqnGRlGxAfT", {
+  host: "closure.czrh5jkascs6.us-east-1.rds.amazonaws.com",
+  port: "5432",
+  logging: console.log,
+
+  dialect: "postgres",
+});
 
 // Export our instance of Sequelize, which will be modified with models;
 module.exports = db;
