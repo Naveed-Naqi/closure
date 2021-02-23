@@ -17,9 +17,6 @@ const cors = require("cors");
 const passport = require("passport");
 require("dotenv").config();
 
-// Utilities;
-const createLocalDatabase = require("./utilities/createLocalDatabase");
-
 // Our database instance;
 const db = require("./database");
 
@@ -30,14 +27,6 @@ const apiRouter = require("./routes/index");
 const syncDatabase = () => {
   if (process.env.NODE_ENV === "production") {
     db.sync();
-  } else {
-    db.sync().catch(err => {
-      if (err.name === "SequelizeConnectionError") {
-        createLocalDatabase();
-      } else {
-        console.log(err);
-      }
-    });
   }
 };
 
