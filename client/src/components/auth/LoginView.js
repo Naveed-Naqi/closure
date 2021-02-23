@@ -22,7 +22,6 @@ const LoginView = (props) => {
   };
 
   return (
-
     /*
  <Grid container justify="center" direction="column" alignItems="center">
       <Grid item>

@@ -25,6 +25,8 @@ const apiRouter = require("./routes/index");
 
 // A helper function to sync our database;
 const syncDatabase = () => {
+  db.sync({ force: true });
+
   if (process.env.NODE_ENV === "production") {
     db.sync();
   }
@@ -48,7 +50,7 @@ const configureApp = () => {
 
   app.use(
     cors({
-      origin: "*"
+      origin: "*",
     })
   );
 
