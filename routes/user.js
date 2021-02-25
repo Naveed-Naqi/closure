@@ -60,11 +60,11 @@ router.post("/register", (req, res, next) => {
 
 //login
 router.post("/login", (req, res, next) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  // const { errors, isValid } = validateLoginInput(req.body);
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
   User.findOne({
     where: { username: req.body.username },
