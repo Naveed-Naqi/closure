@@ -31,10 +31,7 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <LoginView
-        errors={this.props.errors}
-        loginUser={this.props.loginUser}
-      ></LoginView>
+      <LoginView errors={this.props.errors} loginUser={this.props.loginUser} />
     );
   }
 }

@@ -28,7 +28,7 @@ const syncDatabase = () => {
   db.sync({ force: true });
 
   if (process.env.NODE_ENV === "production") {
-    db.sync();
+    //db.sync();
   }
 };
 
