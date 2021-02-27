@@ -12,16 +12,17 @@ const validateLoginInput = require("../validation/login");
 router.post("/register", (req, res, next) => {
   //validate req.body first
 
-  // const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body);
+  const { email, password, username } = req.body;
 
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   let newUser = User.build({
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
+    email: email,
+    username: username,
+    password: password,
   });
 
   User.findOne({
@@ -60,22 +61,21 @@ router.post("/register", (req, res, next) => {
 
 //login
 router.post("/login", (req, res, next) => {
-  // const { errors, isValid } = validateLoginInput(req.body);
+  const { errors, isValid } = validateLoginInput(req.body);
+  const { username, password } = req.body;
 
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({
-    where: { username: req.body.username },
+    where: { username: username },
   }).then((user) => {
     if (!user) {
       return res.status(400).json({
         userNotFound: "Username and/or email not found",
       });
     }
-
-    const password = req.body.password;
 
     // Check password
     bcrypt.compare(password, user.password).then((isMatch) => {
