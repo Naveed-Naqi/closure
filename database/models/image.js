@@ -8,9 +8,8 @@ const Image = db.define("image", {
   },
 
   placeId: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
+    type: Sequelize.INTEGER,
+    foreignKey: true,
   },
 });
 
