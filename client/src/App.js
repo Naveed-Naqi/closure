@@ -44,6 +44,7 @@ if (localStorage.jwtToken) {
 
     // Redirect to login
     window.location.href = "./";
+    //hello
   }
 }
 
