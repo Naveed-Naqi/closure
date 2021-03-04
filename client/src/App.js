@@ -15,16 +15,14 @@ import LoginContainer from "./components/auth/LoginContainer";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import InfoContainer from "./components/info/InfoContainer"
+import NavBar from "./components/info/NavBar"
 
-<<<<<<< HEAD
 import restaurant_pic from './img/Restaurant_Pic.png'
 import map from './img/map.png'
 
 // import "bootstrap/dist/css/bootstrap.min.css";
-=======
 import HomePage from "./components/HomePage";
 import SinglePlace from "./components/SinglePlace";
->>>>>>> 0b2929c8a4f6faf66eb0f789223b58323afb1f80
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -58,13 +56,10 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
-<<<<<<< HEAD
-              <Route exact path="/info" render={(props) => <InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} />} />
-=======
+              <Route exact path="/info" render={(props) => <div><NavBar /><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/single/:id" component={SinglePlace} />
 
->>>>>>> 0b2929c8a4f6faf66eb0f789223b58323afb1f80
               <PrivateRoute
                 exact
                 path="/dashboard"
