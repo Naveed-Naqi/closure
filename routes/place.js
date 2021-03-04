@@ -12,4 +12,17 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/single", async (req, res, next) => {
+  try {
+    const { id } = req.query;
+    console.log(id);
+
+    const place = await Place.findOne({ where: { id: id } });
+
+    res.status(200).send(place);
+  } catch (err) {
+    res.status(400).send("Some error occured");
+  }
+});
+
 module.exports = router;

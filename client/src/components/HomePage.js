@@ -11,12 +11,14 @@ export default class HomePage extends Component {
 
   componentDidMount = async () => {
     try {
-      const places = await axios.get("/api/places/");
+      const res = await axios.get("/api/places/");
 
       this.setState({
-        places: places,
+        places: res.data,
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
