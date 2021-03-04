@@ -14,8 +14,12 @@ import RegisterContainer from "./components/auth/RegisterContainer";
 import LoginContainer from "./components/auth/LoginContainer";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import InfoContainer from "./components/info/InfoContainer"
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import restaurant_pic from './img/Restaurant_Pic.png'
+import map from './img/map.png'
+
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -49,7 +53,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
-
+              <Route exact path="/info" render={(props) => <InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} />} />
               <PrivateRoute
                 exact
                 path="/dashboard"
