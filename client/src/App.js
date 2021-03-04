@@ -53,10 +53,11 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+          <Route component={NavBar} />
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
-              <Route exact path="/info" render={(props) => <div><NavBar /><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
+              <Route exact path="/info" render={(props) => <div><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/single/:id" component={SinglePlace} />
 
