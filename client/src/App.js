@@ -15,6 +15,8 @@ import LoginContainer from "./components/auth/LoginContainer";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 
+import HomePage from "./components/HomePage";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -47,6 +49,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
+              <Route exact path="/home" component={HomePage} />
 
               <PrivateRoute
                 exact

@@ -18,4 +18,5 @@ module.exports = {
   User,
   Image,
   Place,
+  Comment,
 };
