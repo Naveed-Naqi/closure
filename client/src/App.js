@@ -42,7 +42,7 @@ if (localStorage.jwtToken) {
     // Logout user
     store.dispatch(logoutUser());
 
-    // Redirect to loginxZDS
+    //test
     window.location.href = "./";
     //hello
   }
