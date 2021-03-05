@@ -5,7 +5,7 @@ We are creating Closure...
 ## Contributors
 
 - [Yash Mahtani](https://github.com/gasperjw1)
-- [Harold Peralta](https://github.com/HaroldisHarold)
+- [Harold Peralta](https://github.com/HaroldisHarold) Testing
 - [Naveed Naqi](https://github.com/Naveed-Naqi)
 - [Victor Huang](https://github.com/008705110)
 
