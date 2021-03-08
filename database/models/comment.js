@@ -19,6 +19,7 @@ const Comment = db.define("comment", {
 
   replyId: {
     type: Sequelize.INTEGER,
+    allowNull: true,
   },
 });
 
