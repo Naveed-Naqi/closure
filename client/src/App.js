@@ -61,6 +61,7 @@ class App extends Component {
               <Route exact path="/info" render={(props) => <div><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/single/:id" component={SinglePlace} />
+              <Route exact path="/comment_single/:id" component={SinglePlaceComments} />
 
               <PrivateRoute
                 exact

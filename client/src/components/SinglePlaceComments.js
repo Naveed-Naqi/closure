@@ -5,7 +5,7 @@ export default class SinglePlaceComments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      place: [],
+      comments: [],
     };
   }
 
@@ -16,7 +16,7 @@ export default class SinglePlaceComments extends Component {
       const res = await axios.get(`/api/comments/?placeId=${placeId}`);
 
       this.setState({
-        place: res.data,
+        comments: res.data,
       });
     } catch (err) {
       console.log(err);
