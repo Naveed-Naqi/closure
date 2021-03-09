@@ -23,6 +23,7 @@ import map from './img/map.png'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
 import SinglePlace from "./components/SinglePlace";
+import SinglePlaceComments from "./components/SinglePlaceComments";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -63,6 +64,7 @@ class App extends Component {
               <Route exact path="/info" render={(props) => <div><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/single/:id" component={SinglePlace} />
+              <Route exact path="/comment_single/:id" component={SinglePlaceComments} />
 
               <PrivateRoute
                 exact
