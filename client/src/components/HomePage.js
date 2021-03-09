@@ -1,27 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Grid } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  CardHeader,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  IconButton,
+} from "@material-ui/core";
+import InfoIcon from "@material-ui/icons/Info";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-
-const displayCard = () => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5">Name</Typography>
-        <Typography variant="body2">Address</Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  );
-};
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -46,31 +37,35 @@ export default class HomePage extends Component {
   render() {
     const { places } = this.state;
 
-    //return (<div>{JSON.stringify(places)}</div>)
     return (
-      <div className="container">
+      <div>
         <h1>Homepage</h1>
-        <Card>
-          {places.map((elem) => {
-            const { name, address } = elem;
+        {places.map((elem) => {
+          const { name, address } = elem;
 
-            return (
-              <Grid container spacing={6}>
-                <Grid item xs={12} sm={4}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5">{name}</Typography>s
-                      <Typography variant="body2">{address}</Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small">Learn More</Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+          return (
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item sm={6}>
+                <Card>
+                  <CardHeader
+                    action={
+                      <IconButton aria-label="settings">
+                        <InfoIcon />
+                      </IconButton>
+                    }
+                    title={name}
+                    subheader={address}
+                  />
+                </Card>
               </Grid>
-            );
-          })}
-        </Card>
+            </Grid>
+          );
+        })}
       </div>
     );
   }
