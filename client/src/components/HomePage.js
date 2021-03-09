@@ -50,12 +50,12 @@ class HomePage extends Component {
     return (
       <div className={classes.root}>
         <h1>Homepage</h1>
-        {places.map((elem) => {
-          const { name, address, images, id } = elem;
+        <Grid container spacing={3} alignItems="center" justify="center">
+          {places.map((elem) => {
+            const { name, address, images, id } = elem;
 
-          return (
-            <Grid container spacing={3} alignItems="center" justify="center">
-              <Grid item xs={4}>
+            return (
+              <Grid item xs={3}>
                 <Card>
                   <CardHeader
                     action={
@@ -75,9 +75,9 @@ class HomePage extends Component {
                   <CardMedia className={classes.media} image={images[0].link} />
                 </Card>
               </Grid>
-            </Grid>
-          );
-        })}
+            );
+          })}
+        </Grid>
       </div>
     );
   }
