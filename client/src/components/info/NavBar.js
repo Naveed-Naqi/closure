@@ -37,6 +37,7 @@ function NavBar() {
         anchor = 'left'
         open = {open}
         onClose = {() => setOpen(false)} 
+
     
     >
       <div style = {{ height : "100%", width : "250px" }}> 
