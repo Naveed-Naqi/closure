@@ -5,16 +5,25 @@ import {
   Grid,
   Card,
   CardHeader,
-  CardActions,
-  CardContent,
-  Button,
+  CardMedia,
   Typography,
   IconButton,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
-import { makeStyles } from "@material-ui/core/styles";
 
-export default class HomePage extends Component {
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+});
+
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,31 +45,34 @@ export default class HomePage extends Component {
 
   render() {
     const { places } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <h1>Homepage</h1>
         {places.map((elem) => {
-          const { name, address } = elem;
+          const { name, address, images, id } = elem;
 
           return (
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item sm={6}>
+            <Grid container spacing={3} alignItems="center" justify="center">
+              <Grid item xs={4}>
                 <Card>
                   <CardHeader
                     action={
-                      <IconButton aria-label="settings">
+                      <IconButton
+                        id={id}
+                        onClick={(e) => {
+                          const id = e.currentTarget.id;
+                          this.props.history.push(`/single/${id}`);
+                        }}
+                      >
                         <InfoIcon />
                       </IconButton>
                     }
                     title={name}
                     subheader={address}
                   />
+                  <CardMedia className={classes.media} image={images[0].link} />
                 </Card>
               </Grid>
             </Grid>
@@ -70,3 +82,5 @@ export default class HomePage extends Component {
     );
   }
 }
+
+export default withStyles(styles, { withTheme: true })(HomePage);
