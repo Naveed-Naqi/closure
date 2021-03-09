@@ -17,7 +17,7 @@ router.get("/single", async (req, res, next) => {
     const { id } = req.query;
     console.log(id);
 
-    const place = await Place.findOne({ where: { id: id } });
+    const place = await Place.findOne({ where: { id: id }, include: Image });
 
     res.status(200).send(place);
   } catch (err) {
