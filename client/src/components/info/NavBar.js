@@ -1,12 +1,28 @@
 import React, { useState } from 'react'
 import {AppBar, Toolbar, IconButton, Typography, Button, Drawer} from '@material-ui/core'
 import { Menu, AccountCircle } from '@material-ui/icons'
+import { useHistory } from "react-router-dom"
 
+ 
 function NavBar() {
     const [open, setOpen] = useState (false)
     const handleDrawer = () =>{
       setOpen(true)
     }
+    const history = useHistory()
+    
+    const handleHome = () => {
+      history.push("/home")
+    }
+    const handleLogin = () => {
+      history.push("/")
+    }
+    const handleRegister = () => {
+      history.push("/register")
+    }
+
+
+  
     return ( 
         <div>
               <AppBar position = 'static'  >
@@ -15,13 +31,13 @@ function NavBar() {
         <Menu/>
        </IconButton>  
        <Typography variant = 'h6' style = {{ flexGrow : 1 }}>
-         fdsfsd
+       Closure 
        </Typography>
-        <Button color = 'inherit'> 
-              fdsfds 
+        <Button onClick = {handleHome} color = 'inherit'> 
+              Home 
         </Button>
         <Button color = 'inherit'> 
-        fdsfds
+        About
 
         </Button>
         <IconButton color = 'inherit' aria-label = 'account'> 
@@ -41,8 +57,8 @@ function NavBar() {
     
     >
       <div style = {{ height : "100%", width : "250px" }}> 
-      <Button variant = 'contained' style = {{ borderRadius : 10 }} color = "primary">login</Button>
-      <Button variant = 'contained' style = {{ borderRadius : 10 }} color = "primary">signup</Button>
+      <Button onClick = {handleLogin} variant = 'contained' style = {{ borderRadius : 10 }} color = "primary">login</Button>
+      <Button onClick = {handleRegister} variant = 'contained' style = {{ borderRadius : 10 }} color = "primary">signup</Button>
         </div>
      
     </Drawer>
