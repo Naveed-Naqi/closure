@@ -47,6 +47,8 @@ if (localStorage.jwtToken) {
   }
 }
 
+//testing
+
 class App extends Component {
   render() {
     return (
