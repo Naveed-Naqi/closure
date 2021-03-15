@@ -7,6 +7,7 @@ import InfoContainer from "./info/InfoContainer";
 import NavBar from "./info/NavBar";
 import SimpleRating from "./info/SimpleRating";
 import CommentBox from "./info/CommentBox";
+import CommentList from "./info/CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
@@ -57,11 +58,24 @@ export default class SinglePlace extends Component {
           />
         </Grid>
 
-        <Grid item sm={6}>
+        <Grid 
+          container
+          justify='center'
+          alignItems='center'
+          item sm={3}
+        >
           <SimpleRating />
         </Grid>
-        <Grid item sm={6}>
+        <Grid 
+          container
+          justify='center'
+          alignItems='center'
+          item sm={3}        
+        >
           <CommentBox />
+        </Grid>
+        <Grid item sm={6}>
+          <CommentList />
         </Grid>
       </Grid>
     );
