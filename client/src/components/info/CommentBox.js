@@ -1,20 +1,19 @@
-import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-
+import React from "react";
+import { makeStyles, Button } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
   },
 }));
 
 export default function MultilineTextFields() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('Controlled');
+  const [value, setValue] = React.useState("Controlled");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -24,13 +23,6 @@ export default function MultilineTextFields() {
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         <h2>Leave A Comment</h2>
-        <TextField
-          id="outlined-textarea"
-          label="Your Name"
-          placeholder="Placeholder"
-          multiline
-          variant="outlined"
-        />
       </div>
       <div>
         <TextField

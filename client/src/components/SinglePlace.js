@@ -7,7 +7,7 @@ import InfoContainer from "./info/InfoContainer";
 import NavBar from "./info/NavBar";
 import SimpleRating from "./info/SimpleRating";
 import CommentBox from "./info/CommentBox";
-import CommentList from "./info/CommentList";
+import CommentList from "./CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
@@ -17,24 +17,43 @@ export default class SinglePlace extends Component {
     super(props);
     this.state = {
       place: [],
+      comments: [],
     };
   }
 
-  componentDidMount = async () => {
+  getComments = async () => {
     try {
       const { id } = this.props.match.params;
-      console.log(id);
-      const res = await axios.get(`/api/places/single/?id=${id}`);
+
+      const res = await axios.get(`/api/comments/?placeId=${id}`);
 
       this.setState({
-        place: res.data,
+        comments: res.data,
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+  getPlaceInfo = async () => {
+    try {
+      const { id } = this.props.match.params;
+      const res = await axios.get(`/api/places/single/?id=${id}`);
+
+      this.setState({
+        comments: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  componentDidMount = async () => {
+    await this.getComments();
+    await this.getPlaceInfo();
+  };
   render() {
-    const { place } = this.state;
+    const { place, comments } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -48,7 +67,7 @@ export default class SinglePlace extends Component {
         alignItems="flex-start"
         spacing={5}
       >
-        <Grid item sm={12}>
+        <Grid item sm={6} md={12}>
           <InfoContainer
             restaurant_pic={images && images[0].link}
             mapInfo={map}
@@ -58,24 +77,13 @@ export default class SinglePlace extends Component {
           />
         </Grid>
 
-        <Grid 
-          container
-          justify='center'
-          alignItems='center'
-          item sm={3}
-        >
-          <SimpleRating />
-        </Grid>
-        <Grid 
-          container
-          justify='center'
-          alignItems='center'
-          item sm={3}        
-        >
-          <CommentBox />
-        </Grid>
-        <Grid item sm={6}>
-          <CommentList />
+        <Grid container justify="center" alignItems="center">
+          <Grid item>
+            <CommentBox />
+          </Grid>
+          <Grid item>
+            <CommentList comments={comments} />
+          </Grid>
         </Grid>
       </Grid>
     );

@@ -7,13 +7,12 @@ router.get("/", async (req, res, next) => {
     const { placeId } = req.query;
     console.log(placeId);
 
-    const comments = await Comment.findOne({
+    const comments = await Comment.findAll({
       where: {
         placeId: placeId,
       },
     });
 
-    const comments = await Comment.findAll();
     res.status(200).send(comments);
   } catch (err) {
     res.status(400).send("Some error occured");
