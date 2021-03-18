@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Comment } = require("../database/models");
+const { Comment, User } = require("../database/models");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -11,11 +11,12 @@ router.get("/", async (req, res, next) => {
       where: {
         placeId: placeId,
       },
+      include: User,
     });
 
     res.status(200).send(comments);
   } catch (err) {
-    res.status(400).send("Some error occured");
+    res.status(400).send(err);
   }
 });
 

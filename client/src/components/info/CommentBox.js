@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CommentBox = ({ auth }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("Controlled");
+  const [value, setValue] = React.useState("");
   const params = useParams();
 
   const handleChange = (event) => {
@@ -27,7 +27,6 @@ const CommentBox = ({ auth }) => {
   const postComment = async () => {
     try {
       const placeId = params.id;
-      console.log(auth);
 
       const res = await axios.post("/api/comments", {
         placeId: placeId,
@@ -46,11 +45,9 @@ const CommentBox = ({ auth }) => {
       </div>
       <div>
         <TextField
-          id="outlined-multiline-static"
           label="Enter Your Comment"
           multiline
           rows={4}
-          defaultValue="Wow I really miss this place..."
           variant="outlined"
           onChange={handleChange}
         />

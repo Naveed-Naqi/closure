@@ -41,7 +41,7 @@ export default class SinglePlace extends Component {
       const res = await axios.get(`/api/places/single/?id=${id}`);
 
       this.setState({
-        comments: res.data,
+        place: res.data,
       });
     } catch (err) {
       console.log(err);

@@ -36,8 +36,8 @@ function Closure_Info(props) {
 
               <CardContent>
                 <div>{summary}</div>
-                <br />
-                <img src={props.mapInfo}></img>
+                {/* <br />
+                <img src={props.mapInfo}></img> */}
               </CardContent>
             </Card>
           </Paper>
