@@ -63,7 +63,7 @@ router.delete("/remove", async (req, res, next) => {
   }
 });
 
-router.post("/add", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { content, placeId, userId, replyId } = req.body;
     console.log(content);

@@ -1,6 +1,10 @@
 import React from "react";
+import axios from "axios";
 import { makeStyles, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,12 +15,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields() {
+const CommentBox = ({ auth }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("Controlled");
+  const params = useParams();
 
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+  const postComment = async () => {
+    try {
+      const placeId = params.id;
+      console.log(auth);
+
+      const res = await axios.post("/api/comments", {
+        placeId: placeId,
+        content: value,
+        userId: auth.user.id,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -32,11 +52,24 @@ export default function MultilineTextFields() {
           rows={4}
           defaultValue="Wow I really miss this place..."
           variant="outlined"
+          onChange={handleChange}
         />
       </div>
       <div>
-        <Button variant="outlined">Submit</Button>
+        <Button variant="outlined" color="primary" onClick={postComment}>
+          Submit
+        </Button>
       </div>
     </form>
   );
-}
+};
+
+CommentBox.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(CommentBox);
