@@ -4,6 +4,15 @@ const { Comment } = require("../database/models");
 
 router.get("/", async (req, res, next) => {
   try {
+    const { placeId } = req.query;
+    console.log(placeId);
+
+    const comments = await Comment.findOne({
+      where: {
+        placeId: placeId,
+      },
+    });
+
     const comments = await Comment.findAll();
     res.status(200).send(comments);
   } catch (err) {
@@ -13,12 +22,13 @@ router.get("/", async (req, res, next) => {
 
 router.get("/single", async (req, res, next) => {
   try {
-    const { placeId } = req.query;
+    const { placeId, commentId } = req.query;
     console.log(placeId);
 
     const comments = await Comment.findOne({
       where: {
         placeId: placeId,
+        id: commentId,
       },
     });
     res.status(200).send(comments);
@@ -47,7 +57,7 @@ router.delete("/remove", async (req, res, next) => {
 
       res.status(200).send("deleted");
     } else {
-      res.status(200).send("comment does not exist");
+      res.status(400).send("comment does not exist");
     }
   } catch (err) {
     res.status(400).send("Some error occured");
