@@ -8,12 +8,12 @@ import Box from '@material-ui/core/Box';
 export default function CustomizedRatings() {
   return (
     <div>
+      <h2>Leave A Rating</h2>
       <Box component="fieldset" mb={0} borderColor="transparent">
         <Typography component="legend">Food</Typography>
         <Rating
           name="customized-food"
           defaultValue={3}
-          //precision={0.5}
           emptyIcon={<StarBorderIcon fontSize="inherit" />}
         />
       </Box>
@@ -22,7 +22,6 @@ export default function CustomizedRatings() {
         <Rating
           name="customized-location"
           defaultValue={3}
-          //precision={0.5}
           emptyIcon={<StarBorderIcon fontSize="inherit" />}
         />
       </Box>
