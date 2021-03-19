@@ -7,7 +7,7 @@ router.get("/", async (req, res, next) => {
     const { placeId } = req.query;
     console.log(placeId);
 
-    const likes = await Like.findAll({
+    const likes = await Like.findAndCountAll({
       where: {
         placeId: placeId,
       },
