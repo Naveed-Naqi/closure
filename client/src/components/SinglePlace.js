@@ -4,8 +4,6 @@ import axios from "axios";
 import { Grid } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
-import NavBar from "./info/NavBar";
-import SimpleRating from "./info/SimpleRating";
 import CommentBox from "./info/CommentBox";
 import CommentList from "./CommentList";
 
@@ -48,16 +46,24 @@ export default class SinglePlace extends Component {
     }
   };
 
+  updateComments = (newComment) => {
+    // console.log(newComment);
+    // this.setState({
+    //   comments: [this.state.comments, newComment],
+    // });
+
+    this.getComments();
+  };
+
   componentDidMount = async () => {
     await this.getComments();
     await this.getPlaceInfo();
   };
+
   render() {
     const { place, comments } = this.state;
 
     const { name, address, summary, images } = place;
-
-    console.log(images);
 
     return (
       <Grid
@@ -79,7 +85,7 @@ export default class SinglePlace extends Component {
 
         <Grid container justify="center" alignItems="center">
           <Grid item>
-            <CommentBox />
+            <CommentBox updateComments={this.updateComments} />
           </Grid>
           <Grid item>
             <CommentList comments={comments} />

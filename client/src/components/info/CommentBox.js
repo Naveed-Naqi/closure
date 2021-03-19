@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentBox = ({ auth }) => {
+const CommentBox = ({ auth, updateComments }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
   const params = useParams();
@@ -33,6 +33,8 @@ const CommentBox = ({ auth }) => {
         content: value,
         userId: auth.user.id,
       });
+
+      updateComments(res.data);
     } catch (err) {
       console.log(err);
     }

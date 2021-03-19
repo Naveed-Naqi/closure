@@ -69,38 +69,19 @@ router.post("/", async (req, res, next) => {
     const { content, placeId, userId, replyId } = req.body;
     console.log(content);
 
-    if (replyId == undefined) {
-      let newComment = Comment.build({
-        content: content,
-        placeId: placeId,
-        userId: userId,
-      });
+    const newComment = await Comment.create({
+      content: content,
+      placeId: placeId,
+      userId: userId,
+      replyId: replyId,
+    });
 
-      newComment
-        .save()
-        .then((comment) => {
-          return res.status(200).json(comment);
-        })
-        .catch((err) => {
-          return res.status(400).json("Error occured");
-        });
-    } else {
-      let newComment = Comment.build({
-        content: content,
-        placeId: placeId,
-        userId: userId,
-        replyId: replyId,
-      });
+    const commentToReturn = await Comment.findOne({
+      where: { id: newComment.id },
+      include: User,
+    });
 
-      newComment
-        .save()
-        .then((comment) => {
-          return res.status(200).json(comment);
-        })
-        .catch((err) => {
-          return res.status(400).json("Error occured");
-        });
-    }
+    res.status(200).send(commentToReturn);
   } catch (err) {
     res.status(400).send("Some error occured");
   }
