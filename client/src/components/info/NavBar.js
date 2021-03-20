@@ -20,6 +20,9 @@ function NavBar() {
     const handleRegister = () => {
       history.push("/register")
     }
+    const handleProfile = () => {
+      history.push("/Profile")
+    }
 
 
   
@@ -40,7 +43,7 @@ function NavBar() {
         About
 
         </Button>
-        <IconButton color = 'inherit' aria-label = 'account'> 
+        <IconButton onClick = {handleProfile} color = 'inherit' aria-label = 'account'> 
            <AccountCircle/>
         
         </IconButton>
