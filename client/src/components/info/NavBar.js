@@ -23,6 +23,9 @@ function NavBar() {
     const handleProfile = () => {
       history.push("/Profile")
     }
+    const handleAbout = () => {
+      history.push("/about")
+    }
 
 
   
@@ -39,7 +42,7 @@ function NavBar() {
         <Button onClick = {handleHome} color = 'inherit'> 
               Home 
         </Button>
-        <Button color = 'inherit'> 
+        <Button onClick = {handleAbout} color = 'inherit'> 
         About
 
         </Button>

@@ -25,6 +25,7 @@ import HomePage from "./components/HomePage";
 import SinglePlace from "./components/SinglePlace";
 import SinglePlaceComments from "./components/SinglePlaceComments";
 import ProfilePage from "./components/ProfilePage";
+import AboutPage from "./components/AboutPage";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -64,6 +65,7 @@ class App extends Component {
               <Route exact path="/register" component={RegisterContainer} />
               <Route exact path="/info" render={(props) => <div><InfoContainer restaurant_pic={restaurant_pic} mapInfo={map} /> </div>} />
               <Route exact path="/home" component={HomePage} />
+              <Route exact path="/about" component={AboutPage} />
               <Route exact path="/single/:id" component={SinglePlace} />
               <Route exact path="/comment_single/:id" component={SinglePlaceComments} />
               <Route exact path="/Profile" component={ProfilePage} />
