@@ -29,27 +29,10 @@ const styles = (theme) => ({
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   places: [],
-    // };
   }
 
-//   componentDidMount = async () => {
-//     try {
-//       const res = await axios.get("/api/places/");
-
-//       this.setState({
-//         places: res.data,
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
   render() {
-    // const { places } = this.state;
-    // const { classes } = this.props;
-
+      const { classes } = this.props;
     return (
       <div>
         <h1>About Us</h1>
@@ -58,7 +41,7 @@ class HomePage extends Component {
                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
                     <img
                     src={stickFigure}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", maxWidth: "100%" }}
                     />
                 </Paper>
             </Grid>
@@ -68,42 +51,85 @@ class HomePage extends Component {
                         <CardHeader title="Stick" subheader="Does The Works" />
                         <CardContent>
                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-                            <br />
                         </CardContent>
                     </Card>
                     
                 </Paper>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={4} sm={3}>
                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
                     <img
                     src={stickFigure}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", maxWidth: "100%" }}
                     />
                 </Paper>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={4} sm={3} alignContent="center">
+                <Paper>
+                    <Card style={{ height: "25vh", width: "25vw" }}>
+                        <CardHeader title="Stick" subheader="Does The Works" />
+                        <CardContent>
+                            <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
+                        </CardContent>
+                    </Card>
+                    
+                </Paper>
+            </Grid>
+            <Grid item xs={4} sm={3}>
                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
                     <img
                     src={stickFigure}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", maxWidth: "100%" }}
                     />
                 </Paper>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={4} sm={3} alignContent="center">
+                <Paper>
+                    <Card style={{ height: "25vh", width: "25vw" }}>
+                        <CardHeader title="Stick" subheader="Does The Works" />
+                        <CardContent>
+                            <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
+                        </CardContent>
+                    </Card>
+                    
+                </Paper>
+            </Grid>
+            <Grid item xs={4} sm={3}>
                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
                     <img
                     src={stickFigure}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", maxWidth: "100%" }}
                     />
                 </Paper>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={4} sm={3} alignContent="center">
+                <Paper>
+                    <Card style={{ height: "25vh", width: "25vw" }}>
+                        <CardHeader title="Stick" subheader="Does The Works" />
+                        <CardContent>
+                            <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
+                        </CardContent>
+                    </Card>
+                    
+                </Paper>
+            </Grid>
+            <Grid item xs={4} sm={3}>
                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
                     <img
                     src={stickFigure}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "100%", maxWidth: "100%" }}
                     />
+                </Paper>
+            </Grid>
+            <Grid item xs={4} sm={3} alignContent="center">
+                <Paper>
+                    <Card style={{ height: "25vh", width: "25vw" }}>
+                        <CardHeader title="Stick" subheader="Does The Works" />
+                        <CardContent>
+                            <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
+                        </CardContent>
+                    </Card>
+                    
                 </Paper>
             </Grid>
         </Grid>
