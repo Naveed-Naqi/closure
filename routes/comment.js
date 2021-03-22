@@ -1,24 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const { Comment } = require("../database/models");
+const { Comment, User } = require("../database/models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const comments = await Comment.findAll();
+    const { placeId } = req.query;
+    console.log(placeId);
+
+    const comments = await Comment.findAll({
+      where: {
+        placeId: placeId,
+      },
+      include: User,
+    });
+
     res.status(200).send(comments);
   } catch (err) {
-    res.status(400).send("Some error occured");
+    res.status(400).send(err);
   }
 });
 
 router.get("/single", async (req, res, next) => {
   try {
-    const { placeId } = req.query;
+    const { placeId, commentId } = req.query;
     console.log(placeId);
 
     const comments = await Comment.findOne({
       where: {
         placeId: placeId,
+        id: commentId,
       },
     });
     res.status(200).send(comments);
@@ -47,50 +57,31 @@ router.delete("/remove", async (req, res, next) => {
 
       res.status(200).send("deleted");
     } else {
-      res.status(200).send("comment does not exist");
+      res.status(400).send("comment does not exist");
     }
   } catch (err) {
     res.status(400).send("Some error occured");
   }
 });
 
-router.post("/add", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { content, placeId, userId, replyId } = req.body;
     console.log(content);
 
-    if (replyId == undefined) {
-      let newComment = Comment.build({
-        content: content,
-        placeId: placeId,
-        userId: userId,
-      });
+    const newComment = await Comment.create({
+      content: content,
+      placeId: placeId,
+      userId: userId,
+      replyId: replyId,
+    });
 
-      newComment
-        .save()
-        .then((comment) => {
-          return res.status(200).json(comment);
-        })
-        .catch((err) => {
-          return res.status(400).json("Error occured");
-        });
-    } else {
-      let newComment = Comment.build({
-        content: content,
-        placeId: placeId,
-        userId: userId,
-        replyId: replyId,
-      });
+    const commentToReturn = await Comment.findOne({
+      where: { id: newComment.id },
+      include: User,
+    });
 
-      newComment
-        .save()
-        .then((comment) => {
-          return res.status(200).json(comment);
-        })
-        .catch((err) => {
-          return res.status(400).json("Error occured");
-        });
-    }
+    res.status(200).send(commentToReturn);
   } catch (err) {
     res.status(400).send("Some error occured");
   }

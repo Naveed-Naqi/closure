@@ -11,8 +11,8 @@ Image.belongsTo(Place);
 Place.hasMany(Comment);
 Comment.belongsTo(Place);
 
-Comment.hasOne(User);
-User.belongsTo(Comment);
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
 module.exports = {
   User,
