@@ -1,0 +1,27 @@
+[
+    {
+        "Name": "Stick Guy 1",
+        "Role": "Full Stack",
+        "Body": "I do the clickity clackity"
+    },
+    {
+        "Name": "Stick Guy 2",
+        "Role": "Back End",
+        "Body": "Never gonna give you up"
+    },
+    {
+        "Name": "Stick Guy 3",
+        "Role": "Front End 1",
+        "Body": "Hi, my name is Stick and I do the work"
+    },
+    {
+        "Name": "Stick Guy 4",
+        "Role": "Front End 2",
+        "Body": "Hi, my name is Stick and I do the work"
+    },
+    {
+        "Name": "Stick Guy 5",
+        "Role": "Front End 3",
+        "Body": "Hi, my name is Stick and I do the work"
+    }
+]

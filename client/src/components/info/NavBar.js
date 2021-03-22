@@ -20,6 +20,12 @@ function NavBar() {
     const handleRegister = () => {
       history.push("/register")
     }
+    const handleProfile = () => {
+      history.push("/Profile")
+    }
+    const handleAbout = () => {
+      history.push("/about")
+    }
 
 
   
@@ -36,11 +42,11 @@ function NavBar() {
         <Button onClick = {handleHome} color = 'inherit'> 
               Home 
         </Button>
-        <Button color = 'inherit'> 
+        <Button onClick = {handleAbout} color = 'inherit'> 
         About
 
         </Button>
-        <IconButton color = 'inherit' aria-label = 'account'> 
+        <IconButton onClick = {handleProfile} color = 'inherit' aria-label = 'account'> 
            <AccountCircle/>
         
         </IconButton>
