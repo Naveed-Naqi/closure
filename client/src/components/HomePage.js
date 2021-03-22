@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SearchBar from "./info/SeachBar";
 
 import {
   Grid,
@@ -50,7 +51,8 @@ class HomePage extends Component {
     return (
       <div className={classes.root}>
         <h1>Homepage</h1>
-        <Grid container spacing={3} alignItems="center" justify="center">
+        <SearchBar />
+        <Grid container spacing={3} alignItems="center" justify="center" >
           {places.map((elem) => {
             const { name, address, images, id } = elem;
 
