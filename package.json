@@ -10,6 +10,7 @@
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "aws-sdk": "^2.868.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.3",
     "concurrently": "^5.0.2",
@@ -24,11 +25,13 @@
     "jsonwebtoken": "^8.5.1",
     "material-ui-search-bar": "^1.0.0",
     "morgan": "^1.9.1",
+    "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pgtools": "^0.3.0",
     "sequelize": "^5.21.6",
+    "sharp": "^0.27.2",
     "validator": "^12.1.0"
   }
 }
