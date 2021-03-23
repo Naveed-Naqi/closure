@@ -36,9 +36,13 @@ class HomePage extends Component {
 
   getPlaces = async () => {
     try {
+      this.setState({
+        loading: true,
+      });
       const res = await axios.get("/api/places/");
 
       this.setState({
+        loading: false,
         places: res.data,
       });
     } catch (err) {
