@@ -16,7 +16,7 @@ export default function Loading() {
 
   return (
     <div className={classes.root}>
-      <CircularProgress />
+      <CircularProgress size={100} />
     </div>
   );
 }
