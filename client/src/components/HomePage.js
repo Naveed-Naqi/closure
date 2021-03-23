@@ -79,10 +79,12 @@ class HomePage extends Component {
     return (
       <div className={classes.root}>
         <h1>Homepage</h1>
-        <SearchBar
-          onRequestSearch={this.onRequestSearch}
-          onCancelSearch={this.getPlaces}
-        />
+        <Grid container justify="center">
+          <SearchBar
+            onRequestSearch={this.onRequestSearch}
+            onCancelSearch={this.getPlaces}
+          />
+        </Grid>
 
         {loading ? (
           <Loading />
