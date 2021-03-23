@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./info/SeachBar";
+import Loading from "./utils/Loading";
 
 import {
   Grid,
@@ -29,10 +30,11 @@ class HomePage extends Component {
     super(props);
     this.state = {
       places: [],
+      loading: false,
     };
   }
 
-  componentDidMount = async () => {
+  getPlaces = async () => {
     try {
       const res = await axios.get("/api/places/");
 
@@ -44,42 +46,79 @@ class HomePage extends Component {
     }
   };
 
+  componentDidMount = async () => {
+    await this.getPlaces();
+  };
+
+  onRequestSearch = async (value) => {
+    try {
+      this.setState({
+        loading: true,
+      });
+
+      const res = await axios.get(`/api/places/search?content=${value}`);
+      console.log(res.data);
+
+      this.setState({
+        places: res.data,
+        loading: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
-    const { places } = this.state;
+    const { places, loading } = this.state;
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <h1>Homepage</h1>
-        <SearchBar />
-        <Grid container spacing={3} alignItems="center" justify="center" >
-          {places.map((elem) => {
-            const { name, address, images, id } = elem;
+        <SearchBar
+          onRequestSearch={this.onRequestSearch}
+          onCancelSearch={this.getPlaces}
+        />
 
-            return (
-              <Grid item xs={3}>
-                <Card>
-                  <CardHeader
-                    action={
-                      <IconButton
-                        id={id}
-                        onClick={(e) => {
-                          const id = e.currentTarget.id;
-                          this.props.history.push(`/single/${id}`);
-                        }}
-                      >
-                        <InfoIcon />
-                      </IconButton>
-                    }
-                    title={name}
-                    subheader={address}
-                  />
-                  <CardMedia className={classes.media} image={images[0].link} />
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Grid container spacing={3} alignItems="center" justify="center">
+            {places.length > 0 ? (
+              places.map((elem) => {
+                const { name, address, images, id } = elem;
+
+                return (
+                  <Grid item xs={3}>
+                    <Card>
+                      <CardHeader
+                        action={
+                          <IconButton
+                            id={id}
+                            onClick={(e) => {
+                              const id = e.currentTarget.id;
+                              this.props.history.push(`/single/${id}`);
+                            }}
+                          >
+                            <InfoIcon />
+                          </IconButton>
+                        }
+                        title={name}
+                        subheader={address}
+                      />
+                      <CardMedia
+                        className={classes.media}
+                        image={images[0].link}
+                      />
+                    </Card>
+                  </Grid>
+                );
+              })
+            ) : (
+              <h1>No results</h1>
+            )}
+          </Grid>
+        )}
       </div>
     );
   }

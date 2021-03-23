@@ -30,10 +30,10 @@ router.get("/search", async (req, res, next) => {
   try {
     const { content } = req.query;
 
-    const place = await Place.findOne({
+    const place = await Place.findAll({
       where: {
         name: {
-          [Op.like]: "%" + content + "%",
+          [Op.iLike]: "%" + content + "%",
         },
       },
       include: Image,
