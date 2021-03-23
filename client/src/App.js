@@ -24,6 +24,7 @@ import map from "./img/map.png";
 import HomePage from "./components/HomePage";
 import SinglePlace from "./components/SinglePlace";
 // import SinglePlaceComments from "./components/SinglePlaceComments";
+
 import ProfilePage from "./components/ProfilePage";
 import AboutPage from "./components/AboutPage";
 
@@ -79,6 +80,7 @@ class App extends Component {
               <Route exact path="/about" component={AboutPage} />
               <Route exact path="/single/:id" component={SinglePlace} />
               {/* <Route exact path="/comment_single/:id" component={SinglePlaceComments} /> */}
+
               <Route exact path="/Profile" component={ProfilePage} />
 
               <PrivateRoute
