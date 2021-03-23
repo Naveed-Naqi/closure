@@ -25,7 +25,7 @@ export default class CommentList extends Component {
           <List>
             {comments.map((elem, index) => {
               const { content, user } = elem;
-              const { username } = user;
+              const username = (user && user.username) || [""];
 
               return (
                 <div key={index}>
