@@ -70,6 +70,12 @@ class AboutPage extends Component {
                 Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
                 </div>
               </CardContent>
+              <CardHeader title="Why We Deserve An A"/>
+              <CardContent>
+                <div>
+                Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                </div>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
