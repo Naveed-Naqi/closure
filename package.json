@@ -30,6 +30,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pgtools": "^0.3.0",
+    "react-material-ui-carousel": "^2.2.1",
     "sequelize": "^5.21.6",
     "sharp": "^0.27.2",
     "validator": "^12.1.0"

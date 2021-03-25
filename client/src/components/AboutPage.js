@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Carousel from 'react-material-ui-carousel'
 
 import {
   Grid,
@@ -9,7 +10,8 @@ import {
   Typography,
   IconButton,
   Paper,
-  CardContent
+  CardContent,
+  List
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -52,14 +54,35 @@ class AboutPage extends Component {
     const { people } = this.state;
     return (
       <div>
+        <h1>About Closure</h1>
+        <Grid container justify="center">
+          <Grid item xs={8}  >
+            <Card style={{ height: "50vh", width: ""}}>
+              <CardHeader title="Our Mission"/>
+              <CardContent>
+                <div>
+                  Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                </div>
+              </CardContent>
+              <CardHeader title="Our Values"/>
+              <CardContent>
+                <div>
+                Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
         <h1>Meet the Team</h1>
-        <Grid container direction="row" alignItems="left" justify="flex-start">
+        <Grid container direction="row" alignItems="left" justify="center">
+        <Carousel>
           {people.map((elem) => {
             const { Name, Role, Body} = elem;
             return (
-            <Grid container xs={6} direction="row" alignItems="left" justify="flex-start">
+            <Grid container xs={12} direction="row" alignItems="left" justify="flex-start">
                 <Grid item xs={6}>
-                    <Paper elevation={3} style={{ height: "25vh", width: "25vw" }}>
+                    <Paper elevation={0} style={{ height: "25vh", width: "25vw" }}>
                         <img
                         src={stickFigure}
                         style={{ height: "100%", maxWidth: "100%" }}
@@ -67,7 +90,7 @@ class AboutPage extends Component {
                     </Paper>
                 </Grid>
                 <Grid item xs={6} alignContent="center">
-                    <Paper elevation={3}>
+                    <Paper elevation={0}>
                         <Card style={{ height: "25vh", width: "25vw" }}>
                             <CardHeader title={Name} subheader={Role} />
                             <CardContent>
@@ -79,116 +102,12 @@ class AboutPage extends Component {
             </Grid>
             );
           })}
+        </Carousel>
         </Grid>
+
       </div>
     );
   }
-//Not dynamic code
-//   render() {
-//       const { people } = this.state;
-//     return (
-//       <div>
-//         <h1>About Us</h1>
-//         <Grid container spacing={3} direction="row" alignItems="left" justify="flex-start">
-//             <Grid item xs={4} sm={3}>
-//                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
-//                     <img
-//                     src={stickFigure}
-//                     style={{ height: "100%", maxWidth: "100%" }}
-//                     />
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3} alignContent="center">
-//                 <Paper>
-//                     <Card style={{ height: "25vh", width: "25vw" }}>
-//                         <CardHeader title="Stick" subheader="Does The Works" />
-//                         <CardContent>
-//                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-//                         </CardContent>
-//                     </Card>
-                    
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3}>
-//                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
-//                     <img
-//                     src={stickFigure}
-//                     style={{ height: "100%", maxWidth: "100%" }}
-//                     />
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3} alignContent="center">
-//                 <Paper>
-//                     <Card style={{ height: "25vh", width: "25vw" }}>
-//                         <CardHeader title="Stick" subheader="Does The Works" />
-//                         <CardContent>
-//                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-//                         </CardContent>
-//                     </Card>
-                    
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3}>
-//                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
-//                     <img
-//                     src={stickFigure}
-//                     style={{ height: "100%", maxWidth: "100%" }}
-//                     />
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3} alignContent="center">
-//                 <Paper>
-//                     <Card style={{ height: "25vh", width: "25vw" }}>
-//                         <CardHeader title="Stick" subheader="Does The Works" />
-//                         <CardContent>
-//                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-//                         </CardContent>
-//                     </Card>
-                    
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3}>
-//                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
-//                     <img
-//                     src={stickFigure}
-//                     style={{ height: "100%", maxWidth: "100%" }}
-//                     />
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3} alignContent="center">
-//                 <Paper>
-//                     <Card style={{ height: "25vh", width: "25vw" }}>
-//                         <CardHeader title="Stick" subheader="Does The Works" />
-//                         <CardContent>
-//                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-//                         </CardContent>
-//                     </Card>
-                    
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3}>
-//                 <Paper elevation={6} style={{ height: "25vh", width: "25vw" }}>
-//                     <img
-//                     src={stickFigure}
-//                     style={{ height: "100%", maxWidth: "100%" }}
-//                     />
-//                 </Paper>
-//             </Grid>
-//             <Grid item xs={4} sm={3} alignContent="center">
-//                 <Paper>
-//                     <Card style={{ height: "25vh", width: "25vw" }}>
-//                         <CardHeader title="Stick" subheader="Does The Works" />
-//                         <CardContent>
-//                             <div>{"Our task must be to free ourselves... by widening our circle of compassion to embrace all living creatures and the whole of nature and it's beauty."}</div>
-//                         </CardContent>
-//                     </Card>
-                    
-//                 </Paper>
-//             </Grid>
-//         </Grid>
-//       </div>
-//     );
-//   }
 }
 
 export default withStyles(styles, { withTheme: true })(AboutPage);
