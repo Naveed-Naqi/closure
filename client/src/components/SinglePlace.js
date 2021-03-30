@@ -24,11 +24,21 @@ export default class SinglePlace extends Component {
 
   like = async () => {
     if (this.state.likedStatus) {
+      try {
+        const res = await axios.delete("/api/likes", {
+          data: { placeId: this.props.match.params.id },
+        });
+
+        this.setState({
+          likedStatus: !this.state.likedStatus,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       try {
         const res = await axios.post("/api/likes", {
           placeId: this.props.match.params.id,
-          status: !this.state.likedStatus,
         });
 
         this.setState({
@@ -40,7 +50,19 @@ export default class SinglePlace extends Component {
     }
   };
 
-  getLikedStatus = async () => {};
+  getLikedStatus = async () => {
+    try {
+      const { id } = this.props.match.params;
+
+      const res = await axios.get(`/api/comments/?placeId=${id}`);
+
+      this.setState({
+        comments: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   getComments = async () => {
     try {

@@ -21,29 +21,35 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.delete("/remove", async (req, res, next) => {
+router.delete("/", checkAuth, async (req, res, next) => {
   try {
-    const { id } = req.query;
-    console.log(id);
+    const userId = req.decoded.id;
+    const { placeId } = req.body;
+
+    console.log(placeId);
 
     const findLike = await Like.findOne({
       where: {
-        id: id,
+        placeId: placeId,
+        userId: userId,
       },
     });
 
     if (findLike !== null) {
-      const likes = await Like.destroy({
+      await Like.destroy({
         where: {
-          id: id,
+          placeId: placeId,
+          userId: userId,
         },
       });
 
       res.status(200).send("unliked");
     } else {
+      console.log("Ha");
       res.status(400).send("like does not exist");
     }
   } catch (err) {
+    console.log(err);
     res.status(400).send("Some error occured");
   }
 });
@@ -54,7 +60,6 @@ router.post("/", checkAuth, async (req, res, next) => {
     const { status, placeId } = req.body;
 
     const newLike = await Like.create({
-      favorite: status,
       placeId: placeId,
       userId: userId,
     });
