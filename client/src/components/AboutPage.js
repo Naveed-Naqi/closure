@@ -18,6 +18,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import { withStyles } from "@material-ui/core/styles";
 import stickFigure from "../img/stick_figure.png";
 
+// import backgroundPic from "../img/tile_background.png"
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -84,7 +85,18 @@ class AboutPage extends Component {
         <Grid container direction="row" alignItems="left" justify="center">
         <Carousel>
           {people.map((elem) => {
-            const { Name, Role, Body} = elem;
+            const { Name, Role, Body, Image, ID} = elem;
+            // const pictures = [
+            //   {image:require("../img/stick_figure.png"),},
+            //   {image:"../img/stick_figure.png"},
+            //   {image:"../img/stick_figure.png"},
+            //   {image:"../img/stick_figure.png"},
+            //   {image:"../img/stick_figure.png"}
+            // ]
+            // const IMG = (imgName) => {
+            //   return require(`../img/stick_figure.png`)
+            // }
+            // const profilePicture = pictures[ID]
             return (
             <Grid container xs={12} direction="row" alignItems="left" justify="flex-start">
                 <Grid item xs={6}>

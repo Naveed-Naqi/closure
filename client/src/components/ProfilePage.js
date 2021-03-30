@@ -14,6 +14,14 @@ import {CardHeader,CardMedia,IconButton,Paper,} from "@material-ui/core";
 
 import unknownAvatar from "../img/unknown_avatar.jpg";
 
+const styles = (theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    background: {
+        background: (0,0,0)
+    },
+  });
 
   class ProfilePage extends Component{
       constructor(props){
@@ -66,7 +74,7 @@ import unknownAvatar from "../img/unknown_avatar.jpg";
         const { classes } = this.props;
         
         return(
-            <Grid container justify="center" spacing={0} >
+            <Grid container justify="center" spacing={0} style={{paddingTop:"15px"}}>
               <Grid item xs= {3} >
                 <Card style={{height: "55vh", position:"relative"}} >
                     <CardContent>
