@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Like, User } = require("../database/models");
+const checkAuth = require("./middleware/checkAuth");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -47,19 +48,20 @@ router.delete("/remove", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", checkAuth, async (req, res, next) => {
   try {
-    const { favorite, placeId, userId } = req.body;
-    console.log(favorite);
+    const userId = req.decoded.id;
+    const { status, placeId } = req.body;
 
-    let newLike = await Like.create({
-      favorite: favorite,
+    const newLike = await Like.create({
+      favorite: status,
       placeId: placeId,
       userId: userId,
     });
 
     res.status(200).json(newLike);
   } catch (err) {
+    console.log(err);
     res.status(400).send("Some error occured");
   }
 });

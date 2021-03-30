@@ -35,6 +35,7 @@ const CommentBox = ({ auth, updateComments }) => {
       });
 
       updateComments(res.data);
+      setValue("");
     } catch (err) {
       console.log(err);
     }
@@ -52,6 +53,7 @@ const CommentBox = ({ auth, updateComments }) => {
           rows={4}
           variant="outlined"
           onChange={handleChange}
+          value={value}
         />
       </div>
       <div>

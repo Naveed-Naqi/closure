@@ -18,8 +18,26 @@ export default class SinglePlace extends Component {
     this.state = {
       place: [],
       comments: [],
+      likedStatus: false,
     };
   }
+
+  like = async () => {
+    try {
+      const res = await axios.post("/api/likes", {
+        placeId: this.props.match.params.id,
+        status: !this.state.likedStatus,
+      });
+
+      this.setState({
+        likedStatus: !this.state.likedStatus,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  getLikedStatus = async () => {};
 
   getComments = async () => {
     try {
@@ -60,10 +78,11 @@ export default class SinglePlace extends Component {
   componentDidMount = async () => {
     await this.getComments();
     await this.getPlaceInfo();
+    await this.getLikedStatus();
   };
 
   render() {
-    const { place, comments } = this.state;
+    const { place, comments, likedStatus } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -89,8 +108,8 @@ export default class SinglePlace extends Component {
           <Grid item>
             <Paper padding={10}>
               {"Number of Likes"}
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
+              <IconButton aria-label="add to favorites" onClick={this.like}>
+                <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
               </IconButton>
             </Paper>
           </Grid>
