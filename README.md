@@ -8,6 +8,7 @@ We are creating Closure...
 - [Harold Peralta](https://github.com/HaroldisHarold) 
 - [Naveed Naqi](https://github.com/Naveed-Naqi)
 - [Victor Huang](https://github.com/008705110)
+- [Erik Villavera](https://github.com/evillavera)
 
 ## Build
 

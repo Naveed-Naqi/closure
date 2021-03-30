@@ -2,26 +2,36 @@
     {
         "Name": "Stick Guy 1",
         "Role": "Full Stack",
-        "Body": "I do the clickity clackity"
+        "Body": "I do the clickity clackity",
+        "Image": "../img/stick_figure.png",
+        "ID": 0
     },
     {
         "Name": "Stick Guy 2",
         "Role": "Back End",
-        "Body": "Never gonna give you up"
+        "Body": "Never gonna give you up",
+        "Image": "../img/stick_figure.png",
+        "ID": 1
     },
     {
         "Name": "Stick Guy 3",
         "Role": "Front End 1",
-        "Body": "Hi, my name is Stick and I do the work"
+        "Body": "Hi, my name is Stick and I do the work",
+        "Image": "../img/stick_figure.png",
+        "ID": 2
     },
     {
         "Name": "Stick Guy 4",
         "Role": "Front End 2",
-        "Body": "Hi, my name is Stick and I do the work"
+        "Body": "Hi, my name is Stick and I do the work",
+        "Image": "../img/stick_figure.png",
+        "ID": 3
     },
     {
         "Name": "Stick Guy 5",
         "Role": "Front End 3",
-        "Body": "Hi, my name is Stick and I do the work"
+        "Body": "Hi, my name is Stick and I do the work",
+        "Image": "../img/stick_figure.png",
+        "ID": 4
     }
 ]
