@@ -25,7 +25,7 @@ const apiRouter = require("./routes/index");
 
 // A helper function to sync our database;
 const syncDatabase = () => {
-  //db.sync({ force: true });
+  // db.sync({ force: true });
 };
 
 // Instantiate our express application;

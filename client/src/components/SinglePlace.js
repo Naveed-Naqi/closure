@@ -23,17 +23,20 @@ export default class SinglePlace extends Component {
   }
 
   like = async () => {
-    try {
-      const res = await axios.post("/api/likes", {
-        placeId: this.props.match.params.id,
-        status: !this.state.likedStatus,
-      });
+    if (this.state.likedStatus) {
+    } else {
+      try {
+        const res = await axios.post("/api/likes", {
+          placeId: this.props.match.params.id,
+          status: !this.state.likedStatus,
+        });
 
-      this.setState({
-        likedStatus: !this.state.likedStatus,
-      });
-    } catch (err) {
-      console.log(err);
+        this.setState({
+          likedStatus: !this.state.likedStatus,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
