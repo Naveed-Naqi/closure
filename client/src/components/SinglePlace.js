@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton, Paper } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
 import CommentBox from "./info/CommentBox";
@@ -9,6 +9,8 @@ import CommentList from "./CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
+
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export default class SinglePlace extends Component {
   constructor(props) {
@@ -84,6 +86,14 @@ export default class SinglePlace extends Component {
         </Grid>
 
         <Grid container justify="center" alignItems="center">
+          <Grid item>
+            <Paper padding={10}>
+              {"Number of Likes"}
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+            </Paper>
+          </Grid>
           <Grid item>
             <CommentBox updateComments={this.updateComments} />
           </Grid>
