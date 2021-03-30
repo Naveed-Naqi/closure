@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton, Paper } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
 import CommentBox from "./info/CommentBox";
@@ -10,14 +10,59 @@ import CommentList from "./CommentList";
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
 
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
 export default class SinglePlace extends Component {
   constructor(props) {
     super(props);
     this.state = {
       place: [],
       comments: [],
+      likedStatus: false,
     };
   }
+
+  like = async () => {
+    if (this.state.likedStatus) {
+      try {
+        const res = await axios.delete("/api/likes", {
+          data: { placeId: this.props.match.params.id },
+        });
+
+        this.setState({
+          likedStatus: !this.state.likedStatus,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const res = await axios.post("/api/likes", {
+          placeId: this.props.match.params.id,
+        });
+
+        this.setState({
+          likedStatus: !this.state.likedStatus,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  getLikedStatus = async () => {
+    try {
+      const { id } = this.props.match.params;
+
+      const res = await axios.get(`/api/comments/?placeId=${id}`);
+
+      this.setState({
+        comments: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   getComments = async () => {
     try {
@@ -58,10 +103,11 @@ export default class SinglePlace extends Component {
   componentDidMount = async () => {
     await this.getComments();
     await this.getPlaceInfo();
+    await this.getLikedStatus();
   };
 
   render() {
-    const { place, comments } = this.state;
+    const { place, comments, likedStatus } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -84,6 +130,14 @@ export default class SinglePlace extends Component {
         </Grid>
 
         <Grid container justify="center" alignItems="center">
+          <Grid item>
+            <Paper padding={10}>
+              {"Number of Likes"}
+              <IconButton aria-label="add to favorites" onClick={this.like}>
+                <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
+              </IconButton>
+            </Paper>
+          </Grid>
           <Grid item>
             <CommentBox updateComments={this.updateComments} />
           </Grid>

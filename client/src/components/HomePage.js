@@ -36,9 +36,13 @@ class HomePage extends Component {
 
   getPlaces = async () => {
     try {
+      this.setState({
+        loading: true,
+      });
       const res = await axios.get("/api/places/");
 
       this.setState({
+        loading: false,
         places: res.data,
       });
     } catch (err) {
@@ -81,7 +85,9 @@ class HomePage extends Component {
         />
 
         {loading ? (
-          <Loading />
+          <Grid container justify="center">
+            <Loading />
+          </Grid>
         ) : (
           <Grid container spacing={3} alignItems="center" justify="center">
             {places.length > 0 ? (

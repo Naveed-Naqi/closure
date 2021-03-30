@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Loading from "./utils/Loading";
 import InfoIcon from "@material-ui/icons/Info";
-
 import { Grid, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Avatar } from "@material-ui/core";
 import {CardHeader,CardMedia,IconButton,Paper,} from "@material-ui/core";
 
@@ -237,5 +236,6 @@ const styles = (theme) => ({
 
 
     
+
 
 export default (ProfilePage);

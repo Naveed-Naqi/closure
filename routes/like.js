@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Like, User } = require("../database/models");
+const checkAuth = require("./middleware/checkAuth");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -20,56 +21,54 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.delete("/remove", async (req, res, next) => {
-    try {
-      const { id } = req.query;
-      console.log(id);
-  
-      const findLike = await Like.findOne({
+router.delete("/", checkAuth, async (req, res, next) => {
+  try {
+    const userId = req.decoded.id;
+    const { placeId } = req.body;
+
+    console.log(placeId);
+
+    const findLike = await Like.findOne({
+      where: {
+        placeId: placeId,
+        userId: userId,
+      },
+    });
+
+    if (findLike !== null) {
+      await Like.destroy({
         where: {
-          id: id,
+          placeId: placeId,
+          userId: userId,
         },
       });
-  
-      if (findLike !== null) {
-        const likes = await Like.destroy({
-          where: {
-            id: id,
-          },
-        });
-  
-        res.status(200).send("unliked");
-      } else {
-        res.status(400).send("like does not exist");
-      }
-    } catch (err) {
-      res.status(400).send("Some error occured");
-    }
-});
-  
-  router.post("/", async (req, res, next) => {
-    try {
-        const { favorite, placeId, userId } = req.body;
-        console.log(favorite);
 
-        let newLike = Like.build({
-            favorite: favorite,
-            placeId: placeId,
-            userId: userId,
-        });
-
-        newLike
-            .save()
-            .then((like) => {
-            return res.status(200).json(like);
-            })
-            .catch((err) => {
-            return res.status(400).json("Error occured");
-            });
-    } catch (err) {
-      res.status(400).send("Some error occured");
+      res.status(200).send("unliked");
+    } else {
+      console.log("Ha");
+      res.status(400).send("like does not exist");
     }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Some error occured");
+  }
 });
-  
-  module.exports = router;
-  
+
+router.post("/", checkAuth, async (req, res, next) => {
+  try {
+    const userId = req.decoded.id;
+    const { status, placeId } = req.body;
+
+    const newLike = await Like.create({
+      placeId: placeId,
+      userId: userId,
+    });
+
+    res.status(200).json(newLike);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Some error occured");
+  }
+});
+
+module.exports = router;
