@@ -7,7 +7,11 @@ import {
   Card,
   CardHeader,
   CardContent,
+  CardActions,
+  IconButton,
 } from "@material-ui/core";
+
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 function Closure_Info(props) {
   const { name, address, summary } = props;
@@ -31,13 +35,13 @@ function Closure_Info(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper elevation={6}>
-            <Card style={{ height: "50vh", width: "50vw" }}>
+            <Card style={{ height: "50vh", width: "50vw", overflow: "auto" }}>
               <CardHeader title={name} subheader={address} />
 
               <CardContent>
-                <div>{summary}</div>
-                {/* <br />
-                <img src={props.mapInfo}></img> */}
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {summary}
+                </Typography>
               </CardContent>
             </Card>
           </Paper>
