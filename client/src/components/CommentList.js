@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ExpandMore from "@material-ui/icons/ExpandLess";
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 
 export default class CommentList extends Component {
   constructor(props) {
@@ -44,6 +45,32 @@ export default class CommentList extends Component {
                 </div>
               );
             })}
+
+            {comments.map((elem, index) => {
+              const { content, user } = elem;
+              const username = (user && user.username) || [""];
+
+              return (
+                <div key={index}>
+                  <ListItem
+                    alignItems="flex-start"
+                    button
+                    onClick={this.handleClick}
+                  >
+                    <ListItemAvatar>
+                      <SubdirectoryArrowRightIcon fontSize='large' />
+                    </ListItemAvatar>
+                    <ListItemAvatar>
+                      <Avatar alt={username}>{username[0]}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={username} secondary={content} />
+                    <ExpandMore />
+                  </ListItem>
+                  <Divider />
+                </div>
+              );
+            })}
+
           </List>
         </Paper>
       </div>
