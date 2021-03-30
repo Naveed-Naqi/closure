@@ -4,6 +4,7 @@ const User = require("./user");
 const Image = require("./image");
 const Place = require("./place");
 const Comment = require("./comment");
+const Like = require("./like");
 
 Place.hasMany(Image);
 Image.belongsTo(Place);
@@ -14,9 +15,16 @@ Comment.belongsTo(Place);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
+User.hasOne(Like);
+Like.belongsTo(User);
+
+Place.hasOne(Like);
+Like.belongsTo(Place);
+
 module.exports = {
   User,
   Image,
   Place,
   Comment,
+  Like,
 };

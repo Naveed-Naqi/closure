@@ -1,5 +1,5 @@
 const { Place, Image } = require("./models");
-const upload = require("./upload");
+// const upload = require("./upload");
 
 const seedDatabase = async () => {
   const csv = require("csv-parser");

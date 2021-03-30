@@ -15,7 +15,7 @@ const Like = db.define("like", {
   userId: {
     type: Sequelize.INTEGER,
     foreignKey: true,
-  }
+  },
 });
 
 module.exports = Like;
