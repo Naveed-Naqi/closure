@@ -8,15 +8,17 @@ router.get("/", async (req, res, next) => {
     const { placeId } = req.query;
     console.log(placeId);
 
-    const likes = await Like.findAndCountAll({
+    const likes = await Like.count({
       where: {
         placeId: placeId,
       },
-      include: User,
     });
 
-    res.status(200).send(likes);
+    console.log(likes);
+
+    res.status(200).json(likes);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });

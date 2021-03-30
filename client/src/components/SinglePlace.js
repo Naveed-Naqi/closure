@@ -19,6 +19,7 @@ export default class SinglePlace extends Component {
       place: [],
       comments: [],
       likedStatus: false,
+      numberOfLikes: null,
     };
   }
 
@@ -31,6 +32,7 @@ export default class SinglePlace extends Component {
 
         this.setState({
           likedStatus: !this.state.likedStatus,
+          numberOfLikes: (this.state.numberOfLikes -= 1),
         });
       } catch (err) {
         console.log(err);
@@ -43,6 +45,7 @@ export default class SinglePlace extends Component {
 
         this.setState({
           likedStatus: !this.state.likedStatus,
+          numberOfLikes: (this.state.numberOfLikes += 1),
         });
       } catch (err) {
         console.log(err);
@@ -50,14 +53,28 @@ export default class SinglePlace extends Component {
     }
   };
 
+  getNumberOfLikes = async () => {
+    try {
+      const { id } = this.props.match.params;
+
+      const res = await axios.get(`/api/likes/?placeId=${id}`);
+
+      this.setState({
+        numberOfLikes: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   getLikedStatus = async () => {
     try {
       const { id } = this.props.match.params;
 
-      const res = await axios.get(`/api/comments/?placeId=${id}`);
+      const res = await axios.get(`/api/places/likedStatus/?placeId=${id}`);
 
       this.setState({
-        comments: res.data,
+        likedStatus: res.data,
       });
     } catch (err) {
       console.log(err);
@@ -104,10 +121,11 @@ export default class SinglePlace extends Component {
     await this.getComments();
     await this.getPlaceInfo();
     await this.getLikedStatus();
+    await this.getNumberOfLikes();
   };
 
   render() {
-    const { place, comments, likedStatus } = this.state;
+    const { place, comments, likedStatus, numberOfLikes } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -132,7 +150,7 @@ export default class SinglePlace extends Component {
         <Grid container justify="center" alignItems="center">
           <Grid item>
             <Paper padding={10}>
-              {"Number of Likes"}
+              {numberOfLikes}
               <IconButton aria-label="add to favorites" onClick={this.like}>
                 <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
               </IconButton>
