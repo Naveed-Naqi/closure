@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
 const { Place, Image } = require("../database/models");
+const checkAuth = require("./middleware/checkAuth");
 
 //login
 router.get("/", async (req, res, next) => {
@@ -10,6 +11,28 @@ router.get("/", async (req, res, next) => {
     res.status(200).send(places);
   } catch (err) {
     res.status(400).send("Some error occured");
+  }
+});
+
+router.get("/likedStatus", checkAuth, async (req, res, next) => {
+  try {
+    const userId = req.decoded.id;
+    const { placeId } = req.body;
+
+    console.log(placeId);
+
+    const findLike = await Like.findOne({
+      where: {
+        placeId: placeId,
+        userId: userId,
+      },
+    });
+
+    let likedStatus = findLike ? true : false;
+
+    res.status(200).send(likedStatus);
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
