@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { AppBar, Tab, Tabs, Typography, Toolbar,IconButton,Button,MenuList,MenuItem } from '@material-ui/core';
+import React, { useState, MouseEvent } from 'react'
+import { AppBar, Tab, Tabs, Typography, Toolbar,IconButton,Button,MenuList,MenuItem,Menu } from '@material-ui/core';
 import { useHistory } from "react-router-dom"
-import { Menu, AccountCircle } from '@material-ui/icons'
+import { AccountCircle } from '@material-ui/icons'
 
 const NewApp = () => {
 const [value, setValue] = useState(0)
@@ -78,6 +78,30 @@ const handleClose = () => {
                     Profile
                 </Button>
                 </div>
+
+
+                <Button 
+                onClick = {handleClick}
+                aria-haspopup="true"
+                aria-controls = "simple-menu"
+                variant = 'contained' 
+                color = 'third'>
+                    Profile
+                </Button>
+                <Menu 
+                id = "simple-menu" 
+                anchorEl = {anchorEl} 
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                >
+                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
+                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
+                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
+                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
+                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
+                </Menu> 
+
             </Toolbar>
         </div>
         </AppBar>
@@ -94,24 +118,6 @@ export default NewApp
 
 
 
-// {/* <Button 
-// onClick = {handleClick}
-// aria-haspopup="true"
-// aria-controls = "menu"
-// variant = 'contained' 
-// color = 'third'>
-//     Profile
-// </Button>
-// <Menu 
-// id = "menu" 
-// anchorEl = {anchorEl} 
-// keepMounted
-// open={Boolean(anchorEl)}
-// onClose={handleClose}
-// >
-//     <MenuItem> dfsfsd</MenuItem>
-//     <MenuItem> dfsfsd</MenuItem>
-//     <MenuItem> dfsfsd</MenuItem>
-//     <MenuItem> dfsfsd</MenuItem>
-//     <MenuItem> dfsfsd</MenuItem>
-// </Menu> */}
+
+
+

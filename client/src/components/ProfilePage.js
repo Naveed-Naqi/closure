@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Loading from "./utils/Loading";
 import InfoIcon from "@material-ui/icons/Info";
+
 import { Grid, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Avatar } from "@material-ui/core";
 import {CardHeader,CardMedia,IconButton,Paper,} from "@material-ui/core";
 
@@ -73,7 +74,7 @@ const styles = (theme) => ({
         const { classes } = this.props;
         
         return(
-            <Grid container justify="center" spacing={0} style={{paddingTop:"15px"}}>
+            <Grid container justify="center" spacing={0} style={{paddingTop:"90px"}}>
               <Grid item xs= {3} >
                 <Card style={{height: "55vh", position:"relative"}} >
                     <CardContent>
@@ -236,6 +237,5 @@ const styles = (theme) => ({
 
 
     
-
 
 export default (ProfilePage);
