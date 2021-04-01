@@ -12,7 +12,10 @@ const Theme = createMuiTheme ({
         third: {
             main: '#212121',
         },
+        
+       
     },
+
 });
 
 export default Theme; 
