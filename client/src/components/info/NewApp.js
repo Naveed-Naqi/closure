@@ -54,32 +54,7 @@ const handleClose = () => {
 
                 </Tabs>
                 
-                <div style = {{position: 'absolute', right: '5px'}}>
-                <Button 
-                onClick = {handleRegister}
-                aria-haspopup="true"
-                aria-controls = "menu"
-                variant = 'contained' 
-                color = 'third'>
-                    Register
-                </Button>
-                <Button 
-                onClick = {handleLogin}
-                
-                variant = 'contained' 
-                color = 'third'>
-                    Login
-                </Button>
-                <Button 
-                onClick = {handleProfile}
-                
-                variant = 'contained' 
-                color = 'third'>
-                    Profile
-                </Button>
-                </div>
-
-
+                <div style = {{position: 'absolute', right: '35px'}}>
                 <Button 
                 onClick = {handleClick}
                 aria-haspopup="true"
@@ -89,18 +64,28 @@ const handleClose = () => {
                     Profile
                 </Button>
                 <Menu 
+                style = {{marginTop: '35px'}}
+                
+                
                 id = "simple-menu" 
                 anchorEl = {anchorEl} 
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 >
-                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
-                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
-                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
-                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
-                    <MenuItem onClose={handleClose}> dfsfsd</MenuItem>
-                </Menu> 
+                    <MenuItem onClick = {handleProfile} onClose={handleClose}> Profile</MenuItem>
+                    <MenuItem onClick = {handleLogin} onClose={handleClose}> Login</MenuItem>
+                    <MenuItem onClick = {handleRegister} onClose={handleClose}> Register</MenuItem>
+                    <MenuItem> MyAccount</MenuItem>
+                    
+                   
+                </Menu>
+                
+                
+                
+                </div>
+
+
 
             </Toolbar>
         </div>
