@@ -54,18 +54,24 @@ const CommentBox = ({ auth, updateComments }) => {
             value={value}
           />
         </div>
-        <div>
-          <Button variant="contained" color="primary" onClick={postComment}>
-            Submit
-          </Button>
+        <div style={{ display: "flex" }}>
           <Button
             variant="contained"
             color="secondary"
+            style={{ marginLeft: "auto" }}
             onClick={() => {
               setValue("");
             }}
           >
             Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={postComment}
+            disabled={value === ""}
+          >
+            Submit
           </Button>
         </div>
       </form>
