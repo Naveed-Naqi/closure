@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, Fragment } from "react";
 import {
   AppBar,
   Tab,
@@ -15,10 +15,14 @@ import { useHistory } from "react-router-dom";
 import { Settings } from "@material-ui/icons";
 
 import { logoutUser } from "../../actions/authActions";
-import { connect } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
 
 const NewApp = () => {
   const [value, setValue] = useState(0);
+
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleClickTab = (e, newValue) => {
     setValue(newValue);
@@ -49,7 +53,9 @@ const NewApp = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const logout = () => {};
+  const logout = () => {
+    logoutUser();
+  };
 
   return (
     <>
@@ -86,12 +92,30 @@ const NewApp = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfile} onClose={handleClose}>
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={logout} onClose={handleClose}>
-                  Log Out
-                </MenuItem>
+                {auth.isAuthenticated ? (
+                  <MenuList>
+                    <MenuItem onClick={handleProfile} onClose={handleClose}>
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        console.log(auth);
+                      }}
+                      onClose={handleClose}
+                    >
+                      Log Out
+                    </MenuItem>
+                  </MenuList>
+                ) : (
+                  <MenuList>
+                    <MenuItem onClick={handleRegister} onClose={handleClose}>
+                      Register
+                    </MenuItem>
+                    <MenuItem onClick={handleLogin} onClose={handleClose}>
+                      Login
+                    </MenuItem>
+                  </MenuList>
+                )}
               </Menu>
             </div>
           </Toolbar>
@@ -100,4 +124,5 @@ const NewApp = () => {
     </>
   );
 };
-export default connect(mapStateToProps, { logoutUser })(NewApp);
+
+export default NewApp;
