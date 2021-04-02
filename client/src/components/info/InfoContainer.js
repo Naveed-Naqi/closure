@@ -16,7 +16,7 @@ import "./info.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 function Closure_Info(props) {
-  const { name, address, summary } = props;
+  const { name, address, summary, numberOfLikes, like, likedStatus } = props;
   const res_website = "www.whatismywebsite.com";
   const res_website_link = "https://" + res_website;
   return (
@@ -46,8 +46,13 @@ function Closure_Info(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
+                <IconButton onClick={like}>
+                  <FavoriteIcon
+                    style={{ color: likedStatus ? "red" : "gray" }}
+                  />
+                  <Typography variant="h6" style={{ justifyContent: "center" }}>
+                    {numberOfLikes}
+                  </Typography>
                 </IconButton>
               </CardActions>
             </Card>

@@ -145,18 +145,12 @@ export default class SinglePlace extends Component {
             address={address}
             summary={summary}
             numberOfLikes={numberOfLikes}
+            likedStatus={likedStatus}
+            like={this.like}
           />
         </Grid>
 
         <Grid container justify="center" alignItems="center" direction="row">
-          {/* <Grid item>
-            <Paper>
-              {numberOfLikes}
-              <IconButton onClick={this.like}>
-                <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
-              </IconButton>
-            </Paper>
-          </Grid> */}
           <Grid item xs={11}>
             <CommentBox updateComments={this.updateComments} />
             <CommentList comments={comments} />
