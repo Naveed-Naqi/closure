@@ -54,7 +54,8 @@ const NewApp = () => {
     setAnchorEl(null);
   };
   const logout = () => {
-    logoutUser();
+    dispatch(logoutUser());
+    history.push("/");
   };
 
   return (
@@ -97,12 +98,7 @@ const NewApp = () => {
                     <MenuItem onClick={handleProfile} onClose={handleClose}>
                       Profile
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        console.log(auth);
-                      }}
-                      onClose={handleClose}
-                    >
+                    <MenuItem onClick={logout} onClose={handleClose}>
                       Log Out
                     </MenuItem>
                   </MenuList>

@@ -76,7 +76,7 @@ class App extends Component {
                     <InfoContainer
                       restaurant_pic={restaurant_pic}
                       mapInfo={map}
-                    />{" "}
+                    />
                   </div>
                 )}
               />
@@ -85,13 +85,7 @@ class App extends Component {
               <Route exact path="/single/:id" component={SinglePlace} />
               {/* <Route exact path="/comment_single/:id" component={SinglePlaceComments} /> */}
 
-              <Route exact path="/Profile" component={ProfilePage} />
-
-              <PrivateRoute
-                exact
-                path="/dashboard"
-                component={DashboardContainer}
-              />
+              <PrivateRoute exact path="/Profile" component={ProfilePage} />
             </Switch>
           </div>
         </Router>
