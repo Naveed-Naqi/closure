@@ -144,6 +144,7 @@ export default class SinglePlace extends Component {
             name={name}
             address={address}
             summary={summary}
+            numberOfLikes={numberOfLikes}
           />
         </Grid>
 

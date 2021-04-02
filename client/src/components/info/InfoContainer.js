@@ -11,6 +11,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 
+import "./info.css";
+
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 function Closure_Info(props) {
@@ -43,6 +45,11 @@ function Closure_Info(props) {
                   {summary}
                 </Typography>
               </CardContent>
+              <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+              </CardActions>
             </Card>
           </Paper>
         </Grid>
