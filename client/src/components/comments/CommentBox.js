@@ -46,21 +46,26 @@ const CommentBox = ({ auth, updateComments }) => {
     <Paper>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
-          <h2>Leave A Comment</h2>
-        </div>
-        <div>
           <TextField
-            label="Enter Your Comment"
+            label="Enter Public Comment"
             multiline
-            rows={4}
-            variant="outlined"
             onChange={handleChange}
+            style={{ width: "100%" }}
             value={value}
           />
         </div>
         <div>
-          <Button variant="outlined" color="primary" onClick={postComment}>
+          <Button variant="contained" color="primary" onClick={postComment}>
             Submit
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              setValue("");
+            }}
+          >
+            Cancel
           </Button>
         </div>
       </form>

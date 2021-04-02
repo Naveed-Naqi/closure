@@ -4,8 +4,8 @@ import axios from "axios";
 import { Grid, IconButton, Paper } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
-import CommentBox from "./info/CommentBox";
-import CommentList from "./CommentList";
+import CommentBox from "./comments/CommentBox";
+import CommentList from "./comments/CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
@@ -144,22 +144,15 @@ export default class SinglePlace extends Component {
             name={name}
             address={address}
             summary={summary}
+            numberOfLikes={numberOfLikes}
+            likedStatus={likedStatus}
+            like={this.like}
           />
         </Grid>
 
-        <Grid container justify="center" alignItems="center">
-          <Grid item>
-            <Paper padding={10}>
-              {numberOfLikes}
-              <IconButton aria-label="add to favorites" onClick={this.like}>
-                <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
-              </IconButton>
-            </Paper>
-          </Grid>
-          <Grid item>
+        <Grid container justify="center" alignItems="center" direction="row">
+          <Grid item xs={11}>
             <CommentBox updateComments={this.updateComments} />
-          </Grid>
-          <Grid item>
             <CommentList comments={comments} />
           </Grid>
         </Grid>
