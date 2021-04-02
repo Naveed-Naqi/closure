@@ -22,7 +22,7 @@ export default class CommentList extends Component {
     const { comments } = this.props;
     return (
       <div>
-        <Paper style={{ maxHeight: 300, overflow: "auto", width: "50vw" }}>
+        <Paper style={{ maxHeight: 300, overflow: "auto" }}>
           <List>
             {comments.map((elem, index) => {
               const { content, user } = elem;

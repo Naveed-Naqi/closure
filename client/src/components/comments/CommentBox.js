@@ -50,12 +50,22 @@ const CommentBox = ({ auth, updateComments }) => {
             label="Enter Public Comment"
             multiline
             onChange={handleChange}
+            style={{ width: "100%" }}
             value={value}
           />
         </div>
         <div>
-          <Button variant="outlined" color="primary" onClick={postComment}>
+          <Button variant="contained" color="primary" onClick={postComment}>
             Submit
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              setValue("");
+            }}
+          >
+            Cancel
           </Button>
         </div>
       </form>

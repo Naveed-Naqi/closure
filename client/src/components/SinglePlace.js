@@ -147,19 +147,17 @@ export default class SinglePlace extends Component {
           />
         </Grid>
 
-        <Grid container justify="center" alignItems="center">
-          <Grid item>
-            <Paper padding={10}>
+        <Grid container justify="center" alignItems="center" direction="row">
+          {/* <Grid item>
+            <Paper>
               {numberOfLikes}
-              <IconButton aria-label="add to favorites" onClick={this.like}>
+              <IconButton onClick={this.like}>
                 <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
               </IconButton>
             </Paper>
-          </Grid>
-          <Grid item container>
+          </Grid> */}
+          <Grid item xs={11}>
             <CommentBox updateComments={this.updateComments} />
-          </Grid>
-          <Grid item>
             <CommentList comments={comments} />
           </Grid>
         </Grid>
