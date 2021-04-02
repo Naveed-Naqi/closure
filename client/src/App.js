@@ -60,6 +60,10 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Route component={NavBar} />
             <Switch>
               <Route exact path="/" component={LoginContainer} />
