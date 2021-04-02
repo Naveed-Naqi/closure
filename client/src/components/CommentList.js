@@ -7,7 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ExpandMore from "@material-ui/icons/ExpandLess";
-import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import SubdirectoryArrowRightIcon from "@material-ui/icons/SubdirectoryArrowRight";
 
 export default class CommentList extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ export default class CommentList extends Component {
                     onClick={this.handleClick}
                   >
                     <ListItemAvatar>
-                      <SubdirectoryArrowRightIcon fontSize='large' />
+                      <SubdirectoryArrowRightIcon fontSize="large" />
                     </ListItemAvatar>
                     <ListItemAvatar>
                       <Avatar alt={username}>{username[0]}</Avatar>
@@ -70,7 +70,6 @@ export default class CommentList extends Component {
                 </div>
               );
             })}
-
           </List>
         </Paper>
       </div>
