@@ -12,7 +12,6 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import RegisterContainer from "./components/auth/RegisterContainer";
 import LoginContainer from "./components/auth/LoginContainer";
-import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import InfoContainer from "./components/info/InfoContainer";
 import NavBar from "./components/info/NavBar";
