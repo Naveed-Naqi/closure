@@ -46,14 +46,9 @@ const CommentBox = ({ auth, updateComments }) => {
     <Paper>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
-          <h2>Leave A Comment</h2>
-        </div>
-        <div>
           <TextField
-            label="Enter Your Comment"
+            label="Enter Public Comment"
             multiline
-            rows={4}
-            variant="outlined"
             onChange={handleChange}
             value={value}
           />

@@ -4,8 +4,8 @@ import axios from "axios";
 import { Grid, IconButton, Paper } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
-import CommentBox from "./info/CommentBox";
-import CommentList from "./CommentList";
+import CommentBox from "./comments/CommentBox";
+import CommentList from "./comments/CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
@@ -156,7 +156,7 @@ export default class SinglePlace extends Component {
               </IconButton>
             </Paper>
           </Grid>
-          <Grid item>
+          <Grid item container>
             <CommentBox updateComments={this.updateComments} />
           </Grid>
           <Grid item>
