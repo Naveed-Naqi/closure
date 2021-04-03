@@ -20,7 +20,10 @@ export default class SinglePlace extends Component {
       comments: [],
       likedStatus: false,
       numberOfLikes: null,
+      comment: "",
     };
+
+    this.textInput = React.createRef();
   }
 
   postComment = async (value) => {
@@ -84,6 +87,18 @@ export default class SinglePlace extends Component {
     }
   };
 
+  handleChange = (e) => {
+    this.setState({
+      comment: e.target.value,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      comment: "",
+    });
+  };
+
   getLikedStatus = async () => {
     try {
       const { id } = this.props.match.params;
@@ -111,15 +126,6 @@ export default class SinglePlace extends Component {
     }
   };
 
-  updateComments = (newComment) => {
-    // console.log(newComment);
-    // this.setState({
-    //   comments: [this.state.comments, newComment],
-    // });
-
-    this.getComments();
-  };
-
   getComments = async () => {
     try {
       const { id } = this.props.match.params;
@@ -142,6 +148,21 @@ export default class SinglePlace extends Component {
     }
   };
 
+  openReplyTextBox = (e) => {
+    const { comments } = this.state;
+    const index = e.currentTarget.id;
+    const username = comments[index].user.username;
+
+    this.setState(
+      {
+        comment: `@${username} `,
+      },
+      () => {
+        this.textInput.current.focus();
+      }
+    );
+  };
+
   componentDidMount = async () => {
     await this.getComments();
     await this.getPlaceInfo();
@@ -150,7 +171,7 @@ export default class SinglePlace extends Component {
   };
 
   render() {
-    const { place, comments, likedStatus, numberOfLikes } = this.state;
+    const { place, comments, likedStatus, numberOfLikes, comment } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -177,8 +198,17 @@ export default class SinglePlace extends Component {
 
         <Grid container justify="center" alignItems="center" direction="row">
           <Grid item xs={11}>
-            <CommentBox postComment={this.postComment} />
-            <CommentList comments={comments} />
+            <CommentBox
+              postComment={this.postComment}
+              handleChange={this.handleChange}
+              handleCancel={this.handleCancel}
+              value={comment}
+              inputRef={this.textInput}
+            />
+            <CommentList
+              comments={comments}
+              openReplyTextBox={this.openReplyTextBox}
+            />
           </Grid>
         </Grid>
       </Grid>

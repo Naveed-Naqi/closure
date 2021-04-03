@@ -16,19 +16,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentBox = ({ auth, postComment }) => {
+const CommentBox = ({
+  auth,
+  postComment,
+  value,
+  handleChange,
+  handleCancel,
+  inputRef,
+}) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("");
-  const params = useParams();
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const handlePostComment = () => {
-    postComment(value);
-    setValue("");
-  };
 
   return (
     <Paper>
@@ -40,6 +36,7 @@ const CommentBox = ({ auth, postComment }) => {
             onChange={handleChange}
             style={{ width: "100%" }}
             value={value}
+            inputRef={inputRef}
           />
         </div>
         <div style={{ display: "flex" }}>
@@ -47,16 +44,14 @@ const CommentBox = ({ auth, postComment }) => {
             variant="contained"
             color="secondary"
             style={{ marginLeft: "auto" }}
-            onClick={() => {
-              setValue("");
-            }}
+            onClick={handleCancel}
           >
             Cancel
           </Button>
           <Button
             variant="contained"
             color="primary"
-            onClick={handlePostComment}
+            onClick={postComment}
             disabled={value === ""}
           >
             Submit

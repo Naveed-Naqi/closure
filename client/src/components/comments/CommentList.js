@@ -21,12 +21,8 @@ export default class CommentList extends Component {
     super(props);
   }
 
-  handleClick = () => {
-    console.log("Hi");
-  };
-
   render() {
-    const { comments } = this.props;
+    const { comments, openReplyTextBox } = this.props;
     return (
       <div>
         <Paper style={{ maxHeight: 300, overflow: "auto" }}>
@@ -38,19 +34,15 @@ export default class CommentList extends Component {
               return (
                 <div key={index}>
                   <Divider />
-                  <ListItem alignItems="flex-start" onClick={this.handleClick}>
+                  <ListItem alignItems="flex-start">
                     <ListItemAvatar>
                       <Avatar alt={username}>{username[0]}</Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={username} secondary={content} />
-                    <IconButton>
+                    <IconButton onClick={openReplyTextBox} id={index}>
                       <ReplyIcon />
                     </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        allRepliesOpen = true;
-                      }}
-                    >
+                    <IconButton>
                       <ExpandMore />
                     </IconButton>
                   </ListItem>
