@@ -25,7 +25,7 @@ export default class CommentList extends Component {
     const { comments, openReplyTextBox } = this.props;
     return (
       <div>
-        <Paper style={{ maxHeight: 300, overflow: "auto" }}>
+        <Paper style={{ height: 300, overflow: "auto" }}>
           <List>
             {comments.map((elem, index) => {
               let { content, user, allRepliesOpen, replyOpen } = elem;
