@@ -42,34 +42,33 @@ class ProfilePage extends Component {
     };
   }
 
-  getPlaces = async () => {
+  getLikedPlaces = async () => {
     try {
-      const res = await axios.get("/api/places/");
+      this.setState({
+        loading: true,
+      });
+
+      const res = await axios.get("/api/profile/likes");
+      console.log(res.data);
 
       this.setState({
         liked: res.data,
-        comments: res.data,
+        loading: false,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  componentDidMount = async () => {
-    await this.getPlaces();
-  };
-
-  onRequestSearch = async (value) => {
+  getCommentedPlaces = async () => {
     try {
       this.setState({
         loading: true,
       });
 
-      const res = await axios.get(`/api/places/search?content=${value}`);
-      console.log(res.data);
+      const res = await axios.get("/api/profile/comments");
 
       this.setState({
-        liked: res.data,
         comments: res.data,
         loading: false,
       });
@@ -77,6 +76,12 @@ class ProfilePage extends Component {
       console.log(err);
     }
   };
+
+  componentDidMount = async () => {
+    await this.getLikedPlaces();
+    await this.getCommentedPlaces();
+  };
+
   render() {
     const { liked, comments, loading } = this.state;
     const { classes } = this.props;
@@ -217,8 +222,8 @@ class ProfilePage extends Component {
                               alignItems="center"
                               justify="center"
                             >
-                              {liked.length > 0 ? (
-                                liked.map((elem) => {
+                              {comments.length > 0 ? (
+                                comments.map((elem) => {
                                   const { name, address, images, id } = elem;
 
                                   return (
