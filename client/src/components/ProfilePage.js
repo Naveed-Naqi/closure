@@ -90,11 +90,13 @@ class ProfilePage extends Component {
       <Grid
         container
         justify="center"
-        spacing={0}
+        spacing={10}
         style={{ paddingTop: "90px" }}
       >
         <Grid item xs={3}>
-          <Card style={{ height: "55vh", position: "relative" }}>
+          <Card
+            style={{ height: "55vh", position: "relative", overflow: "auto" }}
+          >
             <CardContent>
               <Avatar
                 src={unknownAvatar}
@@ -138,9 +140,9 @@ class ProfilePage extends Component {
           </Card>
         </Grid>
         <Grid item xs={7}>
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Card style={{ height: "55vh" }}>
+              <Card style={{ height: "55vh", overflow: "auto" }}>
                 <CardHeader title="Restaurants I Enjoyed" />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
@@ -207,7 +209,7 @@ class ProfilePage extends Component {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <Card style={{ height: "55vh" }}>
+              <Card style={{ height: "55vh", overflow: "auto" }}>
                 <CardHeader title="Restaurants I Commented On" />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
