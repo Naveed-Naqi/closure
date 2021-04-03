@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Grid, IconButton, Paper } from "@material-ui/core";
+import { Grid, IconButton, Paper, Chip } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
 import CommentBox from "./comments/CommentBox";
@@ -26,13 +26,14 @@ export default class SinglePlace extends Component {
     this.textInput = React.createRef();
   }
 
-  postComment = async (value) => {
+  postComment = async () => {
     try {
       const placeId = this.props.match.params.id;
+      const { comment } = this.state;
 
       const res = await axios.post("/api/comments", {
         placeId: placeId,
-        content: value,
+        content: comment,
       });
 
       this.setState({
@@ -155,7 +156,7 @@ export default class SinglePlace extends Component {
 
     this.setState(
       {
-        comment: `@${username} `,
+        replyUsername: username,
       },
       () => {
         this.textInput.current.focus();
@@ -171,7 +172,14 @@ export default class SinglePlace extends Component {
   };
 
   render() {
-    const { place, comments, likedStatus, numberOfLikes, comment } = this.state;
+    const {
+      place,
+      comments,
+      likedStatus,
+      numberOfLikes,
+      comment,
+      replyUsername,
+    } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -204,6 +212,7 @@ export default class SinglePlace extends Component {
               handleCancel={this.handleCancel}
               value={comment}
               inputRef={this.textInput}
+              replyUsername={replyUsername}
             />
             <CommentList
               comments={comments}

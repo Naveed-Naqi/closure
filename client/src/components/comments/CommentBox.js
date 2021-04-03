@@ -2,7 +2,9 @@ import React from "react";
 import axios from "axios";
 import { makeStyles, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -23,6 +25,8 @@ const CommentBox = ({
   handleChange,
   handleCancel,
   inputRef,
+  replyOpen,
+  replyUsername,
 }) => {
   const classes = useStyles();
 
@@ -37,7 +41,14 @@ const CommentBox = ({
             style={{ width: "100%" }}
             value={value}
             inputRef={inputRef}
-          />
+            InputProps={{
+              startAdornment: !!replyUsername && (
+                <InputAdornment position="start">
+                  <Chip label={`@${replyUsername}`} />
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
         </div>
         <div style={{ display: "flex" }}>
           <Button
