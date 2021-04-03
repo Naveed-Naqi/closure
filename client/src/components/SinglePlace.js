@@ -87,8 +87,16 @@ export default class SinglePlace extends Component {
 
       const res = await axios.get(`/api/comments/?placeId=${id}`);
 
+      const comments = res.data.map((elem) => {
+        return {
+          ...elem,
+          replyOpen: false,
+          allRepliesOpen: false,
+        };
+      });
+
       this.setState({
-        comments: res.data,
+        comments: comments,
       });
     } catch (err) {
       console.log(err);
