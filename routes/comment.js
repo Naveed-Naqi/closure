@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Comment, User, Reply } = require("../database/models");
+const checkAuth = require("./middleware/checkAuth.js");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -21,9 +22,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", checkAuth, async (req, res, next) => {
   try {
-    const { content, placeId, userId, commentId } = req.body;
+    const { content, placeId, commentId } = req.body;
+    const userId = req.decoded.id;
     let newCommentId = 0;
 
     if (commentId) {

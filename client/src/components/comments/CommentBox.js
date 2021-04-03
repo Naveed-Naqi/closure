@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentBox = ({ auth, updateComments }) => {
+const CommentBox = ({ auth, postComment }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
   const params = useParams();
@@ -25,21 +25,9 @@ const CommentBox = ({ auth, updateComments }) => {
     setValue(event.target.value);
   };
 
-  const postComment = async () => {
-    try {
-      const placeId = params.id;
-
-      const res = await axios.post("/api/comments", {
-        placeId: placeId,
-        content: value,
-        userId: auth.user.id,
-      });
-
-      updateComments(res.data);
-      setValue("");
-    } catch (err) {
-      console.log(err);
-    }
+  const handlePostComment = () => {
+    postComment(value);
+    setValue("");
   };
 
   return (
@@ -68,7 +56,7 @@ const CommentBox = ({ auth, updateComments }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={postComment}
+            onClick={handlePostComment}
             disabled={value === ""}
           >
             Submit

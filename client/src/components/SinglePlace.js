@@ -23,6 +23,23 @@ export default class SinglePlace extends Component {
     };
   }
 
+  postComment = async (value) => {
+    try {
+      const placeId = this.props.match.params.id;
+
+      const res = await axios.post("/api/comments", {
+        placeId: placeId,
+        content: value,
+      });
+
+      this.setState({
+        comments: [res.data, ...this.state.comments],
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   like = async () => {
     if (this.state.likedStatus) {
       try {
@@ -81,28 +98,6 @@ export default class SinglePlace extends Component {
     }
   };
 
-  getComments = async () => {
-    try {
-      const { id } = this.props.match.params;
-
-      const res = await axios.get(`/api/comments/?placeId=${id}`);
-
-      const comments = res.data.map((elem) => {
-        return {
-          ...elem,
-          replyOpen: false,
-          allRepliesOpen: false,
-        };
-      });
-
-      this.setState({
-        comments: comments,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   getPlaceInfo = async () => {
     try {
       const { id } = this.props.match.params;
@@ -123,6 +118,28 @@ export default class SinglePlace extends Component {
     // });
 
     this.getComments();
+  };
+
+  getComments = async () => {
+    try {
+      const { id } = this.props.match.params;
+
+      const res = await axios.get(`/api/comments/?placeId=${id}`);
+
+      const comments = res.data.map((elem) => {
+        return {
+          ...elem,
+          replyOpen: false,
+          allRepliesOpen: false,
+        };
+      });
+
+      this.setState({
+        comments: comments,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   componentDidMount = async () => {
@@ -160,7 +177,7 @@ export default class SinglePlace extends Component {
 
         <Grid container justify="center" alignItems="center" direction="row">
           <Grid item xs={11}>
-            <CommentBox updateComments={this.updateComments} />
+            <CommentBox postComment={this.postComment} />
             <CommentList comments={comments} />
           </Grid>
         </Grid>
