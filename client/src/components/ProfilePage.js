@@ -126,7 +126,7 @@ class ProfilePage extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography>
-                    Total Number of Comments
+                    Total Number of Placed I Commented On
                     <br />
                     <div style={{ color: "red", fontSize: "18pt" }}>
                       {comments.length}
