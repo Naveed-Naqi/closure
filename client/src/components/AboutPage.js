@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Carousel from 'react-material-ui-carousel'
 import { staffData } from "./staffData.js"
+import Carousel from "react-material-ui-carousel";
+
 
 import {
   Grid,
@@ -12,7 +13,7 @@ import {
   IconButton,
   Paper,
   CardContent,
-  List
+  List,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -32,11 +33,25 @@ const styles = (theme) => ({
   }
 });
 
-
 class AboutPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      people: [],
+    };
   }
+
+  componentDidMount = async () => {
+    try {
+      const res = await axios.get("AboutPage.json");
+
+      this.setState({
+        people: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   render() {
     const { classes } = this.props;
@@ -44,6 +59,7 @@ class AboutPage extends Component {
       <div className={classes.root}>
         <h1>About Closure</h1>
         <Grid container justify="center">
+
           <Grid item xs={8} >
             <Card style={{ height: "25vh", backgroundColor:"#e4e4e4"}}>
               <CardHeader title="Our Mission"/>
@@ -88,30 +104,27 @@ class AboutPage extends Component {
                         <img
                         src={image}
                         style={{ height: "100%", maxWidth: "100%" }}
-                        />
+                      />
                     </Paper>
-                </Grid>
-                <Grid item xs={6} alignContent="center">
+                  </Grid>
+                  <Grid item xs={6} alignContent="center">
                     <Paper elevation={0}>
-                        <Card style={{ height: "25vh", width: "25vw" }}>
-                            <CardHeader title={Name} subheader={Role} />
-                            <CardContent>
-                                <div>{Body}</div>
-                            </CardContent>
-                        </Card>
+                      <Card style={{ height: "25vh", width: "25vw" }}>
+                        <CardHeader title={Name} subheader={Role} />
+                        <CardContent>
+                          <div>{Body}</div>
+                        </CardContent>
+                      </Card>
                     </Paper>
+                  </Grid>
                 </Grid>
-            </Grid>
-            );
-          })}
-        </Carousel>
+              );
+            })}
+          </Carousel>
         </Grid>
-
       </div>
     );
   }
 }
 
 export default withStyles(styles, { withTheme: true })(AboutPage);
-
-

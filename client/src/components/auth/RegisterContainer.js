@@ -20,7 +20,7 @@ class RegisterContainer extends Component {
     const { auth, history } = this.props;
 
     if (auth.isAuthenticated) {
-      history.push("/dashboard");
+      history.push("/home");
     }
   }
 
@@ -28,7 +28,7 @@ class RegisterContainer extends Component {
     const { auth, history } = this.props;
 
     if (auth.isAuthenticated) {
-      history.push("/dashboard");
+      history.push("/home");
     }
   }
 

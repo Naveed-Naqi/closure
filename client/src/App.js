@@ -12,7 +12,6 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import RegisterContainer from "./components/auth/RegisterContainer";
 import LoginContainer from "./components/auth/LoginContainer";
-import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import InfoContainer from "./components/info/InfoContainer";
 import NavBar from "./components/info/NavBar";
@@ -60,6 +59,10 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Route component={NavBar} />
             <Switch>
               <Route exact path="/" component={LoginContainer} />
@@ -72,7 +75,7 @@ class App extends Component {
                     <InfoContainer
                       restaurant_pic={restaurant_pic}
                       mapInfo={map}
-                    />{" "}
+                    />
                   </div>
                 )}
               />
@@ -81,13 +84,7 @@ class App extends Component {
               <Route exact path="/single/:id" component={SinglePlace} />
               {/* <Route exact path="/comment_single/:id" component={SinglePlaceComments} /> */}
 
-              <Route exact path="/Profile" component={ProfilePage} />
-
-              <PrivateRoute
-                exact
-                path="/dashboard"
-                component={DashboardContainer}
-              />
+              <PrivateRoute exact path="/Profile" component={ProfilePage} />
             </Switch>
           </div>
         </Router>

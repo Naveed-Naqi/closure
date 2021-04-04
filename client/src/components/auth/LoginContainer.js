@@ -17,7 +17,7 @@ class LoginContainer extends Component {
   componentDidMount() {
     let { auth, history } = this.props;
     if (auth.isAuthenticated) {
-      history.push("/dashboard");
+      history.push("/home");
     }
   }
 
@@ -25,7 +25,7 @@ class LoginContainer extends Component {
     const { auth, history } = this.props;
 
     if (auth.isAuthenticated) {
-      history.push("/dashboard");
+      history.push("/home");
     }
   }
 
