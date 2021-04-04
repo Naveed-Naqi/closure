@@ -22,16 +22,4 @@ cd ../
 npm run dev
 ```
 
-## Test
-
-After cloning the repo, perform the following commands 
-
-```
-npm install
-cd client
-npm install
-cd ../
-npm test
-```
-
 ## Deployment

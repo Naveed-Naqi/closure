@@ -80,31 +80,31 @@ router.get("/single", async (req, res, next) => {
   }
 });
 
-router.delete("/remove", async (req, res, next) => {
-  try {
-    const { id } = req.query;
-    console.log(id);
+// router.delete("/remove", async (req, res, next) => {
+//   try {
+//     const { id } = req.query;
+//     console.log(id);
 
-    const findComment = await Comment.findOne({
-      where: {
-        id: id,
-      },
-    });
+//     const findComment = await Comment.findOne({
+//       where: {
+//         id: id,
+//       },
+//     });
 
-    if (findComment !== null) {
-      const comments = await Comment.destroy({
-        where: {
-          id: id,
-        },
-      });
+//     if (findComment !== null) {
+//       const comments = await Comment.destroy({
+//         where: {
+//           id: id,
+//         },
+//       });
 
-      res.status(200).send("deleted");
-    } else {
-      res.status(400).send("comment does not exist");
-    }
-  } catch (err) {
-    res.status(400).send("Some error occured");
-  }
-});
+//       res.status(200).send("deleted");
+//     } else {
+//       res.status(400).send("comment does not exist");
+//     }
+//   } catch (err) {
+//     res.status(400).send("Some error occured");
+//   }
+// });
 
 module.exports = router;
