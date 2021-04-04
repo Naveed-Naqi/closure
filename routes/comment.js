@@ -34,10 +34,14 @@ router.post("/", checkAuth, async (req, res, next) => {
         commentId: commentId,
       });
 
+      console.log(newComment);
+
       const commentToReturn = await Reply.findOne({
-        id: newComment.id,
+        where: { id: newComment.id },
         include: User,
       });
+
+      console.log(commentToReturn);
 
       res.status(200).send(commentToReturn);
     } else {

@@ -51,9 +51,9 @@ export default class CommentList extends Component {
                       <Divider />
 
                       {replies &&
-                        replies.map((reply) => {
+                        replies.map((reply, index) => {
                           return (
-                            <ListItem>
+                            <ListItem key={`r${index}`}>
                               <ListItemAvatar>
                                 <SubdirectoryArrowRightIcon fontSize="large" />
                               </ListItemAvatar>

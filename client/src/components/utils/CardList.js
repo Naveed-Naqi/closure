@@ -37,11 +37,11 @@ export default function CardList({ loading, places }) {
       ) : (
         <Grid container spacing={3} alignItems="center" justify="center">
           {places.length > 0 ? (
-            places.map((elem) => {
+            places.map((elem, index) => {
               const { name, address, images, id } = elem;
 
               return (
-                <Grid item xs={3}>
+                <Grid item xs={3} key={index}>
                   <Card>
                     <CardHeader
                       action={

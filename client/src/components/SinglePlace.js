@@ -40,25 +40,31 @@ export default class SinglePlace extends Component {
         commentId: replyCommentId,
       });
 
-      if (replyCommentId) {
+      console.log(res.data);
+
+      if (replyCommentId !== null) {
+        console.log("Hi");
+
         let comments = [...this.state.comments];
         const index = this.state.replyCommentIndex;
 
         let comment = { ...comments[index] };
-        comment.replies = [res.data, ...comment.replies];
+        comment.replies =
+          comment.replies > 0 ? [res.data, ...comment.replies] : [res.data];
+        console.log(comment.replies);
         comments[index] = comment;
 
         this.setState({
           comments: comments,
+          replyUsername: null,
           replyCommentId: null,
           replyCommentIndex: null,
-          replyUsername: null,
-          comment: null,
+          comment: "",
         });
       } else {
         this.setState({
           comments: [res.data, ...this.state.comments],
-          comment: null,
+          comment: "",
         });
       }
     } catch (err) {
