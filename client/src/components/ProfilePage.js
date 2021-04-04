@@ -74,7 +74,7 @@ const styles = (theme) => ({
         const { classes } = this.props;
         
         return(
-            <Grid container justify="center" spacing={0} style={{paddingTop:"90px"}}>
+            <Grid container justify="center" spacing={1} style={{paddingTop:"90px"}}>
               <Grid item xs= {3} >
                 <Card style={{height: "55vh", position:"relative"}} >
                     <CardContent>
@@ -115,11 +115,11 @@ const styles = (theme) => ({
                     </CardContent>
                     </Card>
                 </Grid> 
-              <Grid item xs = {7}>
-                <Grid container>
+              <Grid item xs = {8}>
+                <Grid container spacing={1}>
                   <Grid item xs = {12}>
                       <Card style={{ height: "55vh" }}>
-                          <CardHeader title = "Restaurants I Enjoyed"/>
+                          <CardHeader style={{backgroundColor: "#bab8b6"}} title = "Restaurants I Enjoyed"/>
                           <CardContent>
                               <TableContainer style={{width:"100%", height:"600px"}}>
                                 <Table style={{minWidth:"400"}}>
@@ -172,7 +172,7 @@ const styles = (theme) => ({
                   </Grid>
                   <Grid item xs = {12}>
                   <Card style={{ height: "55vh" }}>
-                          <CardHeader title = "Restaurants I Commented On"/>
+                          <CardHeader style={{backgroundColor: "#bab8b6"}} title = "Restaurants I Commented On"/>
                           <CardContent>
                               <TableContainer style={{width:"100%", height:"600px"}}>
                                 <Table style={{minWidth:"400"}}>

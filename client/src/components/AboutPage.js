@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Carousel from 'react-material-ui-carousel'
+import { staffData } from "./staffData.js"
 
 import {
   Grid,
@@ -22,6 +23,7 @@ import stickFigure from "../img/stick_figure.png";
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
+    // height: '99vh'
   },
   media: {
     height: 0,
@@ -33,28 +35,12 @@ const styles = (theme) => ({
 class AboutPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        people: [],
-    };
   }
 
-  componentDidMount = async () => {
-    try {
-      const res = await axios.get("AboutPage.json");
-
-      this.setState({
-        people: res.data,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-
   render() {
-    const { people } = this.state;
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
         <h1>About Closure</h1>
         <Grid container justify="center">
           <Grid item xs={8}  >
@@ -84,25 +70,14 @@ class AboutPage extends Component {
         <h1>Meet the Team</h1>
         <Grid container direction="row" alignItems="left" justify="center">
         <Carousel>
-          {people.map((elem) => {
-            const { Name, Role, Body, Image, ID} = elem;
-            // const pictures = [
-            //   {image:require("../img/stick_figure.png"),},
-            //   {image:"../img/stick_figure.png"},
-            //   {image:"../img/stick_figure.png"},
-            //   {image:"../img/stick_figure.png"},
-            //   {image:"../img/stick_figure.png"}
-            // ]
-            // const IMG = (imgName) => {
-            //   return require(`../img/stick_figure.png`)
-            // }
-            // const profilePicture = pictures[ID]
+          {staffData.map((elem) => {
+            const { Name, Role, Body, image, ID} = elem;
             return (
             <Grid container xs={12} direction="row" alignItems="left" justify="flex-start">
                 <Grid item xs={6}>
                     <Paper elevation={0} style={{ height: "25vh", width: "25vw" }}>
                         <img
-                        src={stickFigure}
+                        src={image}
                         style={{ height: "100%", maxWidth: "100%" }}
                         />
                     </Paper>
