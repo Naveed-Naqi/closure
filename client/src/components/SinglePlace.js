@@ -20,6 +20,7 @@ export default class SinglePlace extends Component {
       comments: [],
       likedStatus: false,
       numberOfLikes: null,
+      replyCommentId: null,
       comment: "",
     };
 
@@ -32,12 +33,15 @@ export default class SinglePlace extends Component {
 
       const placeId = this.props.match.params.id;
       const { comment } = this.state;
+      console.log(comment);
 
       const res = await axios.post("/api/comments", {
         placeId: placeId,
         content: comment,
         replyCommentId: replyCommentId,
       });
+
+      console.log(res.data);
 
       this.setState({
         comments: [res.data, ...this.state.comments],
@@ -92,6 +96,7 @@ export default class SinglePlace extends Component {
   };
 
   handleChange = (e) => {
+    console.log(e.target.value);
     this.setState({
       comment: e.target.value,
     });
