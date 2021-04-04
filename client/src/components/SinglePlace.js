@@ -49,8 +49,9 @@ export default class SinglePlace extends Component {
         const index = this.state.replyCommentIndex;
 
         let comment = { ...comments[index] };
-        comment.replies =
-          comment.replies > 0 ? [res.data, ...comment.replies] : [res.data];
+        comment.replies = comment.replies
+          ? [res.data, ...comment.replies]
+          : [res.data];
         console.log(comment.replies);
         comments[index] = comment;
 
