@@ -32,21 +32,19 @@ const NewApp = () => {
     setAnchorEl(e.currentTarget);
   };
   const history = useHistory();
-  const handleProfile = () => {
-    history.push("/Profile");
+
+  const handleButtons = (e) => {
+    handleClose();
+    history.push(`/${e.currentTarget.id}`);
   };
+
   const handleHome = () => {
     history.push("/home");
   };
   const handleAbout = () => {
     history.push("/about");
   };
-  const handleRegister = () => {
-    history.push("/register");
-  };
-  const handleLogin = () => {
-    history.push("/");
-  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,7 +69,7 @@ const NewApp = () => {
               value={value}
             >
               <Tab onClick={handleHome} label="Home" />
-              <Tab onClick={handleAbout} label="about" />
+              <Tab onClick={handleAbout} label="About" />
             </Tabs>
 
             <div style={{ position: "absolute", right: "35px" }}>
@@ -95,7 +93,11 @@ const NewApp = () => {
               >
                 {auth.isAuthenticated ? (
                   <MenuList>
-                    <MenuItem onClick={handleProfile} onClose={handleClose}>
+                    <MenuItem
+                      id="profile"
+                      onClick={handleButtons}
+                      onClose={handleClose}
+                    >
                       Profile
                     </MenuItem>
                     <MenuItem onClick={logout} onClose={handleClose}>
@@ -104,10 +106,18 @@ const NewApp = () => {
                   </MenuList>
                 ) : (
                   <MenuList>
-                    <MenuItem onClick={handleRegister} onClose={handleClose}>
+                    <MenuItem
+                      id="register"
+                      onClick={handleButtons}
+                      onClose={handleClose}
+                    >
                       Register
                     </MenuItem>
-                    <MenuItem onClick={handleLogin} onClose={handleClose}>
+                    <MenuItem
+                      id=""
+                      onClick={handleButtons}
+                      onClose={handleClose}
+                    >
                       Login
                     </MenuItem>
                   </MenuList>
