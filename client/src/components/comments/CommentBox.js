@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 import InputAdornment from "@material-ui/core/InputAdornment";
+
+import CloseIcon from "@material-ui/icons/Close";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -27,6 +29,7 @@ const CommentBox = ({
   inputRef,
   replyOpen,
   replyUsername,
+  removeReplyTextBox,
 }) => {
   const classes = useStyles();
 
@@ -43,9 +46,10 @@ const CommentBox = ({
             inputRef={inputRef}
             InputProps={{
               startAdornment: !!replyUsername && (
-                <InputAdornment position="start">
-                  <Chip label={`@${replyUsername}`} />
-                </InputAdornment>
+                <Chip
+                  label={`@${replyUsername}`}
+                  onDelete={removeReplyTextBox}
+                />
               ),
             }}
           ></TextField>

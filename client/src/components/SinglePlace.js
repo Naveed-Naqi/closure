@@ -28,12 +28,15 @@ export default class SinglePlace extends Component {
 
   postComment = async () => {
     try {
+      const { replyCommentId } = this.state;
+
       const placeId = this.props.match.params.id;
       const { comment } = this.state;
 
       const res = await axios.post("/api/comments", {
         placeId: placeId,
         content: comment,
+        replyCommentId: replyCommentId,
       });
 
       this.setState({
@@ -153,15 +156,24 @@ export default class SinglePlace extends Component {
     const { comments } = this.state;
     const index = e.currentTarget.id;
     const username = comments[index].user.username;
+    const replyCommentId = comments[index].id;
 
     this.setState(
       {
         replyUsername: username,
+        replyCommentId: replyCommentId,
       },
       () => {
         this.textInput.current.focus();
       }
     );
+  };
+
+  removeReplyTextBox = () => {
+    this.setState({
+      replyUsername: null,
+      replyCommentId: null,
+    });
   };
 
   componentDidMount = async () => {
@@ -213,6 +225,7 @@ export default class SinglePlace extends Component {
               value={comment}
               inputRef={this.textInput}
               replyUsername={replyUsername}
+              removeReplyTextBox={this.removeReplyTextBox}
             />
             <CommentList
               comments={comments}
