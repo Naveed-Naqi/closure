@@ -6,13 +6,16 @@ const checkAuth = require("./middleware/checkAuth.js");
 router.get("/", async (req, res, next) => {
   try {
     const { placeId } = req.query;
-    console.log(placeId);
 
     const comments = await Comment.findAll({
       where: {
         placeId: placeId,
       },
-      include: [User, { model: Reply, include: User }],
+      include: [
+        User,
+        { model: Reply, include: User, order: [["createdAt", "DESC"]] },
+      ],
+      order: [["createdAt", "DESC"]],
     });
 
     res.status(200).send(comments);
@@ -34,14 +37,10 @@ router.post("/", checkAuth, async (req, res, next) => {
         commentId: commentId,
       });
 
-      console.log(newComment);
-
       const commentToReturn = await Reply.findOne({
         where: { id: newComment.id },
         include: User,
       });
-
-      console.log(commentToReturn);
 
       res.status(200).send(commentToReturn);
     } else {
