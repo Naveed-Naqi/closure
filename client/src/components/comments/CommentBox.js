@@ -39,7 +39,6 @@ const CommentBox = ({
         <div>
           <TextField
             label="Enter Public Comment"
-            multiline
             onChange={handleChange}
             style={{ width: "100%" }}
             value={value}
@@ -64,6 +63,7 @@ const CommentBox = ({
             Cancel
           </Button>
           <Button
+            type="submit"
             variant="contained"
             color="primary"
             onClick={postComment}

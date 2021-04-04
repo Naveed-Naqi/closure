@@ -27,8 +27,9 @@ export default class SinglePlace extends Component {
     this.textInput = React.createRef();
   }
 
-  postComment = async () => {
+  postComment = async (e) => {
     try {
+      e.preventDefault();
       const { replyCommentId, replyCommentIndex } = this.state;
 
       const placeId = this.props.match.params.id;

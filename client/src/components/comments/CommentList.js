@@ -9,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
 
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -38,12 +39,18 @@ export default class CommentList extends Component {
                       <Avatar alt={username}>{username[0]}</Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={username} secondary={content} />
+
                     <IconButton onClick={openReplyTextBox} id={index}>
                       <ReplyIcon />
                     </IconButton>
-                    <IconButton onClick={toggleAllReplies} id={index}>
-                      {allRepliesOpen ? <ExpandLess /> : <ExpandMore />}
-                    </IconButton>
+                    <Badge
+                      badgeContent={replies && replies.length}
+                      color="primary"
+                    >
+                      <IconButton onClick={toggleAllReplies} id={index}>
+                        {allRepliesOpen ? <ExpandLess /> : <ExpandMore />}
+                      </IconButton>
+                    </Badge>
                   </ListItem>
 
                   <Collapse in={allRepliesOpen} timeout="auto" unmountOnExit>
