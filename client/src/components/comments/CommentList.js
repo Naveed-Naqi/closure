@@ -14,7 +14,6 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ReplyIcon from "@material-ui/icons/Reply";
 import SubdirectoryArrowRightIcon from "@material-ui/icons/SubdirectoryArrowRight";
-import { TramRounded } from "@material-ui/icons";
 
 export default class CommentList extends Component {
   constructor(props) {
@@ -22,13 +21,13 @@ export default class CommentList extends Component {
   }
 
   render() {
-    const { comments, openReplyTextBox } = this.props;
+    const { comments, openReplyTextBox, toggleAllReplies } = this.props;
     return (
       <div>
         <Paper style={{ height: 300, overflow: "auto" }}>
           <List>
             {comments.map((elem, index) => {
-              let { content, user, allRepliesOpen, replyOpen } = elem;
+              let { content, user, allRepliesOpen, replies } = elem;
               const username = (user && user.username) || [""];
 
               return (
@@ -42,24 +41,35 @@ export default class CommentList extends Component {
                     <IconButton onClick={openReplyTextBox} id={index}>
                       <ReplyIcon />
                     </IconButton>
-                    <IconButton>
-                      <ExpandMore />
+                    <IconButton onClick={toggleAllReplies} id={index}>
+                      {allRepliesOpen ? <ExpandLess /> : <ExpandMore />}
                     </IconButton>
                   </ListItem>
 
                   <Collapse in={allRepliesOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       <Divider />
-                      <ListItem>
-                        <ListItemAvatar>
-                          <SubdirectoryArrowRightIcon fontSize="large" />
-                        </ListItemAvatar>
 
-                        <ListItemAvatar>
-                          <Avatar alt={username}>{username[0]}</Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary={username} secondary={content} />
-                      </ListItem>
+                      {replies &&
+                        replies.map((reply) => {
+                          return (
+                            <ListItem>
+                              <ListItemAvatar>
+                                <SubdirectoryArrowRightIcon fontSize="large" />
+                              </ListItemAvatar>
+
+                              <ListItemAvatar>
+                                <Avatar alt={reply.user.username}>
+                                  {reply.user.username[0]}
+                                </Avatar>
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={username}
+                                secondary={reply.content}
+                              />
+                            </ListItem>
+                          );
+                        })}
                     </List>
                   </Collapse>
                 </div>

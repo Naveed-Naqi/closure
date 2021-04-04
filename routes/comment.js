@@ -12,8 +12,7 @@ router.get("/", async (req, res, next) => {
       where: {
         placeId: placeId,
       },
-      include: User,
-      Reply,
+      include: [User, { model: Reply, include: User }],
     });
 
     res.status(200).send(comments);
@@ -26,7 +25,6 @@ router.post("/", checkAuth, async (req, res, next) => {
   try {
     const { content, placeId, commentId } = req.body;
     const userId = req.decoded.id;
-    let newCommentId = 0;
 
     if (commentId) {
       const newComment = await Reply.create({
@@ -36,7 +34,12 @@ router.post("/", checkAuth, async (req, res, next) => {
         commentId: commentId,
       });
 
-      newCommentId = newComment.id;
+      const commentToReturn = await Reply.findOne({
+        id: newComment.id,
+        include: User,
+      });
+
+      res.status(200).send(commentToReturn);
     } else {
       const newComment = await Comment.create({
         content: content,
@@ -44,15 +47,13 @@ router.post("/", checkAuth, async (req, res, next) => {
         userId: userId,
       });
 
-      newCommentId = newComment.id;
+      const commentToReturn = await Comment.findOne({
+        where: { id: newComment.id },
+        include: User,
+      });
+
+      res.status(200).send(commentToReturn);
     }
-
-    const commentToReturn = await Comment.findOne({
-      where: { id: newCommentId },
-      include: User,
-    });
-
-    res.status(200).send(commentToReturn);
   } catch (err) {
     console.log(err);
     res.status(400).send("Some error occured");

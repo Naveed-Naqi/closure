@@ -29,23 +29,38 @@ export default class SinglePlace extends Component {
 
   postComment = async () => {
     try {
-      const { replyCommentId } = this.state;
+      const { replyCommentId, replyCommentIndex } = this.state;
 
       const placeId = this.props.match.params.id;
       const { comment } = this.state;
-      console.log(comment);
 
       const res = await axios.post("/api/comments", {
         placeId: placeId,
         content: comment,
-        replyCommentId: replyCommentId,
+        commentId: replyCommentId,
       });
 
-      console.log(res.data);
+      if (replyCommentId) {
+        let comments = [...this.state.comments];
+        const index = this.state.replyCommentIndex;
 
-      this.setState({
-        comments: [res.data, ...this.state.comments],
-      });
+        let comment = { ...comments[index] };
+        comment.replies = [res.data, ...comment.replies];
+        comments[index] = comment;
+
+        this.setState({
+          comments: comments,
+          replyCommentId: null,
+          replyCommentIndex: null,
+          replyUsername: null,
+          comment: null,
+        });
+      } else {
+        this.setState({
+          comments: [res.data, ...this.state.comments],
+          comment: null,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +111,6 @@ export default class SinglePlace extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       comment: e.target.value,
     });
@@ -165,6 +179,7 @@ export default class SinglePlace extends Component {
 
     this.setState(
       {
+        replyCommentIndex: index,
         replyUsername: username,
         replyCommentId: replyCommentId,
       },
@@ -178,6 +193,7 @@ export default class SinglePlace extends Component {
     this.setState({
       replyUsername: null,
       replyCommentId: null,
+      replyCommentIndex: null,
     });
   };
 
@@ -186,6 +202,20 @@ export default class SinglePlace extends Component {
     await this.getPlaceInfo();
     await this.getLikedStatus();
     await this.getNumberOfLikes();
+  };
+
+  toggleAllReplies = async (e) => {
+    const index = e.currentTarget.id;
+    let comments = [...this.state.comments];
+
+    let comment = { ...comments[index] };
+    comment.allRepliesOpen = !comment.allRepliesOpen;
+
+    comments[index] = comment;
+
+    this.setState({
+      comments: comments,
+    });
   };
 
   render() {
@@ -235,6 +265,7 @@ export default class SinglePlace extends Component {
             <CommentList
               comments={comments}
               openReplyTextBox={this.openReplyTextBox}
+              toggleAllReplies={this.toggleAllReplies}
             />
           </Grid>
         </Grid>
