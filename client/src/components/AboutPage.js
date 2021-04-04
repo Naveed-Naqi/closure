@@ -22,13 +22,14 @@ import stickFigure from "../img/stick_figure.png";
 // import backgroundPic from "../img/tile_background.png"
 const styles = (theme) => ({
   root: {
+    paddingTop: 50,
     flexGrow: 1,
     // height: '99vh'
   },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
-  },
+  }
 });
 
 
@@ -43,24 +44,28 @@ class AboutPage extends Component {
       <div className={classes.root}>
         <h1>About Closure</h1>
         <Grid container justify="center">
-          <Grid item xs={8}  >
-            <Card style={{ height: "50vh", width: ""}}>
+          <Grid item xs={8} >
+            <Card style={{ height: "25vh", backgroundColor:"#e4e4e4"}}>
               <CardHeader title="Our Mission"/>
               <CardContent>
                 <div>
-                  Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                  With the rise of the pandemic, hundreds of our beloved businesses have unfortunately closed their doors to the public. 
+                  This has left the thousands of people (or maybe just the five of us) with a gaping hole in our hearts because we are left without a sense of closure.
+                  Thus, our mission is simple. We want to build a web application to memorialize places that have closed down 
+                  so that people can view and comment on. 
+
                 </div>
               </CardContent>
-              <CardHeader title="Our Values"/>
+              <CardHeader title="Our Goals"/>
               <CardContent>
                 <div>
-                Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                  To learn about full stack web development
                 </div>
-              </CardContent>
-              <CardHeader title="Why We Deserve An A"/>
-              <CardContent>
                 <div>
-                Create a memorial for places that have closed down that people can view and comment on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id pharetra lacus. Nulla facilisi. Suspendisse volutpat tristique nunc, in volutpat metus ornare ut. Phasellus varius bibendum consectetur. Duis vel interdum ligula. Fusce eu felis eu est hendrerit pretium at faucibus mi. Etiam efficitur viverra nisi, nec placerat lacus maximus nec.
+                  Experience the project development lifecycle
+                </div>
+                <div>
+                  To successfully build an adequate platform for Closure
                 </div>
               </CardContent>
             </Card>
@@ -69,7 +74,11 @@ class AboutPage extends Component {
 
         <h1>Meet the Team</h1>
         <Grid container direction="row" alignItems="left" justify="center">
-        <Carousel>
+        <Carousel navButtonsProps={{
+          style:{
+            opacity: "20%"
+          }
+        }}>
           {staffData.map((elem) => {
             const { Name, Role, Body, image, ID} = elem;
             return (

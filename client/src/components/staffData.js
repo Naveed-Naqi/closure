@@ -11,7 +11,6 @@ export const staffData = [
         "Role": "Back End Boss",
         "Body": "I do the clickity clackity",
         "Image": "logo192.png",
-        "ID": 0,
         "image": Yash
     },
     {
@@ -19,15 +18,12 @@ export const staffData = [
         "Role": "Full Stack aka Big Boss",
         "Body": "I do the clickity clackity",
         "Image": "logo192.png",
-        "ID": 0,
         "image": Naveed
     },
     {
         "Name": "Victor",
         "Role": "Front End Part 1",
         "Body": "I do the clickity clackity",
-        "Image": "logo192.png",
-        "ID": 0,
         "image": Victor
     },
     {
@@ -35,15 +31,13 @@ export const staffData = [
         "Role": "Front End Part 2",
         "Body": "I do the clickity clackity",
         "Image": "logo192.png",
-        "ID": 0,
         "image": Harold
     },
     {
         "Name": "Erik",
         "Role": "Front End Part 3",
-        "Body": "I do the clickity clackity",
+        "Body": "Currently finishing his last semester in college. Might invest all his time and money into Closure in hopes that the website will never be under Closure.",
         "Image": "logo192.png",
-        "ID": 0,
         "image": Erik
     }
 ]

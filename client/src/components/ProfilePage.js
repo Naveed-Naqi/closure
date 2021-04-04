@@ -119,7 +119,7 @@ const styles = (theme) => ({
                 <Grid container spacing={1}>
                   <Grid item xs = {12}>
                       <Card style={{ height: "55vh" }}>
-                          <CardHeader style={{backgroundColor: "#bab8b6"}} title = "Restaurants I Enjoyed"/>
+                          <CardHeader style={{backgroundColor: "#e4e4e4"}} title = "Restaurants I Enjoyed"/>
                           <CardContent>
                               <TableContainer style={{width:"100%", height:"600px"}}>
                                 <Table style={{minWidth:"400"}}>
@@ -172,7 +172,7 @@ const styles = (theme) => ({
                   </Grid>
                   <Grid item xs = {12}>
                   <Card style={{ height: "55vh" }}>
-                          <CardHeader style={{backgroundColor: "#bab8b6"}} title = "Restaurants I Commented On"/>
+                          <CardHeader style={{backgroundColor: "#e4e4e4"}} title = "Restaurants I Commented On"/>
                           <CardContent>
                               <TableContainer style={{width:"100%", height:"600px"}}>
                                 <Table style={{minWidth:"400"}}>
