@@ -1,13 +1,9 @@
 import React from "react";
-import axios from "axios";
 import { makeStyles, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
-import CloseIcon from "@material-ui/icons/Close";
-import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
