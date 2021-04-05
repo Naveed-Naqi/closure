@@ -31,44 +31,48 @@ const CommentBox = ({
 
   return (
     <Paper>
-      <form className={classes.root} noValidate autoComplete="off">
-        <div>
-          <TextField
-            label="Enter Public Comment"
-            onChange={handleChange}
-            style={{ width: "100%" }}
-            value={value}
-            inputRef={inputRef}
-            InputProps={{
-              startAdornment: !!replyUsername && (
-                <Chip
-                  label={`@${replyUsername}`}
-                  onDelete={removeReplyTextBox}
-                />
-              ),
-            }}
-          ></TextField>
-        </div>
-        <div style={{ display: "flex" }}>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ marginLeft: "auto" }}
-            onClick={handleCancel}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={postComment}
-            disabled={value === ""}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
+      {auth.isAuthenticated ? (
+        <form className={classes.root} noValidate autoComplete="off">
+          <div>
+            <TextField
+              label="Enter Public Comment"
+              onChange={handleChange}
+              style={{ width: "100%" }}
+              value={value}
+              inputRef={inputRef}
+              InputProps={{
+                startAdornment: !!replyUsername && (
+                  <Chip
+                    label={`@${replyUsername}`}
+                    onDelete={removeReplyTextBox}
+                  />
+                ),
+              }}
+            ></TextField>
+          </div>
+          <div style={{ display: "flex" }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ marginLeft: "auto" }}
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={postComment}
+              disabled={value === ""}
+            >
+              Submit
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div>You cannot leave a comment unless you are logged in</div>
+      )}
     </Paper>
   );
 };

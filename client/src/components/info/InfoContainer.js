@@ -14,11 +14,14 @@ import {
 import "./info.css";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useSelector } from "react-redux";
 
 function Closure_Info(props) {
   const { name, address, summary, numberOfLikes, like, likedStatus } = props;
   const res_website = "www.whatismywebsite.com";
   const res_website_link = "https://" + res_website;
+  const auth = useSelector((state) => state.auth);
+
   return (
     <div>
       <Grid
@@ -46,14 +49,19 @@ function Closure_Info(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton onClick={like}>
-                  <FavoriteIcon
-                    style={{ color: likedStatus ? "red" : "gray" }}
-                  />
-                  <Typography variant="h6" style={{ justifyContent: "center" }}>
-                    {numberOfLikes}
-                  </Typography>
-                </IconButton>
+                {auth.isAuthenticated && (
+                  <IconButton onClick={like}>
+                    <FavoriteIcon
+                      style={{ color: likedStatus ? "red" : "gray" }}
+                    />
+                    <Typography
+                      variant="h6"
+                      style={{ justifyContent: "center" }}
+                    >
+                      {numberOfLikes}
+                    </Typography>
+                  </IconButton>
+                )}
               </CardActions>
             </Card>
           </Paper>
