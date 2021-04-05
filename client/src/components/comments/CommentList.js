@@ -77,7 +77,7 @@ class CommentList extends Component {
                                 </Avatar>
                               </ListItemAvatar>
                               <ListItemText
-                                primary={username}
+                                primary={reply.user.username}
                                 secondary={reply.content}
                               />
                             </ListItem>
