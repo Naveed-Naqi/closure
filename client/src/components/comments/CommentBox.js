@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -71,7 +72,10 @@ const CommentBox = ({
           </div>
         </form>
       ) : (
-        <div>You cannot leave a comment unless you are logged in</div>
+        <div>
+          <Fragment>You cannot leave a comment unless you are </Fragment>
+          <Link to="/"> logged in</Link>
+        </div>
       )}
     </Paper>
   );
