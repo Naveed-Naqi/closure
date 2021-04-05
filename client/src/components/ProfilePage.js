@@ -128,7 +128,7 @@ class ProfilePage extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography>
-                    Total Number of Placed I Commented On
+                    Total Number of Places I Commented On
                     <br />
                     <div style={{ color: "red", fontSize: "18pt" }}>
                       {comments.length}
@@ -143,7 +143,7 @@ class ProfilePage extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Card style={{ height: "55vh", overflow: "auto" }}>
-                <CardHeader title="Restaurants I Enjoyed" />
+                <CardHeader style={{backgroundColor:"#e7e7e7"}}title="Restaurants I Enjoyed" />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
                     <Table style={{ minWidth: "400" }}>
@@ -166,8 +166,8 @@ class ProfilePage extends Component {
                                       <Grid item xs={3}>
                                         <Card
                                           style={{
-                                            width: "24vh",
-                                            height: "25vh",
+                                            width: "28vh",
+                                            height: "28vh",
                                           }}
                                         >
                                           <CardHeader
@@ -210,7 +210,7 @@ class ProfilePage extends Component {
             </Grid>
             <Grid item xs={12}>
               <Card style={{ height: "55vh", overflow: "auto" }}>
-                <CardHeader title="Restaurants I Commented On" />
+                <CardHeader style={{backgroundColor:"#e7e7e7"}}title="Restaurants I Commented On" />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
                     <Table style={{ minWidth: "400" }}>
@@ -233,8 +233,8 @@ class ProfilePage extends Component {
                                       <Grid item xs={3}>
                                         <Card
                                           style={{
-                                            width: "24vh",
-                                            height: "25vh",
+                                            width: "28vh",
+                                            height: "28vh",
                                           }}
                                         >
                                           <CardHeader
