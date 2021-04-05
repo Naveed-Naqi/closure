@@ -44,7 +44,7 @@ class AboutPage extends Component {
         <h1>About Closure</h1>
         <Grid container justify="center">
           <Grid item xs={8}>
-            <Card style={{ height: "25vh", backgroundColor: "#e4e4e4" }}>
+            <Card style={{ height: "100%", backgroundColor: "#e4e4e4" }}>
               <CardHeader title="Our Mission" />
               <CardContent>
                 <div>
