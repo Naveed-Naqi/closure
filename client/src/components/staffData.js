@@ -25,7 +25,7 @@ export const staffData = [
     Name: "Victor",
     Role: "Front End Part 1",
     Body:
-      "Uh crap, wait scratch that. Nice at Genshim, but even better at ReactJs",
+      "Im chronically late to all the meetings because its always somebodies birthday.",
     image: Victor,
   },
   {
