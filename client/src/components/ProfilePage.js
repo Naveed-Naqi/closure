@@ -13,7 +13,6 @@ import {
   Grid,
   Table,
   TableContainer,
-  TableHead,
   TableRow,
   TableCell,
   TableBody,
@@ -22,6 +21,9 @@ import {
 import { CardHeader, CardMedia, IconButton, Paper } from "@material-ui/core";
 
 import unknownAvatar from "../img/unknown_avatar.jpg";
+
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const styles = (theme) => ({
   root: {
@@ -80,11 +82,14 @@ class ProfilePage extends Component {
   componentDidMount = async () => {
     await this.getLikedPlaces();
     await this.getCommentedPlaces();
+
+    console.log(this.props.auth);
   };
 
   render() {
     const { liked, comments, loading } = this.state;
-    const { classes } = this.props;
+    const { classes, auth } = this.props;
+    const { username, email } = auth.user;
 
     return (
       <Grid
@@ -103,10 +108,10 @@ class ProfilePage extends Component {
                 style={{ height: "20vh", width: "20vh", margin: "auto" }}
               />
               <Typography variant="h5" component="h2">
-                NAME
+                {username}
               </Typography>
               <Typography style={{ paddingBottom: "10" }} color="textSecondary">
-                EMAIL
+                {email}
               </Typography>
               <div style={{ marginTop: "40px" }}>
                 <Typography variant="h5">Stats</Typography>
@@ -143,7 +148,10 @@ class ProfilePage extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Card style={{ height: "55vh", overflow: "auto" }}>
-                <CardHeader style={{backgroundColor:"#e7e7e7"}}title="Restaurants I Enjoyed" />
+                <CardHeader
+                  style={{ backgroundColor: "#e7e7e7" }}
+                  title="Restaurants I Enjoyed"
+                />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
                     <Table style={{ minWidth: "400" }}>
@@ -210,7 +218,10 @@ class ProfilePage extends Component {
             </Grid>
             <Grid item xs={12}>
               <Card style={{ height: "55vh", overflow: "auto" }}>
-                <CardHeader style={{backgroundColor:"#e7e7e7"}}title="Restaurants I Commented On" />
+                <CardHeader
+                  style={{ backgroundColor: "#e7e7e7" }}
+                  title="Restaurants I Commented On"
+                />
                 <CardContent>
                   <TableContainer style={{ width: "100%", height: "600px" }}>
                     <Table style={{ minWidth: "400" }}>
@@ -282,4 +293,12 @@ class ProfilePage extends Component {
   }
 }
 
-export default ProfilePage;
+ProfilePage.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ProfilePage);
