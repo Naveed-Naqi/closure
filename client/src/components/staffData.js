@@ -10,7 +10,7 @@ export const staffData = [
     Name: "Yash",
     Role: "Back End Boss",
     Body:
-      "I like blue cheese and off-whites, but not together. I was once addicted to soda till it messed me up. Just because I'm brown does not mean I know IT; I cannot help you troubleshoot your internet problems nor can I connect your computer to your printer. And yes, I eat curry at least 3 times a week.",
+      " I cannot help you troubleshoot your internet problems nor can I connect your computer to your printer. And yes, I eat curry at least 3 times a week.",
     Image: "logo192.png",
     image: Yash,
   },
