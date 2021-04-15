@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Grid, IconButton, Paper } from "@material-ui/core";
+import { Grid, IconButton, Paper, Chip } from "@material-ui/core";
 
 import InfoContainer from "./info/InfoContainer";
-import CommentBox from "./info/CommentBox";
-import CommentList from "./CommentList";
+import CommentBox from "./comments/CommentBox";
+import CommentList from "./comments/CommentList";
 
 import restaurant_pic from "../img/restaurant_clipart.png";
 import map from "../img/map_pic.png";
@@ -19,8 +19,60 @@ export default class SinglePlace extends Component {
       place: [],
       comments: [],
       likedStatus: false,
+      numberOfLikes: null,
+      replyCommentId: null,
+      comment: "",
     };
+
+    this.textInput = React.createRef();
   }
+
+  postComment = async (e) => {
+    try {
+      e.preventDefault();
+      const { replyCommentId, replyCommentIndex } = this.state;
+
+      const placeId = this.props.match.params.id;
+      const { comment } = this.state;
+
+      const res = await axios.post("/api/comments", {
+        placeId: placeId,
+        content: comment,
+        commentId: replyCommentId,
+      });
+
+      console.log(res.data);
+
+      if (replyCommentId !== null) {
+        console.log("Hi");
+
+        let comments = [...this.state.comments];
+        const index = this.state.replyCommentIndex;
+
+        let comment = { ...comments[index] };
+        comment.replies = comment.replies
+          ? [res.data, ...comment.replies]
+          : [res.data];
+        console.log(comment.replies);
+        comments[index] = comment;
+
+        this.setState({
+          comments: comments,
+          replyUsername: null,
+          replyCommentId: null,
+          replyCommentIndex: null,
+          comment: "",
+        });
+      } else {
+        this.setState({
+          comments: [res.data, ...this.state.comments],
+          comment: "",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   like = async () => {
     if (this.state.likedStatus) {
@@ -31,6 +83,7 @@ export default class SinglePlace extends Component {
 
         this.setState({
           likedStatus: !this.state.likedStatus,
+          numberOfLikes: (this.state.numberOfLikes -= 1),
         });
       } catch (err) {
         console.log(err);
@@ -43,6 +96,7 @@ export default class SinglePlace extends Component {
 
         this.setState({
           likedStatus: !this.state.likedStatus,
+          numberOfLikes: (this.state.numberOfLikes += 1),
         });
       } catch (err) {
         console.log(err);
@@ -50,28 +104,40 @@ export default class SinglePlace extends Component {
     }
   };
 
-  getLikedStatus = async () => {
+  getNumberOfLikes = async () => {
     try {
       const { id } = this.props.match.params;
 
-      const res = await axios.get(`/api/comments/?placeId=${id}`);
+      const res = await axios.get(`/api/likes/?placeId=${id}`);
 
       this.setState({
-        comments: res.data,
+        numberOfLikes: res.data,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  getComments = async () => {
+  handleChange = (e) => {
+    this.setState({
+      comment: e.target.value,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      comment: "",
+    });
+  };
+
+  getLikedStatus = async () => {
     try {
       const { id } = this.props.match.params;
 
-      const res = await axios.get(`/api/comments/?placeId=${id}`);
+      const res = await axios.get(`/api/places/likedStatus/?placeId=${id}`);
 
       this.setState({
-        comments: res.data,
+        likedStatus: res.data,
       });
     } catch (err) {
       console.log(err);
@@ -91,23 +157,84 @@ export default class SinglePlace extends Component {
     }
   };
 
-  updateComments = (newComment) => {
-    // console.log(newComment);
-    // this.setState({
-    //   comments: [this.state.comments, newComment],
-    // });
+  getComments = async () => {
+    try {
+      const { id } = this.props.match.params;
 
-    this.getComments();
+      const res = await axios.get(`/api/comments/?placeId=${id}`);
+
+      const comments = res.data.map((elem) => {
+        return {
+          ...elem,
+          replyOpen: false,
+          allRepliesOpen: false,
+        };
+      });
+
+      this.setState({
+        comments: comments,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  openReplyTextBox = (e) => {
+    const { comments } = this.state;
+    const index = e.currentTarget.id;
+    const username = comments[index].user.username;
+    const replyCommentId = comments[index].id;
+
+    this.setState(
+      {
+        replyCommentIndex: index,
+        replyUsername: username,
+        replyCommentId: replyCommentId,
+      },
+      () => {
+        this.textInput.current.focus();
+      }
+    );
+  };
+
+  removeReplyTextBox = () => {
+    this.setState({
+      replyUsername: null,
+      replyCommentId: null,
+      replyCommentIndex: null,
+    });
   };
 
   componentDidMount = async () => {
     await this.getComments();
     await this.getPlaceInfo();
     await this.getLikedStatus();
+    await this.getNumberOfLikes();
+  };
+
+  toggleAllReplies = async (e) => {
+    const index = e.currentTarget.id;
+    let comments = [...this.state.comments];
+
+    let comment = { ...comments[index] };
+    comment.allRepliesOpen = !comment.allRepliesOpen;
+
+    comments[index] = comment;
+
+    this.setState({
+      comments: comments,
+    });
   };
 
   render() {
-    const { place, comments, likedStatus } = this.state;
+    const {
+      place,
+      comments,
+      likedStatus,
+      numberOfLikes,
+      comment,
+      replyUsername,
+    } = this.state;
 
     const { name, address, summary, images } = place;
 
@@ -126,23 +253,28 @@ export default class SinglePlace extends Component {
             name={name}
             address={address}
             summary={summary}
+            numberOfLikes={numberOfLikes}
+            likedStatus={likedStatus}
+            like={this.like}
           />
         </Grid>
 
-        <Grid container justify="center" alignItems="center">
-          <Grid item>
-            <Paper padding={10}>
-              {"Number of Likes"}
-              <IconButton aria-label="add to favorites" onClick={this.like}>
-                <FavoriteIcon style={{ color: likedStatus ? "red" : "gray" }} />
-              </IconButton>
-            </Paper>
-          </Grid>
-          <Grid item>
-            <CommentBox updateComments={this.updateComments} />
-          </Grid>
-          <Grid item>
-            <CommentList comments={comments} />
+        <Grid container justify="center" alignItems="center" direction="row">
+          <Grid item xs={11}>
+            <CommentBox
+              postComment={this.postComment}
+              handleChange={this.handleChange}
+              handleCancel={this.handleCancel}
+              value={comment}
+              inputRef={this.textInput}
+              replyUsername={replyUsername}
+              removeReplyTextBox={this.removeReplyTextBox}
+            />
+            <CommentList
+              comments={comments}
+              openReplyTextBox={this.openReplyTextBox}
+              toggleAllReplies={this.toggleAllReplies}
+            />
           </Grid>
         </Grid>
       </Grid>

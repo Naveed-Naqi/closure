@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Comment = db.define("comment", {
+const Reply = db.define("reply", {
   content: {
     type: Sequelize.STRING(400),
     allowNull: false,
@@ -16,6 +16,11 @@ const Comment = db.define("comment", {
     type: Sequelize.INTEGER,
     foreignKey: true,
   },
+
+  commentId: {
+    type: Sequelize.INTEGER,
+    foreignKey: true,
+  },
 });
 
-module.exports = Comment;
+module.exports = Reply;

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm start\" \"npm run client\""
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "test": "jest"
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
@@ -13,6 +14,7 @@
     "@react-google-maps/api": "^2.1.1",
     "aws-sdk": "^2.868.0",
     "bcryptjs": "^2.4.3",
+    "chai": "^4.3.4",
     "compression": "^1.7.3",
     "concurrently": "^5.0.2",
     "cookie-parser": "^1.4.5",
@@ -24,6 +26,7 @@
     "google-maps-react": "^2.0.6",
     "helmet": "^3.21.2",
     "is-empty": "^1.2.0",
+    "jest": "^26.6.3",
     "jsonwebtoken": "^8.5.1",
     "material-ui-popup-state": "^1.8.0",
     "material-ui-search-bar": "^1.0.0",
@@ -34,8 +37,19 @@
     "passport-jwt": "^4.0.0",
     "pgtools": "^0.3.0",
     "react-material-ui-carousel": "^2.2.1",
+    "request": "^2.88.2",
     "sequelize": "^5.21.6",
     "sharp": "^0.27.2",
+    "supertest": "^6.1.3",
     "validator": "^12.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
   }
 }

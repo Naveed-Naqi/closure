@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./info/SeachBar";
+import CardList from "./utils/CardList";
 import Loading from "./utils/Loading";
 
 import {
@@ -84,47 +85,7 @@ class HomePage extends Component {
           onCancelSearch={this.getPlaces}
         />
 
-        {loading ? (
-          <Grid container justify="center">
-            <Loading />
-          </Grid>
-        ) : (
-          <Grid container spacing={3} alignItems="center" justify="center">
-            {places.length > 0 ? (
-              places.map((elem) => {
-                const { name, address, images, id } = elem;
-
-                return (
-                  <Grid item xs={3}>
-                    <Card>
-                      <CardHeader
-                        action={
-                          <IconButton
-                            id={id}
-                            onClick={(e) => {
-                              const id = e.currentTarget.id;
-                              this.props.history.push(`/single/${id}`);
-                            }}
-                          >
-                            <InfoIcon />
-                          </IconButton>
-                        }
-                        title={name}
-                        subheader={address}
-                      />
-                      <CardMedia
-                        className={classes.media}
-                        image={images[0].link}
-                      />
-                    </Card>
-                  </Grid>
-                );
-              })
-            ) : (
-              <h1>No results</h1>
-            )}
-          </Grid>
-        )}
+        <CardList places={places} loading={loading} />
       </div>
     );
   }
