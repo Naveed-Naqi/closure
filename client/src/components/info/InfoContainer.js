@@ -50,7 +50,12 @@ function Closure_Info(props) {
                 </Typography>
               </CardContent>
 
-              {/* <MapContainer latitude={latitude} longitude={longitude}/> */}
+              <Grid container>
+                <Grid item xs={6} >
+                  <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
+                </Grid>
+              </Grid>
+              
 
               <CardActions disableSpacing>
                 <IconButton onClick={like}>

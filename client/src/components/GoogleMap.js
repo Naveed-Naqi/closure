@@ -36,18 +36,22 @@ export class MapContainer extends Component {
         initialCenter={{ 
           // lat: this.state.mapCenter.lat, 
           // lng: this.state.mapCenter.lng
-          lat: this.props.latitude,
-          lng: this.props.longitude
+          lat: this.props.latitudeMap,
+          lng: this.props.longitudeMap
         }}
         center = {{
-          lat: this.state.mapCenter.lat, 
-          lng: this.state.mapCenter.lng
+          // lat: this.state.mapCenter.lat, 
+          // lng: this.state.mapCenter.lng
+          lat: this.props.latitudeMap,
+          lng: this.props.longitudeMap
         }}
         >
           <Marker 
             position = {{
-              lat: this.state.mapCenter.lat, 
-              lng: this.state.mapCenter.lng
+              // lat: this.state.mapCenter.lat, 
+              // lng: this.state.mapCenter.lng
+              lat: this.props.latitudeMap,
+              lng: this.props.longitudeMap
             }}
           />
    
@@ -59,5 +63,7 @@ export class MapContainer extends Component {
 
 
   export default GoogleApiWrapper({
-    apiKey: ('fsfssfs')
+    apiKey: ('fsfsfsfs')
   })(MapContainer)
+
+
