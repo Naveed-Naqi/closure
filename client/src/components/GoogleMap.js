@@ -39,9 +39,17 @@ export class MapContainer extends Component {
           lat: this.props.latitude,
           lng: this.props.longitude
         }}
+        center = {{
+          lat: this.state.mapCenter.lat, 
+          lng: this.state.mapCenter.lng
+        }}
         >
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'} />
+          <Marker 
+            position = {{
+              lat: this.state.mapCenter.lat, 
+              lng: this.state.mapCenter.lng
+            }}
+          />
    
         
         </Map>
