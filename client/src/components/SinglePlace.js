@@ -12,6 +12,14 @@ import map from "../img/map_pic.png";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
+
+import MapContainer from "./GoogleMap.js"
+
 export default class SinglePlace extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +30,8 @@ export default class SinglePlace extends Component {
       numberOfLikes: null,
       replyCommentId: null,
       comment: "",
+      latitude: 0,
+      longitude: 0
     };
 
     this.textInput = React.createRef();
@@ -152,8 +162,15 @@ export default class SinglePlace extends Component {
       this.setState({
         place: res.data,
       });
-      console.log("Hello Erik")
-      console.log(this.state.place.address)
+      //using react-places-autocomplete to get lat and long here
+      geocodeByAddress(this.state.place.address)
+        .then(results => getLatLng(results[0]))
+        .then(({lat, lng}) => 
+          {this.setState({
+            latitude: lat,
+            longitude: lng
+          })});
+          // console.log("Successfully got latitude and longitude", {lat, lng}));
     } catch (err) {
       console.log(err);
     }
@@ -236,9 +253,14 @@ export default class SinglePlace extends Component {
       numberOfLikes,
       comment,
       replyUsername,
+      latitude,
+      longitude
     } = this.state;
 
     const { name, address, summary, images } = place;
+
+    console.log(latitude)
+    console.log(longitude)
 
     return (
       <Grid
@@ -258,7 +280,7 @@ export default class SinglePlace extends Component {
             numberOfLikes={numberOfLikes}
             likedStatus={likedStatus}
             like={this.like}
-          />
+          />\
         </Grid>
 
         <Grid container justify="center" alignItems="center" direction="row">
