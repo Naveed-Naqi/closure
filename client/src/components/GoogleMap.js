@@ -37,9 +37,17 @@ export class MapContainer extends Component {
           lat: this.state.mapCenter.lat, 
           lng: this.state.mapCenter.lng
         }}
+        center = {{
+          lat: this.state.mapCenter.lat, 
+          lng: this.state.mapCenter.lng
+        }}
         >
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'} />
+          <Marker 
+            position = {{
+              lat: this.state.mapCenter.lat, 
+              lng: this.state.mapCenter.lng
+            }}
+          />
    
         
         </Map>
@@ -49,5 +57,5 @@ export class MapContainer extends Component {
 
 
   export default GoogleApiWrapper({
-    apiKey: ('fsfsfs')
+    apiKey: ('fsdfdsfsdfsdfdsdsf  ')
   })(MapContainer)
