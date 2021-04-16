@@ -34,8 +34,10 @@ export class MapContainer extends Component {
       return (
         <Map google={this.props.google}
         initialCenter={{ 
-          lat: this.state.mapCenter.lat, 
-          lng: this.state.mapCenter.lng
+          // lat: this.state.mapCenter.lat, 
+          // lng: this.state.mapCenter.lng
+          lat: this.props.latitude,
+          lng: this.props.longitude
         }}
         >
           <Marker onClick={this.onMarkerClick}
@@ -49,5 +51,5 @@ export class MapContainer extends Component {
 
 
   export default GoogleApiWrapper({
-    apiKey: ('fsfsfs')
+    apiKey: ('fsfssfs')
   })(MapContainer)

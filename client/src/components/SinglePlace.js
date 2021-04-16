@@ -259,8 +259,8 @@ export default class SinglePlace extends Component {
 
     const { name, address, summary, images } = place;
 
-    console.log(latitude)
-    console.log(longitude)
+    // console.log(latitude)
+    // console.log(longitude)
 
     return (
       <Grid
@@ -280,7 +280,9 @@ export default class SinglePlace extends Component {
             numberOfLikes={numberOfLikes}
             likedStatus={likedStatus}
             like={this.like}
-          />\
+            latitude={latitude}
+            longitude={longitude}
+          />
         </Grid>
 
         <Grid container justify="center" alignItems="center" direction="row">

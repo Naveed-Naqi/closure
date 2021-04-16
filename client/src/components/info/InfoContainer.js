@@ -15,10 +15,14 @@ import "./info.css";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
+import MapContainer from "../GoogleMap.js"
+
 function Closure_Info(props) {
-  const { name, address, summary, numberOfLikes, like, likedStatus } = props;
+  const { name, address, summary, numberOfLikes, like, likedStatus, latitude, longitude } = props;
   const res_website = "www.whatismywebsite.com";
   const res_website_link = "https://" + res_website;
+  console.log(latitude)
+  console.log(longitude)
   return (
     <div>
       <Grid
@@ -45,6 +49,9 @@ function Closure_Info(props) {
                   {summary}
                 </Typography>
               </CardContent>
+
+              {/* <MapContainer latitude={latitude} longitude={longitude}/> */}
+
               <CardActions disableSpacing>
                 <IconButton onClick={like}>
                   <FavoriteIcon
