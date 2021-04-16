@@ -32,7 +32,7 @@ export class MapContainer extends Component {
    
     render() {
       return (
-        <Map google={this.props.google}
+        <Map style={{width: 650, height: 300}}google={this.props.google}
         initialCenter={{ 
           // lat: this.state.mapCenter.lat, 
           // lng: this.state.mapCenter.lng
@@ -63,7 +63,7 @@ export class MapContainer extends Component {
 
 
   export default GoogleApiWrapper({
-    apiKey: ('fsfsfsfs')
+    apiKey: ('')
   })(MapContainer)
 
 
