@@ -153,7 +153,7 @@ export default class SinglePlace extends Component {
         place: res.data,
       });
       console.log("Hello Erik")
-      console.log(this.place)
+      console.log(this.state.place.address)
     } catch (err) {
       console.log(err);
     }
