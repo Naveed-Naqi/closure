@@ -90,11 +90,11 @@ class App extends Component {
               <PrivateRoute exact path="/Profile" component={ProfilePage} />
               <Route exact path="/GoogleMap" component={GoogleMap} />
 
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path="/dashboard"
                 component={DashboardContainer}
-              />
+              /> */}
 
             </Switch>
           </div>

@@ -152,6 +152,8 @@ export default class SinglePlace extends Component {
       this.setState({
         place: res.data,
       });
+      console.log("Hello Erik")
+      console.log(this.place)
     } catch (err) {
       console.log(err);
     }
