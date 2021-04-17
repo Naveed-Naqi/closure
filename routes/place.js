@@ -69,4 +69,49 @@ router.get("/search", async (req, res, next) => {
   }
 });
 
+router.post("/", checkAuth, async (req, res, next) => {
+  try {
+    const { name, address, summary } = req.body;
+    const userId = req.decoded.id; //If we want to store userId
+
+    
+    const newPlace = await Place.create({
+      name: name,
+      address: address,
+      summary: summary,
+    });
+
+    const placeToReturn = await Place.findOne({
+      where: { id: newPlace.id },
+      // include: User,
+    });
+
+    res.status(200).send(placeToReturn);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Some error occured");
+  }
+});
+
+router.get("/sort", async (req, res, next) => {
+  try {
+    const { sortType, whichWay } = req.query;
+    //sortType is the type of sort: name, createdAt, updatedAt
+    //whichWay indicates which way to sort: ASC, DESC
+
+    // const place = await Place.findOne({ where: { id: id }, include: Image });
+    
+    const places = await Place.findAll({
+      order: [
+        [sortType, whichWay],
+      ],
+      include: Image,
+    });
+    res.status(200).send(places);
+
+  } catch (err) {
+    res.status(400).send("Some error occured");
+  }
+});
+
 module.exports = router;
