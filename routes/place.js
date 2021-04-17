@@ -96,7 +96,7 @@ router.post("/", checkAuth, async (req, res, next) => {
 router.get("/sort", async (req, res, next) => {
   try {
     const { sortType, whichWay } = req.query;
-    //sortType is the type of sort: name, createdAt, updatedAt
+    //sortType is the column we want to sort by: name, createdAt, updatedAt
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
