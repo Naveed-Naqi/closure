@@ -114,4 +114,26 @@ router.get("/sort", async (req, res, next) => {
   }
 });
 
+router.get("/filter", async (req, res, next) => {
+  try {
+    const { content } = req.query;
+    //content are from a predefined set:
+    //["Bronx", "Brooklyn", "Queens", "Manhattan", "SI"]
+    //Granted not all addresses have the borough in them
+
+    const place = await Place.findAll({
+      where: {
+        address: {
+          [Op.iLike]: "%" + content + "%",
+        },
+      },
+      include: Image,
+    });
+
+    res.status(200).send(place);
+  } catch (err) {
+    res.status(400).send("Some error occured");
+  }
+});
+
 module.exports = router;
