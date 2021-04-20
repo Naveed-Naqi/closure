@@ -26,6 +26,7 @@ import SinglePlace from "./components/SinglePlace";
 
 import ProfilePage from "./components/ProfilePage";
 import AboutPage from "./components/AboutPage";
+import GoogleMap from "./components/GoogleMap";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -67,6 +68,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
+              
               <Route
                 exact
                 path="/info"
@@ -84,7 +86,16 @@ class App extends Component {
               <Route exact path="/single/:id" component={SinglePlace} />
               {/* <Route exact path="/comment_single/:id" component={SinglePlaceComments} /> */}
 
+
               <PrivateRoute exact path="/Profile" component={ProfilePage} />
+              <Route exact path="/GoogleMap" component={GoogleMap} />
+
+              {/* <PrivateRoute
+                exact
+                path="/dashboard"
+                component={DashboardContainer}
+              /> */}
+
             </Switch>
           </div>
         </Router>

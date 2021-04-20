@@ -16,10 +16,13 @@ import "./info.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { useSelector } from "react-redux";
 
+import MapContainer from "../GoogleMap.js"
+
 function Closure_Info(props) {
-  const { name, address, summary, numberOfLikes, like, likedStatus } = props;
+  const { name, address, summary, numberOfLikes, like, likedStatus, latitude, longitude } = props;
   const res_website = "www.whatismywebsite.com";
   const res_website_link = "https://" + res_website;
+
   const auth = useSelector((state) => state.auth);
 
   return (
@@ -48,6 +51,14 @@ function Closure_Info(props) {
                   {summary}
                 </Typography>
               </CardContent>
+
+              <Grid container>
+                <Grid item xs={6} >
+                  <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
+                </Grid>
+              </Grid>
+              
+
               <CardActions disableSpacing>
                 {auth.isAuthenticated && (
                   <IconButton onClick={like}>
