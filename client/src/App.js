@@ -28,6 +28,8 @@ import ProfilePage from "./components/ProfilePage";
 import AboutPage from "./components/AboutPage";
 import GoogleMap from "./components/GoogleMap";
 
+import AddPlace from "./components/AddPlace";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -68,7 +70,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginContainer} />
               <Route exact path="/register" component={RegisterContainer} />
-              
+
               <Route
                 exact
                 path="/info"
@@ -84,8 +86,8 @@ class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/about" component={AboutPage} />
               <Route exact path="/single/:id" component={SinglePlace} />
+              <Route exact path="/form" component={AddPlace} />
               {/* <Route exact path="/comment_single/:id" component={SinglePlaceComments} /> */}
-
 
               <PrivateRoute exact path="/Profile" component={ProfilePage} />
               <Route exact path="/GoogleMap" component={GoogleMap} />
@@ -95,7 +97,6 @@ class App extends Component {
                 path="/dashboard"
                 component={DashboardContainer}
               /> */}
-
             </Switch>
           </div>
         </Router>

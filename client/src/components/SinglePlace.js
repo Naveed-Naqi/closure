@@ -16,9 +16,9 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   geocodeByPlaceId,
   getLatLng,
-} from 'react-places-autocomplete';
+} from "react-places-autocomplete";
 
-import MapContainer from "./GoogleMap.js"
+import MapContainer from "./GoogleMap.js";
 
 export default class SinglePlace extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class SinglePlace extends Component {
       replyCommentId: null,
       comment: "",
       latitude: 0,
-      longitude: 0
+      longitude: 0,
     };
 
     this.textInput = React.createRef();
@@ -164,13 +164,14 @@ export default class SinglePlace extends Component {
       });
       //using react-places-autocomplete to get lat and long here
       geocodeByAddress(this.state.place.address)
-        .then(results => getLatLng(results[0]))
-        .then(({lat, lng}) => 
-          {this.setState({
+        .then((results) => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+          this.setState({
             latitude: lat,
-            longitude: lng
-          })});
-          // console.log("Successfully got latitude and longitude", {lat, lng}));
+            longitude: lng,
+          });
+        });
+      // console.log("Successfully got latitude and longitude", {lat, lng}));
     } catch (err) {
       console.log(err);
     }
@@ -254,7 +255,7 @@ export default class SinglePlace extends Component {
       comment,
       replyUsername,
       latitude,
-      longitude
+      longitude,
     } = this.state;
 
     const { name, address, summary, images } = place;
