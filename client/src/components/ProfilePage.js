@@ -104,9 +104,8 @@ class ProfilePage extends Component {
 
     return (
       <div>
-        <Modal open={open} onClose={this.handleToggle}>
-          <AddPlace />
-        </Modal>
+        <AddPlace open={open} handleToggle={this.handleToggle} />
+
         <Grid
           container
           justify="center"

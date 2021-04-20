@@ -1,16 +1,14 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, Button } from "@material-ui/core";
 import {
   Grid,
-  Card,
-  CardHeader,
-  CardMedia,
-  Typography,
-  IconButton,
   Paper,
+  TextField,
+  Button,
+  makeStyles,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@material-ui/core";
-
 import ImageUpload from "./info/ImageUpload";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,71 +20,71 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormPropsTextFields() {
+export default function AddPlace({ open, toggleModal }) {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <Paper>
-          <Grid>
-            <Grid
-              container
-              spacing={3}
-              alignItems="center"
-              justify="center"
-              direction="column"
-            >
-              <Grid item>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Name"
-                  defaultValue="Hello World"
-                  variant="outlined"
-                  size="medium"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Address"
-                  defaultValue="Hello World"
-                  variant="outlined"
-                  size="medium"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Description"
-                  defaultValue="Hello World"
-                  variant="outlined"
-                  size="medium"
-                  rows="5"
-                  multiline="true"
-                />
-              </Grid>
-              <Grid item alignContent="flex-start">
-                <h3>Upload an Image</h3>
-                <ImageUpload />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  alignItems="flex-end"
-                  // onClick={}
-                  // disabled={value === ""}
-                >
-                  Submit
-                </Button>
-              </Grid>
+    <Dialog open={open} onClose={toggleModal}>
+      <DialogTitle>ADD ITEM TO DIRECTORY</DialogTitle>
+      <DialogContent>
+        <form className={classes.root} noValidate autoComplete="off">
+          <Grid
+            container
+            spacing={3}
+            alignItems="center"
+            justify="center"
+            direction="column"
+          >
+            <Grid item>
+              <TextField
+                required
+                id="outlined-required"
+                label="Name"
+                defaultValue="Hello World"
+                variant="outlined"
+                fullWidth
+                size="medium"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                required
+                id="outlined-required"
+                label="Address"
+                defaultValue="Hello World"
+                variant="outlined"
+                size="medium"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                required
+                id="outlined-required"
+                label="Description"
+                defaultValue="Hello World"
+                variant="outlined"
+                size="medium"
+                rows="5"
+                multiline="true"
+              />
+            </Grid>
+            <Grid item alignContent="flex-start">
+              <h3>Upload an Image</h3>
+              <ImageUpload />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                alignItems="flex-end"
+                // onClick={}
+                // disabled={value === ""}
+              >
+                Submit
+              </Button>
             </Grid>
           </Grid>
-        </Paper>
-      </div>
-    </form>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
