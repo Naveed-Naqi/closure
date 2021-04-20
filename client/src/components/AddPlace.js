@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddPlace({ open, toggleModal }) {
+export default function AddPlace({ open, handleToggle }) {
   const classes = useStyles();
 
   return (
-    <Dialog open={open} onClose={toggleModal}>
+    <Dialog open={open} onClose={handleToggle}>
       <DialogTitle>ADD ITEM TO DIRECTORY</DialogTitle>
       <DialogContent>
         <form className={classes.root} noValidate autoComplete="off">
@@ -80,6 +80,14 @@ export default function AddPlace({ open, toggleModal }) {
                 // disabled={value === ""}
               >
                 Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                alignItems="flex-end"
+                onClick={handleToggle}
+              >
+                Cancel
               </Button>
             </Grid>
           </Grid>
