@@ -1,13 +1,10 @@
-import React from "react";
-import axios from "axios";
+import React, { Fragment } from "react";
 import { makeStyles, Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { Link } from "react-router-dom";
 
-import CloseIcon from "@material-ui/icons/Close";
-import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -35,44 +32,51 @@ const CommentBox = ({
 
   return (
     <Paper>
-      <form className={classes.root} noValidate autoComplete="off">
+      {auth.isAuthenticated ? (
+        <form className={classes.root} noValidate autoComplete="off">
+          <div>
+            <TextField
+              label="Enter Public Comment"
+              onChange={handleChange}
+              style={{ width: "100%" }}
+              value={value}
+              inputRef={inputRef}
+              InputProps={{
+                startAdornment: !!replyUsername && (
+                  <Chip
+                    label={`@${replyUsername}`}
+                    onDelete={removeReplyTextBox}
+                  />
+                ),
+              }}
+            ></TextField>
+          </div>
+          <div style={{ display: "flex" }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ marginLeft: "auto" }}
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={postComment}
+              disabled={value === ""}
+            >
+              Submit
+            </Button>
+          </div>
+        </form>
+      ) : (
         <div>
-          <TextField
-            label="Enter Public Comment"
-            onChange={handleChange}
-            style={{ width: "100%" }}
-            value={value}
-            inputRef={inputRef}
-            InputProps={{
-              startAdornment: !!replyUsername && (
-                <Chip
-                  label={`@${replyUsername}`}
-                  onDelete={removeReplyTextBox}
-                />
-              ),
-            }}
-          ></TextField>
+          <Fragment>You cannot leave a comment unless you are </Fragment>
+          <Link to="/"> logged in</Link>
         </div>
-        <div style={{ display: "flex" }}>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ marginLeft: "auto" }}
-            onClick={handleCancel}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={postComment}
-            disabled={value === ""}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
+      )}
     </Paper>
   );
 };

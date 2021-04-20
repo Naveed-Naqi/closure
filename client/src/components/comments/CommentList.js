@@ -16,7 +16,10 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ReplyIcon from "@material-ui/icons/Reply";
 import SubdirectoryArrowRightIcon from "@material-ui/icons/SubdirectoryArrowRight";
 
-export default class CommentList extends Component {
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+class CommentList extends Component {
   constructor(props) {
     super(props);
   }
@@ -40,9 +43,12 @@ export default class CommentList extends Component {
                     </ListItemAvatar>
                     <ListItemText primary={username} secondary={content} />
 
-                    <IconButton onClick={openReplyTextBox} id={index}>
-                      <ReplyIcon />
-                    </IconButton>
+                    {this.props.auth.isAuthenticated && (
+                      <IconButton onClick={openReplyTextBox} id={index}>
+                        <ReplyIcon />
+                      </IconButton>
+                    )}
+
                     <Badge
                       badgeContent={replies && replies.length}
                       color="primary"
@@ -71,7 +77,7 @@ export default class CommentList extends Component {
                                 </Avatar>
                               </ListItemAvatar>
                               <ListItemText
-                                primary={username}
+                                primary={reply.user.username}
                                 secondary={reply.content}
                               />
                             </ListItem>
@@ -88,3 +94,13 @@ export default class CommentList extends Component {
     );
   }
 }
+
+CommentList.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(CommentList);
