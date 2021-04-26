@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
-  Paper,
   TextField,
   Button,
   makeStyles,
@@ -20,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddPlace({ open, handleToggle }) {
+export default function AddPlace({ open, handleToggle, handleSubmit }) {
   const classes = useStyles();
+
+  const handleChange = () => {};
 
   return (
     <Dialog open={open} onClose={handleToggle}>
@@ -76,8 +77,7 @@ export default function AddPlace({ open, handleToggle }) {
                 variant="contained"
                 color="primary"
                 alignItems="flex-end"
-                // onClick={}
-                // disabled={value === ""}
+                onClick={handleSubmit}
               >
                 Submit
               </Button>

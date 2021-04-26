@@ -92,6 +92,14 @@ class ProfilePage extends Component {
     });
   };
 
+  handleSubmit = async (data) => {
+    try {
+      const res = await axios.post("/api/places/", data);
+
+      this.handleToggle();
+    } catch (err) {}
+  };
+
   componentDidMount = async () => {
     await this.getLikedPlaces();
     await this.getCommentedPlaces();
@@ -104,7 +112,11 @@ class ProfilePage extends Component {
 
     return (
       <div>
-        <AddPlace open={open} handleToggle={this.handleToggle} />
+        <AddPlace
+          open={open}
+          handleToggle={this.handleToggle}
+          handleSubmit={handleSubmit}
+        />
 
         <Grid
           container

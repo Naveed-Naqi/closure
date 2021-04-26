@@ -3,8 +3,8 @@ const router = express.Router();
 const { Op } = require("sequelize");
 const { Place, Image, Like } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
+const upload = require("./upload");
 
-//login
 router.get("/", async (req, res, next) => {
   try {
     const places = await Place.findAll({ include: Image });
@@ -70,27 +70,43 @@ router.get("/search", async (req, res, next) => {
 });
 
 router.post("/", checkAuth, async (req, res, next) => {
-  try {
-    const { name, address, summary } = req.body;
-    const userId = req.decoded.id; //If we want to store userId
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ message: err.message });
+    } else {
+      try {
+        const { name, address, summary } = req.body;
+        const userId = req.decoded.id; //If we want to store userId
 
-    
-    const newPlace = await Place.create({
-      name: name,
-      address: address,
-      summary: summary,
-    });
-
-    const placeToReturn = await Place.findOne({
-      where: { id: newPlace.id },
-      // include: User,
-    });
-
-    res.status(200).send(placeToReturn);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send("Some error occured");
-  }
+        const newPlace = await Place.create(
+          {
+            name: name,
+            address: address,
+            summary: summary,
+            image: {
+              link: req.file.transforms[0].location,
+            },
+          },
+          {
+            include: [
+              {
+                association: Place.Image,
+              },
+            ],
+          }
+        );
+        const placeToReturn = await Place.findOne({
+          where: { id: newPlace.id },
+          // include: User,
+        });
+        res.status(200).send(placeToReturn);
+      } catch (err) {
+        console.log(err);
+        res.status(400).send("Some error occured");
+      }
+    }
+  });
 });
 
 router.get("/sort", async (req, res, next) => {
@@ -100,15 +116,12 @@ router.get("/sort", async (req, res, next) => {
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
-    
+
     const places = await Place.findAll({
-      order: [
-        [sortType, whichWay],
-      ],
+      order: [[sortType, whichWay]],
       include: Image,
     });
     res.status(200).send(places);
-
   } catch (err) {
     res.status(400).send("Some error occured");
   }
