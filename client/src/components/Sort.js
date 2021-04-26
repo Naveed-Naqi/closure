@@ -18,28 +18,28 @@ function Sort(props) {
 
     const handleChange = (event) => {
         setSort(event.target.value);
-        //if updating places is handled here then WIP
-        // console.log('Do change here')
-        // switch (sort) {
-        //     case 'Alphabetical':
-        //         console.log('Alphabetical');
-        //         console.log(props.places[0]);
-        //         break;
-        //     case 'Most Liked':
-        //         parent.places = props.places.pop();
-        //         console.log(props.places.pop());
-        //         console.log('Most Liked');
-        //         console.log(props.places[1]);
-        //         break;
-        //     case 'Recently Added':
-        //         console.log('Recently Added');
-        //         console.log(props.places[2]);
-        //         break;
-        //     default:
-        //         console.log('No change');
-        // }
-        
     };
+    //if updating places is handled here then WIP
+    // console.log('This is the sort status:')
+    // console.log(sort)
+    // console.log('Do change here')
+    //     switch (sort) {
+    //         case 'Alphabetical':
+    //             console.log('Alphabetical');
+    //             console.log(props.places[0]);
+    //             break;
+    //         case 'Most Liked':
+    //             console.log(props.places.pop());
+    //             console.log('Most Liked');
+    //             console.log(props.places[1]);
+    //             break;
+    //         case 'Recently Added':
+    //             console.log('Recently Added');
+    //             console.log(props.places[2]);
+    //             break;
+    //         default:
+    //             console.log('No change');
+    //     }
     return (
         <div>
             <FormControl className={classes.formControl}>
