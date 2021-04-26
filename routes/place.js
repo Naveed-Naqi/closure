@@ -115,7 +115,25 @@ router.get("/sort", async (req, res, next) => {
           Image,
         ],
         order: [
-          ['count', 'DESC'],
+          ['count', whichWay],
+        ],
+      });
+      res.status(200).send(places);
+    }
+    else if (sortType == "comments") {
+      const places = await Comment.findAll({
+        attributes: [
+          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+        ],
+        include: [
+          {
+            model: Place,
+            as: 'Places',
+          },
+          Image,
+        ],
+        order: [
+          ['count', whichWay],
         ],
       });
       res.status(200).send(places);
