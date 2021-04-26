@@ -30,10 +30,8 @@ function Closure_Info(props) {
       <Grid
         container
         direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6}>
           <Paper elevation={6} style={{ height: "50vh", width: "50vw" }}>
             <img
               src={props.restaurant_pic}
@@ -41,8 +39,11 @@ function Closure_Info(props) {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper elevation={6}>
+        <Grid item sm ={6} >
+          <MapContainer style={{width:"500"}} latitudeMap = {latitude} longitudeMap={longitude}/>
+        </Grid>
+        <Grid item sm={12} style={{}}>
+          <Paper elevation={6} >
             <Card style={{ height: "50vh", width: "50vw", overflow: "auto" }}>
               <CardHeader title={name} subheader={address} />
 
@@ -52,11 +53,11 @@ function Closure_Info(props) {
                 </Typography>
               </CardContent>
 
-              <Grid container>
+              {/* <Grid container>
                 <Grid item xs={6} >
                   <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
                 </Grid>
-              </Grid>
+              </Grid> */}
               
 
               <CardActions disableSpacing>

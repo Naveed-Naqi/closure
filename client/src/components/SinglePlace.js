@@ -266,8 +266,6 @@ export default class SinglePlace extends Component {
       <Grid
         container
         direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
         spacing={5}
       >
         <Grid item sm={6} md={12}>
