@@ -20,8 +20,7 @@ function Sort(props) {
         setSort(event.target.value);
     };
     //if updating places is handled here then WIP
-    // console.log('This is the sort status:')
-    // console.log(sort)
+    // console.log(`This is the sort status: ${sort}`)
     // console.log('Do change here')
     //     switch (sort) {
     //         case 'Alphabetical':
