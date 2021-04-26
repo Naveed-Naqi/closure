@@ -92,12 +92,27 @@ class ProfilePage extends Component {
     });
   };
 
-  handleSubmit = async (data) => {
+  handleSubmit = async (e, data) => {
     try {
-      const res = await axios.post("/api/places/", data);
+      let newPlace = new FormData();
+      newPlace.append("image", data.image);
+
+      const { name, desc, address } = data;
+
+      newPlace.set("name", name);
+      newPlace.set("desc", desc);
+      newPlace.set("address", address);
+
+      const res = await axios.post("/api/places/", newPlace, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       this.handleToggle();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   componentDidMount = async () => {
@@ -115,7 +130,7 @@ class ProfilePage extends Component {
         <AddPlace
           open={open}
           handleToggle={this.handleToggle}
-          handleSubmit={handleSubmit}
+          handleSubmit={this.handleSubmit}
         />
 
         <Grid

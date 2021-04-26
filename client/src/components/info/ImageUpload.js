@@ -47,108 +47,110 @@ import { withStyles } from "@material-ui/core/styles";
 //   "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg"
 // ];
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   icon: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
   },
   iconHover: {
     margin: theme.spacing.unit * 2,
     "&:hover": {
-      color: red[800]
-    }
+      color: red[800],
+    },
   },
   cardHeader: {
     textalign: "center",
     align: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   input: {
-    display: "none"
+    display: "none",
   },
   title: {
     color: blue[800],
     fontWeight: "bold",
     fontFamily: "Montserrat",
-    align: "center"
+    align: "center",
   },
   button: {
     color: blue[900],
-    margin: 10
+    margin: 10,
   },
   secondaryButton: {
     color: "gray",
-    margin: 10
+    margin: 10,
   },
   typography: {
     margin: theme.spacing.unit * 2,
-    backgroundColor: "default"
+    backgroundColor: "default",
   },
 
   searchRoot: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 400
+    width: 400,
   },
   searchInput: {
     marginLeft: 8,
-    flex: 1
+    flex: 1,
   },
   searchIconButton: {
-    padding: 10
+    padding: 10,
   },
   searchDivider: {
     width: 1,
     height: 28,
-    margin: 4
-  }
+    margin: 4,
+  },
 });
 
 class ImageUploadCard extends React.Component {
   state = {
     mainState: "initial", // initial, search, gallery, uploaded
     imageUploaded: 0,
-    selectedFile: null
+    selectedFile: null,
   };
 
-  handleUploadClick = event => {
+  handleUploadClick = (event) => {
     console.log();
     var file = event.target.files[0];
     const reader = new FileReader();
     var url = reader.readAsDataURL(file);
 
-    reader.onloadend = function(e) {
+    reader.onloadend = function (e) {
       this.setState({
-        selectedFile: [reader.result]
+        selectedFile: [reader.result],
       });
     }.bind(this);
     console.log(url); // Would see a path?
 
+    this.props.updateSelectedImage(event.target.files[0]);
+
     this.setState({
       mainState: "uploaded",
       selectedFile: event.target.files[0],
-      imageUploaded: 1
+      imageUploaded: 1,
     });
   };
 
-//   handleSearchClick = event => {
-//     this.setState({
-//       mainState: "search"
-//     });
-//   };
+  //   handleSearchClick = event => {
+  //     this.setState({
+  //       mainState: "search"
+  //     });
+  //   };
 
-//   handleGalleryClick = event => {
-//     this.setState({
-//       mainState: "gallery"
-//     });
-//   };
+  //   handleGalleryClick = event => {
+  //     this.setState({
+  //       mainState: "gallery"
+  //     });
+  //   };
 
   renderInitialState() {
     const { classes, theme } = this.props;
@@ -183,40 +185,40 @@ class ImageUploadCard extends React.Component {
     );
   }
 
-//   handleSearchURL = event => {
-//     console.log();
-//     var file = event.target.files[0];
-//     var reader = new FileReader();
-//     var url = reader.readAsDataURL(file);
+  //   handleSearchURL = event => {
+  //     console.log();
+  //     var file = event.target.files[0];
+  //     var reader = new FileReader();
+  //     var url = reader.readAsDataURL(file);
 
-//     reader.onloadend = function(e) {
-//       this.setState({
-//         selectedFile: [reader.result]
-//       });
-//     }.bind(this);
-//     console.log(url); // Would see a path?
+  //     reader.onloadend = function(e) {
+  //       this.setState({
+  //         selectedFile: [reader.result]
+  //       });
+  //     }.bind(this);
+  //     console.log(url); // Would see a path?
 
-//     this.setState({
-//       selectedFile: event.target.files[0],
-//       imageUploaded: 1
-//     });
-//   };
+  //     this.setState({
+  //       selectedFile: event.target.files[0],
+  //       imageUploaded: 1
+  //     });
+  //   };
 
-//   handleImageSearch(url) {
-//     var filename = url.substring(url.lastIndexOf("/") + 1);
-//     console.log(filename);
-//     this.setState({
-//       mainState: "uploaded",
-//       imageUploaded: true,
-//       selectedFile: url,
-//       fileReader: undefined,
-//       filename: filename
-//     });
-//   }
+  //   handleImageSearch(url) {
+  //     var filename = url.substring(url.lastIndexOf("/") + 1);
+  //     console.log(filename);
+  //     this.setState({
+  //       mainState: "uploaded",
+  //       imageUploaded: true,
+  //       selectedFile: url,
+  //       fileReader: undefined,
+  //       filename: filename
+  //     });
+  //   }
 
-  handleSeachClose = event => {
+  handleSeachClose = (event) => {
     this.setState({
-      mainState: "initial"
+      mainState: "initial",
     });
   };
 
@@ -246,17 +248,17 @@ class ImageUploadCard extends React.Component {
     );
   }
 
-//   handleAvatarClick(value) {
-//     var filename = value.url.substring(value.url.lastIndexOf("/") + 1);
-//     console.log(filename);
-//     this.setState({
-//       mainState: "uploaded",
-//       imageUploaded: true,
-//       selectedFile: value.url,
-//       fileReader: undefined,
-//       filename: filename
-//     });
-//   }
+  //   handleAvatarClick(value) {
+  //     var filename = value.url.substring(value.url.lastIndexOf("/") + 1);
+  //     console.log(filename);
+  //     this.setState({
+  //       mainState: "uploaded",
+  //       imageUploaded: true,
+  //       selectedFile: value.url,
+  //       fileReader: undefined,
+  //       filename: filename
+  //     });
+  //   }
 
   renderGalleryState() {
     // const { classes } = this.props;
@@ -317,12 +319,12 @@ class ImageUploadCard extends React.Component {
     );
   }
 
-  imageResetHandler = event => {
+  imageResetHandler = (event) => {
     console.log("Click!");
     this.setState({
       mainState: "initial",
       selectedFile: null,
-      imageUploaded: 0
+      imageUploaded: 0,
     });
   };
 
@@ -335,8 +337,8 @@ class ImageUploadCard extends React.Component {
           <Card className={this.props.cardName}>
             {(this.state.mainState == "initial" && this.renderInitialState()) ||
               (this.state.mainState == "search" && this.renderSearchState()) ||
-            //   (this.state.mainState == "gallery" &&
-            //     this.renderGalleryState()) ||
+              //   (this.state.mainState == "gallery" &&
+              //     this.renderGalleryState()) ||
               (this.state.mainState == "uploaded" &&
                 this.renderUploadedState())}
           </Card>

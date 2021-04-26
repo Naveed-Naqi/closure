@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const { Place, Image, Like } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
 const upload = require("./upload");
+const singleUpload = upload.single("image");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -70,34 +71,31 @@ router.get("/search", async (req, res, next) => {
 });
 
 router.post("/", checkAuth, async (req, res, next) => {
-  upload(req, res, async (err) => {
+  singleUpload(req, res, async (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ message: err.message });
     } else {
       try {
-        const { name, address, summary } = req.body;
-        const userId = req.decoded.id; //If we want to store userId
+        const { name, address, desc } = req.body;
+        //const userId = req.decoded.id; //If we want to store userId
 
-        const newPlace = await Place.create(
-          {
-            name: name,
-            address: address,
-            summary: summary,
-            image: {
-              link: req.file.transforms[0].location,
-            },
-          },
-          {
-            include: [
-              {
-                association: Place.Image,
-              },
-            ],
-          }
-        );
+        console.log(req.file.transforms[0].location);
+
+        const newPlace = await Place.create({
+          name: name,
+          address: address,
+          summary: desc,
+        });
+
+        const newImage = await Image.create({
+          link: req.file.transforms[0].location,
+          placeId: newPlace.id,
+        });
+
         const placeToReturn = await Place.findOne({
           where: { id: newPlace.id },
+          include: Image,
           // include: User,
         });
         res.status(200).send(placeToReturn);
