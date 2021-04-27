@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
-const { Place, Image, Like } = require("../database/models");
+const { Place, Image, Like, Comment } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
 const upload = require("./upload");
 const singleUpload = upload.single("image");
@@ -110,16 +110,58 @@ router.post("/", checkAuth, async (req, res, next) => {
 router.get("/sort", async (req, res, next) => {
   try {
     const { sortType, whichWay } = req.query;
-    //sortType is the column we want to sort by: name, createdAt, updatedAt
+    //sortType given Places column, we want to sort by: name, createdAt, updatedAt
+    //sortType can be given other sorting type: likes, comments
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
+    
+    if (sortType == "likes") {
+      const places = await Like.findAll({
+        attributes: [
+          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+        ],
+        include: [
+          {
+            model: Place,
+            as: 'Places',
+          },
+          Image,
+        ],
+        order: [
+          ['count', whichWay],
+        ],
+      });
+      res.status(200).send(places);
+    }
+    else if (sortType == "comments") {
+      const places = await Comment.findAll({
+        attributes: [
+          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+        ],
+        include: [
+          {
+            model: Place,
+            as: 'Places',
+          },
+          Image,
+        ],
+        order: [
+          ['count', whichWay],
+        ],
+      });
+      res.status(200).send(places);
+    }
+    else {
+      const places = await Place.findAll({
+        order: [
+          [sortType, whichWay],
+        ],
+        include: Image,
+      });
+      res.status(200).send(places);
+    }
 
-    const places = await Place.findAll({
-      order: [[sortType, whichWay]],
-      include: Image,
-    });
-    res.status(200).send(places);
   } catch (err) {
     res.status(400).send("Some error occured");
   }
