@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
-const { Place, Image, Like } = require("../database/models");
+const { Place, Image, Like, Comment } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
+const upload = require("./upload");
+const singleUpload = upload.single("image");
 
-//login
 router.get("/", async (req, res, next) => {
   try {
     const places = await Place.findAll({ include: Image });
@@ -70,44 +71,96 @@ router.get("/search", async (req, res, next) => {
 });
 
 router.post("/", checkAuth, async (req, res, next) => {
-  try {
-    const { name, address, summary } = req.body;
-    const userId = req.decoded.id; //If we want to store userId
+  singleUpload(req, res, async (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ message: err.message });
+    } else {
+      try {
+        const { name, address, desc } = req.body;
+        //const userId = req.decoded.id; //If we want to store userId
 
-    
-    const newPlace = await Place.create({
-      name: name,
-      address: address,
-      summary: summary,
-    });
+        console.log(req.file.transforms[0].location);
 
-    const placeToReturn = await Place.findOne({
-      where: { id: newPlace.id },
-      // include: User,
-    });
+        const newPlace = await Place.create({
+          name: name,
+          address: address,
+          summary: desc,
+        });
 
-    res.status(200).send(placeToReturn);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send("Some error occured");
-  }
+        const newImage = await Image.create({
+          link: req.file.transforms[0].location,
+          placeId: newPlace.id,
+        });
+
+        const placeToReturn = await Place.findOne({
+          where: { id: newPlace.id },
+          include: Image,
+          // include: User,
+        });
+        res.status(200).send(placeToReturn);
+      } catch (err) {
+        console.log(err);
+        res.status(400).send("Some error occured");
+      }
+    }
+  });
 });
 
 router.get("/sort", async (req, res, next) => {
   try {
     const { sortType, whichWay } = req.query;
-    //sortType is the column we want to sort by: name, createdAt, updatedAt
+    //sortType given Places column, we want to sort by: name, createdAt, updatedAt
+    //sortType can be given other sorting type: likes, comments
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
     
-    const places = await Place.findAll({
-      order: [
-        [sortType, whichWay],
-      ],
-      include: Image,
-    });
-    res.status(200).send(places);
+    if (sortType == "likes") {
+      const places = await Like.findAll({
+        attributes: [
+          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+        ],
+        include: [
+          {
+            model: Place,
+            as: 'Places',
+          },
+          Image,
+        ],
+        order: [
+          ['count', whichWay],
+        ],
+      });
+      res.status(200).send(places);
+    }
+    else if (sortType == "comments") {
+      const places = await Comment.findAll({
+        attributes: [
+          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+        ],
+        include: [
+          {
+            model: Place,
+            as: 'Places',
+          },
+          Image,
+        ],
+        order: [
+          ['count', whichWay],
+        ],
+      });
+      res.status(200).send(places);
+    }
+    else {
+      const places = await Place.findAll({
+        order: [
+          [sortType, whichWay],
+        ],
+        include: Image,
+      });
+      res.status(200).send(places);
+    }
 
   } catch (err) {
     res.status(400).send("Some error occured");

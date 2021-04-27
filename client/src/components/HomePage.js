@@ -4,17 +4,10 @@ import SearchBar from "./info/SeachBar";
 import CardList from "./utils/CardList";
 import Loading from "./utils/Loading";
 import Sort from "./Sort"
-
+import Filter from "./info/Filter";
 import {
-  Grid,
-  Card,
-  CardHeader,
-  CardMedia,
   Typography,
-  IconButton,
 } from "@material-ui/core";
-import InfoIcon from "@material-ui/icons/Info";
-
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
@@ -80,7 +73,10 @@ class HomePage extends Component {
 
     return (
       <div className={classes.root}>
-        <h1>Homepage</h1>
+        <Typography variant="h3">
+          Home Page
+        </Typography>
+        <Filter />      
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
@@ -89,9 +85,10 @@ class HomePage extends Component {
         <div style={{marginRight: '80%'}}>
           <Sort places = {places}/>
         </div>
-
-        <CardList places={places} loading={loading} />
+      
+      <CardList places={places} loading={loading} />
       </div>
+        
     );
   }
 }
