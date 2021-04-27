@@ -182,7 +182,7 @@ router.get("/filter", async (req, res, next) => {
     var resPlaces = {}
 
     allPlaces.forEach(
-      (place) => {
+      async (place) => {
         const {latlon} = await axios.get(
           "https://maps.googleapis.com/maps/api/geocode/json?address="+ place.dataValues.address.replace(' ','+') +"&key=YOUR_API_KEY"
         )
