@@ -17,6 +17,7 @@ const styles = (theme) => ({
     width: "100vh",
     margin: "auto",
     marginBottom: "25px",
+    marginTop: "10px"
     
 
   },
