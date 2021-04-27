@@ -16,12 +16,13 @@ export class MapContainer extends Component {
     };
   }
 
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
     });
+  };
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -29,20 +30,15 @@ export class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: null,
       });
-   
-    onMapClicked = (props) => {
-      if (this.state.showingInfoWindow) {
-        this.setState({
-          showingInfoWindow: false,
-          activeMarker: null
-        })
-      }
-    };
-   
-    render() {
-      return (
-        <Map style={{width: "50vw", height: "50vh"}}google={this.props.google}
-        initialCenter={{ 
+    }
+  };
+
+  render() {
+    return (
+      <Map
+        style={{ width: "50vw", height: "50vh" }}
+        google={this.props.google}
+        initialCenter={{
           // lng: this.state.mapCenter.lng
           lat: this.props.latitudeMap,
           lng: this.props.longitudeMap,
