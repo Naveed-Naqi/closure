@@ -3,11 +3,9 @@ import axios from "axios";
 import SearchBar from "./info/SeachBar";
 import CardList from "./utils/CardList";
 import Loading from "./utils/Loading";
-import Sort from "./Sort"
+import Sort from "./Sort";
 import Filter from "./info/Filter";
-import {
-  Typography,
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
@@ -67,28 +65,42 @@ class HomePage extends Component {
     }
   };
 
+  sortPlaces = async (params) => {
+    try {
+      const [sortType, whichWay] = params.split("-", 2);
+      const data = { sortType, whichWay };
+
+      const res = await axios.get("/api/places/sort", {
+        params: data,
+      });
+
+      this.setState({
+        places: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     const { places, loading } = this.state;
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
-        <Typography variant="h3">
-          Home Page
-        </Typography>
-        <Filter />      
+        <Typography variant="h3">Home Page</Typography>
+        <Filter />
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
         />
 
-        <div style={{marginRight: '80%'}}>
-          <Sort places = {places}/>
+        <div style={{ marginRight: "80%" }}>
+          <Sort places={places} sortPlaces={this.sortPlaces} />
         </div>
-      
-      <CardList places={places} loading={loading} />
+
+        <CardList places={places} loading={loading} />
       </div>
-        
     );
   }
 }

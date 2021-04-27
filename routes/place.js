@@ -115,53 +115,46 @@ router.get("/sort", async (req, res, next) => {
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
-    
+
     if (sortType == "likes") {
       const places = await Like.findAll({
         attributes: [
-          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+          "Places.*",
+          [Op.fn("count", self.Op.col("placeId")), "count"],
         ],
         include: [
           {
             model: Place,
-            as: 'Places',
+            as: "Places",
           },
           Image,
         ],
-        order: [
-          ['count', whichWay],
-        ],
+        order: [["count", whichWay]],
       });
       res.status(200).send(places);
-    }
-    else if (sortType == "comments") {
+    } else if (sortType == "comments") {
       const places = await Comment.findAll({
         attributes: [
-          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
+          "Places.*",
+          [Op.fn("count", self.Op.col("placeId")), "count"],
         ],
         include: [
           {
             model: Place,
-            as: 'Places',
+            as: "Places",
           },
           Image,
         ],
-        order: [
-          ['count', whichWay],
-        ],
+        order: [["count", whichWay]],
       });
       res.status(200).send(places);
-    }
-    else {
+    } else {
       const places = await Place.findAll({
-        order: [
-          [sortType, whichWay],
-        ],
+        order: [[sortType, whichWay]],
         include: Image,
       });
       res.status(200).send(places);
     }
-
   } catch (err) {
     res.status(400).send("Some error occured");
   }
