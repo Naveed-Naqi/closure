@@ -29,16 +29,20 @@ export class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: null,
       });
-    }
-  };
-
-  render() {
-    return (
-      <Map
-        style={{ width: 650, height: 300 }}
-        google={this.props.google}
-        initialCenter={{
-          // lat: this.state.mapCenter.lat,
+   
+    onMapClicked = (props) => {
+      if (this.state.showingInfoWindow) {
+        this.setState({
+          showingInfoWindow: false,
+          activeMarker: null
+        })
+      }
+    };
+   
+    render() {
+      return (
+        <Map style={{width: "50vw", height: "50vh"}}google={this.props.google}
+        initialCenter={{ 
           // lng: this.state.mapCenter.lng
           lat: this.props.latitudeMap,
           lng: this.props.longitudeMap,

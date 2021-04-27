@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./info/SeachBar";
 import CardList from "./utils/CardList";
+import Loading from "./utils/Loading";
+import Sort from "./Sort"
 import Filter from "./info/Filter";
 import {
   Typography,
@@ -78,9 +80,15 @@ class HomePage extends Component {
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
-        />        
-        <CardList places={places} loading={loading} />
+        />
+
+        <div style={{marginRight: '80%'}}>
+          <Sort places = {places}/>
+        </div>
+      
+      <CardList places={places} loading={loading} />
       </div>
+        
     );
   }
 }
