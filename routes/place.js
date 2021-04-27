@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Op } = require("sequelize");
+const { Op, literal } = require("sequelize");
 const { Place, Image, Like, Comment } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
 const upload = require("./upload");
@@ -116,54 +116,52 @@ router.get("/sort", async (req, res, next) => {
     //whichWay indicates which way to sort: ASC, DESC
 
     // const place = await Place.findOne({ where: { id: id }, include: Image });
-    
+
     if (sortType == "likes") {
-      const places = await Like.findAll({
-        attributes: [
-          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
-        ],
-        include: [
-          {
-            model: Place,
-            as: 'Places',
-          },
-          Image,
-        ],
-        order: [
-          ['count', whichWay],
-        ],
-      });
-      res.status(200).send(places);
-    }
-    else if (sortType == "comments") {
-      const places = await Comment.findAll({
-        attributes: [
-          'Places.*',[Op.fn('count', self.Op.col("placeId")), 'count'],
-        ],
-        include: [
-          {
-            model: Place,
-            as: 'Places',
-          },
-          Image,
-        ],
-        order: [
-          ['count', whichWay],
-        ],
-      });
-      res.status(200).send(places);
-    }
-    else {
       const places = await Place.findAll({
-        order: [
-          [sortType, whichWay],
+        attributes: [
+          "id",
+          "name",
+          "address",
+          "summary",
+          [
+            literal(
+              `(SELECT COUNT(*) FROM "likes" WHERE "placeId" = Place.id)`
+            ),
+            `"PostCount"`,
+          ],
         ],
+        order: [[literal(`"PostCount"`), whichWay]],
+        include: [Image],
+      });
+      res.status(200).send(places);
+    } else if (sortType == "comments") {
+      const places = await Place.findAll({
+        attributes: [
+          "id",
+          "name",
+          "address",
+          "summary",
+          [
+            literal(
+              `(SELECT COUNT(*) FROM "comments" WHERE "placeId" = Place.id)`
+            ),
+            `"PostCount"`,
+          ],
+        ],
+        order: [[literal(`"PostCount"`), whichWay]],
+        include: [Image],
+      });
+      res.status(200).send(places);
+    } else {
+      const places = await Place.findAll({
+        order: [[sortType, whichWay]],
         include: Image,
       });
       res.status(200).send(places);
     }
-
   } catch (err) {
+    console.log(err);
     res.status(400).send("Some error occured");
   }
 });
