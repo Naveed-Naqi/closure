@@ -38,117 +38,96 @@ import ReplayIcon from "@material-ui/icons/Replay";
 //Tabs
 import { withStyles } from "@material-ui/core/styles";
 
-// const imageGallery = [
-//   "https://raw.githubusercontent.com/dxyang/StyleTransfer/master/style_imgs/mosaic.jpg",
-//   "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-//   "https://raw.githubusercontent.com/ShafeenTejani/fast-style-transfer/master/examples/dora-maar-picasso.jpg",
-//   "https://pbs.twimg.com/profile_images/925531519858257920/IyYLHp-u_400x400.jpg",
-//   "https://raw.githubusercontent.com/ShafeenTejani/fast-style-transfer/master/examples/dog.jpg",
-//   "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg"
-// ];
-
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   icon: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
   },
   iconHover: {
     margin: theme.spacing.unit * 2,
     "&:hover": {
-      color: red[800]
-    }
+      color: red[800],
+    },
   },
   cardHeader: {
     textalign: "center",
     align: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   input: {
-    display: "none"
+    display: "none",
   },
   title: {
     color: blue[800],
     fontWeight: "bold",
     fontFamily: "Montserrat",
-    align: "center"
+    align: "center",
   },
   button: {
     color: blue[900],
-    margin: 10
+    margin: 10,
   },
   secondaryButton: {
     color: "gray",
-    margin: 10
+    margin: 10,
   },
   typography: {
     margin: theme.spacing.unit * 2,
-    backgroundColor: "default"
+    backgroundColor: "default",
   },
 
   searchRoot: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 400
+    width: 400,
   },
   searchInput: {
     marginLeft: 8,
-    flex: 1
+    flex: 1,
   },
   searchIconButton: {
-    padding: 10
+    padding: 10,
   },
   searchDivider: {
     width: 1,
     height: 28,
-    margin: 4
-  }
+    margin: 4,
+  },
 });
 
 class ImageUploadCard extends React.Component {
   state = {
     mainState: "initial", // initial, search, gallery, uploaded
     imageUploaded: 0,
-    selectedFile: null
+    selectedFile: null,
   };
 
-  handleUploadClick = event => {
-    console.log();
+  handleUploadClick = (event) => {
     var file = event.target.files[0];
     const reader = new FileReader();
     var url = reader.readAsDataURL(file);
 
-    reader.onloadend = function(e) {
+    reader.onloadend = function (e) {
       this.setState({
-        selectedFile: [reader.result]
+        selectedFile: [reader.result],
       });
     }.bind(this);
-    console.log(url); // Would see a path?
+
+    this.props.updateSelectedImage(event.target.files[0]);
 
     this.setState({
       mainState: "uploaded",
       selectedFile: event.target.files[0],
-      imageUploaded: 1
+      imageUploaded: 1,
     });
   };
-
-//   handleSearchClick = event => {
-//     this.setState({
-//       mainState: "search"
-//     });
-//   };
-
-//   handleGalleryClick = event => {
-//     this.setState({
-//       mainState: "gallery"
-//     });
-//   };
 
   renderInitialState() {
     const { classes, theme } = this.props;
@@ -171,118 +150,37 @@ class ImageUploadCard extends React.Component {
                 <AddPhotoAlternateIcon />
               </Fab>
             </label>
-            {/* <Fab className={classes.button} onClick={this.handleSearchClick}>
-              <SearchIcon />
-            </Fab> */}
-            {/* <Fab className={classes.button} onClick={this.handleGalleryClick}>
-              <CollectionsIcon />
-            </Fab> */}
           </Grid>
         </CardContent>
       </React.Fragment>
     );
   }
 
-//   handleSearchURL = event => {
-//     console.log();
-//     var file = event.target.files[0];
-//     var reader = new FileReader();
-//     var url = reader.readAsDataURL(file);
-
-//     reader.onloadend = function(e) {
-//       this.setState({
-//         selectedFile: [reader.result]
-//       });
-//     }.bind(this);
-//     console.log(url); // Would see a path?
-
-//     this.setState({
-//       selectedFile: event.target.files[0],
-//       imageUploaded: 1
-//     });
-//   };
-
-//   handleImageSearch(url) {
-//     var filename = url.substring(url.lastIndexOf("/") + 1);
-//     console.log(filename);
-//     this.setState({
-//       mainState: "uploaded",
-//       imageUploaded: true,
-//       selectedFile: url,
-//       fileReader: undefined,
-//       filename: filename
-//     });
-//   }
-
-  handleSeachClose = event => {
+  handleAvatarClick(value) {
+    var filename = value.url.substring(value.url.lastIndexOf("/") + 1);
+    console.log(filename);
     this.setState({
-      mainState: "initial"
+      mainState: "uploaded",
+      imageUploaded: true,
+      selectedFile: value.url,
+      fileReader: undefined,
+      filename: filename,
     });
-  };
-
-  renderSearchState() {
-    const { classes } = this.props;
-
-    return (
-      <Paper className={classes.searchRoot} elevation={1}>
-        <InputBase className={classes.searchInput} placeholder="Image URL" />
-        <IconButton
-          className={classes.button}
-          aria-label="Search"
-          onClick={this.handleImageSearch}
-        >
-          <SearchIcon />
-        </IconButton>
-        {/* <Divider className={classes.searchDivider} />
-        <IconButton
-          color="primary"
-          className={classes.secondaryButton}
-          aria-label="Close"
-          onClick={this.handleSeachClose}
-        >
-          <CloseIcon />
-        </IconButton> */}
-      </Paper>
-    );
   }
 
-//   handleAvatarClick(value) {
-//     var filename = value.url.substring(value.url.lastIndexOf("/") + 1);
-//     console.log(filename);
-//     this.setState({
-//       mainState: "uploaded",
-//       imageUploaded: true,
-//       selectedFile: value.url,
-//       fileReader: undefined,
-//       filename: filename
-//     });
-//   }
-
   renderGalleryState() {
-    // const { classes } = this.props;
-    // const listItems = this.props.imageGallery.map(url => (
-    //   <div
-    //     onClick={value => this.handleAvatarClick({ url })}
-    //     style={{
-    //       padding: "5px 5px 5px 5px",
-    //       cursor: "pointer"
-    //     }}
-    //   >
-    //     <Avatar src={url} />
-    //   </div>
-    // ));
-
-    /*const listItems = this.props.imageGallery.map(url => (
+    const { classes } = this.props;
+    const listItems = this.props.imageGallery.map((url) => (
       <div
-        onClick={value => this.handleAvatarClick({ url })}
+        onClick={(value) => this.handleAvatarClick({ url })}
         style={{
           padding: "5px 5px 5px 5px",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       >
-        <Avatar shape="square" size={100} src={url} />
+        <Avatar src={url} />
       </div>
-    ));*/
+    ));
 
     return (
       <React.Fragment>
@@ -317,12 +215,12 @@ class ImageUploadCard extends React.Component {
     );
   }
 
-  imageResetHandler = event => {
+  imageResetHandler = (event) => {
     console.log("Click!");
     this.setState({
       mainState: "initial",
       selectedFile: null,
-      imageUploaded: 0
+      imageUploaded: 0,
     });
   };
 
@@ -334,9 +232,6 @@ class ImageUploadCard extends React.Component {
         <div className={classes.root}>
           <Card className={this.props.cardName}>
             {(this.state.mainState == "initial" && this.renderInitialState()) ||
-              (this.state.mainState == "search" && this.renderSearchState()) ||
-            //   (this.state.mainState == "gallery" &&
-            //     this.renderGalleryState()) ||
               (this.state.mainState == "uploaded" &&
                 this.renderUploadedState())}
           </Card>

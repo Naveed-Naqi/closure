@@ -3,8 +3,9 @@ const router = express.Router();
 const { Op } = require("sequelize");
 const { Place, Image, Like, Comment } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
+const upload = require("./upload");
+const singleUpload = upload.single("image");
 
-//login
 router.get("/", async (req, res, next) => {
   try {
     const places = await Place.findAll({ include: Image });
@@ -70,27 +71,40 @@ router.get("/search", async (req, res, next) => {
 });
 
 router.post("/", checkAuth, async (req, res, next) => {
-  try {
-    const { name, address, summary } = req.body;
-    const userId = req.decoded.id; //If we want to store userId
+  singleUpload(req, res, async (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ message: err.message });
+    } else {
+      try {
+        const { name, address, desc } = req.body;
+        //const userId = req.decoded.id; //If we want to store userId
 
-    
-    const newPlace = await Place.create({
-      name: name,
-      address: address,
-      summary: summary,
-    });
+        console.log(req.file.transforms[0].location);
 
-    const placeToReturn = await Place.findOne({
-      where: { id: newPlace.id },
-      // include: User,
-    });
+        const newPlace = await Place.create({
+          name: name,
+          address: address,
+          summary: desc,
+        });
 
-    res.status(200).send(placeToReturn);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send("Some error occured");
-  }
+        const newImage = await Image.create({
+          link: req.file.transforms[0].location,
+          placeId: newPlace.id,
+        });
+
+        const placeToReturn = await Place.findOne({
+          where: { id: newPlace.id },
+          include: Image,
+          // include: User,
+        });
+        res.status(200).send(placeToReturn);
+      } catch (err) {
+        console.log(err);
+        res.status(400).send("Some error occured");
+      }
+    }
+  });
 });
 
 router.get("/sort", async (req, res, next) => {

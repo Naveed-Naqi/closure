@@ -60,7 +60,7 @@ export default function CardList({ loading, places }) {
                     />
                     <CardMedia
                       className={classes.media}
-                      image={images[0].link}
+                      image={images[0] && images[0].link}
                     />
                   </Card>
                 </Grid>

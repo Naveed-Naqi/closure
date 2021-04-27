@@ -2,18 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "./info/SeachBar";
 import CardList from "./utils/CardList";
-import Loading from "./utils/Loading";
-
+import Filter from "./info/Filter";
 import {
-  Grid,
-  Card,
-  CardHeader,
-  CardMedia,
   Typography,
-  IconButton,
 } from "@material-ui/core";
-import InfoIcon from "@material-ui/icons/Info";
-
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
@@ -79,12 +71,14 @@ class HomePage extends Component {
 
     return (
       <div className={classes.root}>
-        <h1>Homepage</h1>
+        <Typography variant="h3">
+          Home Page
+        </Typography>
+        <Filter />      
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
-        />
-
+        />        
         <CardList places={places} loading={loading} />
       </div>
     );

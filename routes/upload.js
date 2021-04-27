@@ -6,7 +6,7 @@ const sharp = require("sharp");
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: "us-east-1",
+  region: "us-east-2",
 });
 
 const checkFileType = (file, cb) => {
@@ -23,7 +23,7 @@ const checkFileType = (file, cb) => {
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "optimize-ecommerce",
+    bucket: "closure-bucket",
     acl: "public-read",
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });

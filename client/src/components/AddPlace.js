@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
-  Paper,
   TextField,
   Button,
   makeStyles,
@@ -20,8 +19,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddPlace({ open, handleToggle }) {
+export default function AddPlace({ open, handleToggle, handleSubmit }) {
   const classes = useStyles();
+  const [state, setState] = useState({
+    name: "",
+    desc: "",
+    address: "",
+    image: null,
+  });
+
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const updateSelectedImage = (image) => {
+    setState({
+      ...state,
+      image: image,
+    });
+  };
 
   return (
     <Dialog open={open} onClose={handleToggle}>
@@ -38,46 +57,51 @@ export default function AddPlace({ open, handleToggle }) {
             <Grid item>
               <TextField
                 required
-                id="outlined-required"
+                id="name"
                 label="Name"
-                defaultValue="Hello World"
                 variant="outlined"
                 fullWidth
                 size="medium"
+                value={state.name}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item>
               <TextField
                 required
-                id="outlined-required"
+                id="address"
                 label="Address"
-                defaultValue="Hello World"
                 variant="outlined"
                 size="medium"
+                value={state.address}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item>
               <TextField
                 required
-                id="outlined-required"
+                id="desc"
                 label="Description"
-                defaultValue="Hello World"
                 variant="outlined"
                 size="medium"
                 rows="5"
                 multiline="true"
+                value={state.desc}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item alignContent="flex-start">
               <h3>Upload an Image</h3>
-              <ImageUpload />
+              <ImageUpload updateSelectedImage={updateSelectedImage} />
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 alignItems="flex-end"
-                // onClick={}
-                // disabled={value === ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(e, state);
+                }}
               >
                 Submit
               </Button>
