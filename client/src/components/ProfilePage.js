@@ -343,6 +343,79 @@ class ProfilePage extends Component {
                   </CardContent>
                 </Card>
               </Grid>
+
+              {/* <Grid item xs={12}>
+                <Card style={{ height: "55vh", overflow: "auto" }}>
+                  <CardHeader
+                    style={{ backgroundColor: "#e7e7e7" }}
+                    title="Restaurants I Uploaded "
+                  />
+                  <CardContent>
+                    <TableContainer style={{ width: "100%", height: "600px" }}>
+                      <Table style={{ minWidth: "400" }}>
+                        <TableBody>
+                          <TableRow>
+                            {loading ? (
+                              <Loading />
+                            ) : (
+                              <Grid
+                                container
+                                alignItems="center"
+                                justify="center"
+                              >
+                                {comments.length > 0 ? (
+                                  comments.map((elem) => {
+                                    const { name, address, images, id } = elem;
+
+                                    return (
+                                      <TableCell>
+                                        <Grid item xs={3}>
+                                          <Card
+                                            style={{
+                                              width: "28vh",
+                                              height: "28vh",
+                                            }}
+                                          >
+                                            <CardHeader
+                                              action={
+                                                <IconButton
+                                                  id={id}
+                                                  onClick={(e) => {
+                                                    const id =
+                                                      e.currentTarget.id;
+                                                    this.props.history.push(
+                                                      `/single/${id}`
+                                                    );
+                                                  }}
+                                                >
+                                                  <InfoIcon />
+                                                </IconButton>
+                                              }
+                                              title={name}
+                                              subheader={address}
+                                            />
+                                            <CardMedia
+                                              style={{ height: "80%" }}
+                                              image={images[0].link}
+                                            />
+                                          </Card>
+                                        </Grid>
+                                      </TableCell>
+                                    );
+                                  })
+                                ) : (
+                                  <h1>No results</h1>
+                                )}
+                              </Grid>
+                            )}
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </CardContent>
+                </Card>
+              </Grid>                      */}
+
             </Grid>
           </Grid>
         </Grid>
