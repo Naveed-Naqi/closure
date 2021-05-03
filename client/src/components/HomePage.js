@@ -7,6 +7,9 @@ import Sort from "./Sort"
 import Filter from "./info/Filter";
 import {
   Typography,
+  Grid,
+  Card,
+  Paper
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -17,6 +20,10 @@ const styles = (theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
+  },
+  test:  {
+    maxWidth: 140,
+    paddingLeft: 180
   },
 });
 
@@ -75,15 +82,25 @@ class HomePage extends Component {
       <div className={classes.root}>
         <Typography variant="h3">
           Home Page
-        </Typography>
-        <Filter />      
+        </Typography>    
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
         />
 
-        <div style={{marginRight: '80%'}}>
-          <Sort places = {places}/>
+        <div className={classes.test}>
+          <Grid container className={classes.root} spacing={2}>
+            <Grid item xs={12} >
+              <Paper>
+                <Sort places = {places}/>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper>
+                <Filter places = {places} />
+              </Paper>
+            </Grid>
+          </Grid>
         </div>
       
       <CardList places={places} loading={loading} />
