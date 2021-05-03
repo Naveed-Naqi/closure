@@ -83,23 +83,41 @@ router.post("/", checkAuth, async (req, res, next) => {
 
         console.log(req.file.transforms[0].location);
 
-        const newPlace = await Place.create({
-          name: name,
-          address: address,
-          summary: desc,
-        });
+        const {existingAddress} = await axios.get(
+          "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replace(' ','+') +"&key=YOUR_API_KEY"
+        )
 
-        const newImage = await Image.create({
-          link: req.file.transforms[0].location,
-          placeId: newPlace.id,
-        });
-
-        const placeToReturn = await Place.findOne({
-          where: { id: newPlace.id },
-          include: Image,
-          // include: User,
-        });
-        res.status(200).send(placeToReturn);
+        if(name.length() > 50){
+          console.log("Name of restaurant is too long");
+          res.status(400).send("Name of restaurant is too long");
+        }
+        else if(existingAddress[0].partial_match) {
+          console.log("Address is either not specfic enough or does not exist");
+          res.status(400).send("Address is either not specfic enough or does not exist");
+        }
+        else if(desc.length() > 150){
+          console.log("Description is too long");
+          res.status(400).send("Description is too long");
+        }
+        else {
+          const newPlace = await Place.create({
+            name: name,
+            address: address,
+            summary: desc,
+          });
+  
+          const newImage = await Image.create({
+            link: req.file.transforms[0].location,
+            placeId: newPlace.id,
+          });
+  
+          const placeToReturn = await Place.findOne({
+            where: { id: newPlace.id },
+            include: Image,
+            // include: User,
+          });
+          res.status(200).send(placeToReturn);
+        }
       } catch (err) {
         console.log(err);
         res.status(400).send("Some error occured");
