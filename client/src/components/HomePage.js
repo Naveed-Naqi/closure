@@ -12,6 +12,7 @@ import {
   Paper
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { FormatAlignCenter } from "@material-ui/icons";
 
 const styles = (theme) => ({
   root: {
@@ -21,9 +22,10 @@ const styles = (theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-  test:  {
-    maxWidth: 140,
-    paddingLeft: 180
+  grid:  {
+    minWidth: 140,
+    maxWidth: 600,
+    paddingLeft: "34.25%"
   },
 });
 
@@ -88,14 +90,14 @@ class HomePage extends Component {
           onCancelSearch={this.getPlaces}
         />
 
-        <div className={classes.test}>
-          <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12} >
+        <div className={classes.grid}>
+          <Grid container spacing={4} alignItems='center' justify='center'> 
+            <Grid item xs={4} >
               <Paper>
                 <Sort places = {places}/>
               </Paper>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <Paper>
                 <Filter places = {places} />
               </Paper>
