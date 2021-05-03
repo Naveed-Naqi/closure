@@ -34,6 +34,10 @@ function Closure_Info(props) {
     border: "none",
     background: "none",
   }
+
+  const backgroundDiv = {
+    background: "white",
+  }
   return (
     <div>
       <Grid
@@ -77,9 +81,9 @@ function Closure_Info(props) {
                   style={{ height: "100%", width: "100%" }}
                 />
           )}
-          {/* {opacity ? (
-              <div> Click To Flip Over</div>
-            ) : ( <div>Never mind</div>>) } */}
+          {opacity ? (
+              <div style={backgroundDiv}> Click To Flip Over</div>
+            ) : ( <div></div>) }
           </Paper>
         </button>
         </Grid>
