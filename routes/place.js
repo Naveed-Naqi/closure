@@ -83,35 +83,6 @@ router.post("/", checkAuth, async (req, res, next) => {
 
         console.log(req.file.transforms[0].location);
 
-        // const {existingAddress} = await axios.get(
-        //   "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replace(' ','+') +"&key=YOUR_API_KEY"
-        // )
-
-        // if(name.length() > 50){
-        //   console.log("Name of restaurant is too long");
-        //   res.status(400).send("Name of restaurant is too long");
-        // }
-        // else if(name.length() < 3){
-        //   console.log("Name of restaurant is too short");
-        //   res.status(400).send("Name of restaurant is too short");
-        // }
-        // else if(address.length() < 6){
-        //   console.log("Address is too short");
-        //   res.status(400).send("Address is too short");
-        // }
-        // else if(existingAddress[0].partial_match) {
-        //   console.log("Address is either not specfic enough or does not exist");
-        //   res.status(400).send("Address is either not specfic enough or does not exist");
-        // }
-        // else if(desc.length() > 150){
-        //   console.log("Description is too long");
-        //   res.status(400).send("Description is too long");
-        // }
-        // else if(desc.length() < 20){
-        //   console.log("Description is too short");
-        //   res.status(400).send("Description is too short");
-        // }
-        // else {
         const newPlace = await Place.create({
           name: name,
           address: address,
@@ -129,7 +100,6 @@ router.post("/", checkAuth, async (req, res, next) => {
           // include: User,
         });
         res.status(200).send(placeToReturn);
-        // }
       } catch (err) {
         console.log(err);
         res.status(400).send("Some error occured");
