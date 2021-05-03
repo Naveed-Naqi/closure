@@ -29,7 +29,8 @@ export class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: null,
       });
-   
+    }
+  }
     onMapClicked = (props) => {
       if (this.state.showingInfoWindow) {
         this.setState({
@@ -40,8 +41,15 @@ export class MapContainer extends Component {
     };
    
     render() {
+      const mapStyles = {
+        width: "50%",
+        height: "50%",
+        maxWidth: "49%",
+
+      };
+
       return (
-        <Map style={{width: "50vw", height: "50vh"}}google={this.props.google}
+        <Map style={mapStyles} google={this.props.google}
         initialCenter={{ 
           // lng: this.state.mapCenter.lng
           lat: this.props.latitudeMap,

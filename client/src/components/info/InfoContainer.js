@@ -1,5 +1,6 @@
 // import Grid from "@material-ui/core/Grid";
 // import Typography from "@material-ui/core/Typography";
+import React, { useState } from 'react';
 import {
   Grid,
   Typography,
@@ -25,6 +26,14 @@ function Closure_Info(props) {
 
   const auth = useSelector((state) => state.auth);
 
+  const [isShown, setIsShown] = useState(false);
+  const [opacity, changeOpacity] = useState(false);
+
+  const buttonStyles = {
+    padding: 0,
+    border: "none",
+    background: "none",
+  }
   return (
     <div>
       <Grid
@@ -32,36 +41,22 @@ function Closure_Info(props) {
         direction="row"
       >
         <Grid item sm={6}>
-          <Paper elevation={6} style={{ height: "50vh", width: "50vw" }}>
-            <img
-              src={props.restaurant_pic}
-              style={{ height: "100%", width: "100%" }}
-            />
-          </Paper>
-        </Grid>
-        <Grid item sm ={6} >
-          <MapContainer style={{width:"500"}} latitudeMap = {latitude} longitudeMap={longitude}/>
-        </Grid>
-        <Grid item sm={12} style={{}}>
-          <Paper elevation={6} >
-            <Card style={{ height: "50vh", width: "50vw", overflow: "auto" }}>
-              <CardHeader title={name} subheader={address} />
-
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {summary}
-                </Typography>
-              </CardContent>
-
-              {/* <Grid container>
-                <Grid item xs={6} >
-                  <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
-                </Grid>
-              </Grid> */}
-              
-
-              <CardActions disableSpacing>
-                {auth.isAuthenticated && (
+          <button style={buttonStyles}
+            className = "example"
+          onClick={() => setIsShown(!isShown)}
+          onMouseOver ={() => changeOpacity(true)}
+          onMouseLeave={() => changeOpacity(false)}>
+            <Paper elevation={6} style={{ height: "50vh", width: "49vw" }}>
+          {isShown ? (
+              <Card style={{ height: "100%", width: "100%", overflow: "auto" }}>
+                <CardHeader title={name} subheader={address} />
+                <CardContent>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {summary}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  {auth.isAuthenticated && (
                   <IconButton onClick={like}>
                     <FavoriteIcon
                       style={{ color: likedStatus ? "red" : "gray" }}
@@ -74,8 +69,23 @@ function Closure_Info(props) {
                     </Typography>
                   </IconButton>
                 )}
-              </CardActions>
-            </Card>
+                </CardActions>
+              </Card>           
+          ) : (
+                <img
+                  src={props.restaurant_pic}
+                  style={{ height: "100%", width: "100%" }}
+                />
+          )}
+          {/* {opacity ? (
+              <div> Click To Flip Over</div>
+            ) : ( <div>Never mind</div>>) } */}
+          </Paper>
+        </button>
+        </Grid>
+        <Grid item sm ={6} >
+          <Paper elevation={6} style={{ height: "50vh", width: "49vw" }}>
+            <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
           </Paper>
         </Grid>
       </Grid>
