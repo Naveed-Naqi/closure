@@ -331,7 +331,7 @@ class ProfilePage extends Component {
                 </Card>
               </Grid>
 
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <Card style={{ height: "55vh", overflow: "auto" }}>
                   <CardHeader
                     style={{ backgroundColor: "#e7e7e7" }}
@@ -401,8 +401,7 @@ class ProfilePage extends Component {
                     </TableContainer>
                   </CardContent>
                 </Card>
-              </Grid>                      */}
-
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
