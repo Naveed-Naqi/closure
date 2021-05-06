@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Loading from "./utils/Loading";
 import InfoIcon from "@material-ui/icons/Info";
@@ -17,10 +16,7 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
-  Paper,
-  Modal,
   Card,
-  CardActions,
   CardContent,
   Button,
   Typography,
@@ -30,15 +26,6 @@ import unknownAvatar from "../img/unknown_avatar.jpg";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  background: {
-    background: (0, 0, 0),
-  },
-});
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -122,7 +109,7 @@ class ProfilePage extends Component {
 
   render() {
     const { liked, comments, loading, open } = this.state;
-    const { classes, auth } = this.props;
+    const { auth } = this.props;
     const { username, email } = auth.user;
 
     return (

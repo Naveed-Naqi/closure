@@ -1,23 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { staffData } from "./staffData.js";
 import Carousel from "react-material-ui-carousel";
 
-import {
-  Grid,
-  Card,
-  CardHeader,
-  CardMedia,
-  Typography,
-  IconButton,
-  Paper,
-  CardContent,
-  List,
-} from "@material-ui/core";
-import InfoIcon from "@material-ui/icons/Info";
+import { Grid, Card, CardHeader, Paper, CardContent } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
-import stickFigure from "../img/stick_figure.png";
 
 // import backgroundPic from "../img/tile_background.png"
 const styles = (theme) => ({
