@@ -5,8 +5,15 @@ import CardList from "./utils/CardList";
 import Loading from "./utils/Loading";
 import Sort from "./Sort";
 import Filter from "./info/Filter";
-import { Typography } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  Paper
+} from "@material-ui/core";
+
 import { withStyles } from "@material-ui/core/styles";
+import { FormatAlignCenter } from "@material-ui/icons";
 
 const styles = (theme) => ({
   root: {
@@ -15,6 +22,11 @@ const styles = (theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
+  },
+  grid:  {
+    minWidth: 140,
+    maxWidth: 600,
+    paddingLeft: "34.25%"
   },
 });
 
@@ -89,14 +101,26 @@ class HomePage extends Component {
     return (
       <div className={classes.root}>
         <Typography variant="h3">Home Page</Typography>
-        <Filter />
+
         <SearchBar
           onRequestSearch={this.onRequestSearch}
           onCancelSearch={this.getPlaces}
         />
 
-        <div style={{ marginRight: "80%" }}>
-          <Sort places={places} sortPlaces={this.sortPlaces} />
+        <div className={classes.grid}>
+          <Grid container spacing={4} alignItems='center' justify='center'> 
+            <Grid item xs={4} >
+              <Paper>
+               <Sort places={places} sortPlaces={this.sortPlaces} />
+              </Paper>
+            </Grid>
+            <Grid item xs={4}>
+              <Paper>
+                <Filter places = {places} />
+              </Paper>
+            </Grid>
+          </Grid>
+
         </div>
 
         <CardList places={places} loading={loading} />
