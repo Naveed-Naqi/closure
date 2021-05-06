@@ -31,14 +31,27 @@ export class MapContainer extends Component {
         activeMarker: null,
       });
     }
-  };
+  }
+    onMapClicked = (props) => {
+      if (this.state.showingInfoWindow) {
+        this.setState({
+          showingInfoWindow: false,
+          activeMarker: null
+        })
+      }
+    };
+   
+    render() {
+      const mapStyles = {
+        width: "50%",
+        height: "50%",
+        maxWidth: "49%",
 
-  render() {
-    return (
-      <Map
-        style={{ width: "50vw", height: "50vh" }}
-        google={this.props.google}
-        initialCenter={{
+      };
+
+      return (
+        <Map style={mapStyles} google={this.props.google}
+        initialCenter={{ 
           // lng: this.state.mapCenter.lng
           lat: this.props.latitudeMap,
           lng: this.props.longitudeMap,
