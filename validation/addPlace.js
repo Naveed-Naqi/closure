@@ -5,6 +5,10 @@ const axios = require("axios");
 const validateAddPlaceInput = async (data) => {
   let { name, address, desc } = data;
 
+  name = `${name}`;
+  address = `${address}`;
+  desc = `${desc}`;
+
   let errors = {};
 
   // Convert empty fields to an empty string so we can use validator functions

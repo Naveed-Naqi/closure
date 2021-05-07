@@ -5,19 +5,19 @@ const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
 
   username: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
 
   password: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 module.exports = User;

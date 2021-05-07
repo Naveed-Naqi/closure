@@ -79,13 +79,14 @@ router.post("/", checkAuth, async (req, res, next) => {
       return res.status(400).json({ message: err.message });
     } else {
       try {
-        const { errors, isValid } = validateAddPlaceInput(req.body);
-        if (!isValid) {
-          return res.status(400).json(errors);
-        }
+        // const { errors, isValid } = validateAddPlaceInput(req.body);
+        // if (!isValid) {
+        //   return res.status(400).json(errors);
+        // }
 
         const { name, address, desc } = req.body;
         const userId = req.decoded.id; //If we want to store userId
+        console.log(userId);
 
         console.log(req.file.transforms[0].location);
 

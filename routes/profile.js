@@ -51,4 +51,23 @@ router.get("/likes", checkAuth, async (req, res, next) => {
   }
 });
 
+router.get("/places", checkAuth, async (req, res, next) => {
+  try {
+    const id = req.decoded.id;
+
+    const likes = await Place.findAll({
+      where: {
+        userId: id,
+      },
+      include: { model: Place, include: Image },
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.status(200).send(places);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
 module.exports = router;
