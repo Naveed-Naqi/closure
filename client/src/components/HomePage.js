@@ -5,12 +5,7 @@ import CardList from "./utils/CardList";
 import Loading from "./utils/Loading";
 import Sort from "./Sort";
 import Filter from "./info/Filter";
-import {
-  Typography,
-  Grid,
-  Card,
-  Paper
-} from "@material-ui/core";
+import { Typography, Grid, Card, Paper } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { FormatAlignCenter } from "@material-ui/icons";
@@ -23,10 +18,10 @@ const styles = (theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-  grid:  {
+  grid: {
     minWidth: 140,
     maxWidth: 600,
-    paddingLeft: "34.25%"
+    paddingLeft: "34.25%",
   },
 });
 
@@ -94,6 +89,23 @@ class HomePage extends Component {
     }
   };
 
+  filterPlaces = async (params) => {
+    try {
+      const [sortType, whichWay] = params.split("-", 2);
+      const data = { sortType, whichWay };
+
+      const res = await axios.get("/api/places/sort", {
+        params: data,
+      });
+
+      this.setState({
+        places: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     const { places, loading } = this.state;
     const { classes } = this.props;
@@ -108,19 +120,18 @@ class HomePage extends Component {
         />
 
         <div className={classes.grid}>
-          <Grid container spacing={4} alignItems='center' justify='center'> 
-            <Grid item xs={4} >
+          <Grid container spacing={4} alignItems="center" justify="center">
+            <Grid item xs={4}>
               <Paper>
-               <Sort places={places} sortPlaces={this.sortPlaces} />
+                <Sort places={places} sortPlaces={this.sortPlaces} />
               </Paper>
             </Grid>
             <Grid item xs={4}>
               <Paper>
-                <Filter places = {places} />
+                <Filter places={places} filterPlaces={this.filterPlaces} />
               </Paper>
             </Grid>
           </Grid>
-
         </div>
 
         <CardList places={places} loading={loading} />

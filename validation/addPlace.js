@@ -2,7 +2,7 @@ const validator = require("validator");
 const isEmpty = require("is-empty");
 const axios = require("axios");
 
-const validateAddPlaceInput = data => {
+const validateAddPlaceInput = async (data) => {
   let { name, address, desc } = data;
 
   let errors = {};
@@ -27,9 +27,11 @@ const validateAddPlaceInput = data => {
   } else if (address.length() < 8) {
     errors.address = "Address is too short";
   } else {
-    const {existingAddress} = await axios.get(
-      "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replace(' ','+') +"&key=YOUR_API_KEY"
-    )
+    const { existingAddress } = await axios.get(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        address.replace(" ", "+") +
+        "&key=YOUR_API_KEY"
+    );
     if (existingAddress[0].partial_match) {
       errors.address = "Address does not exist or is not specific enough";
     }
@@ -46,7 +48,7 @@ const validateAddPlaceInput = data => {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 

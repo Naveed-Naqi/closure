@@ -5,7 +5,8 @@ const { Place, Image, Like, Comment } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
 const upload = require("./upload");
 const singleUpload = upload.single("image");
-const axios = require('axios')
+const axios = require("axios");
+const validateAddPlaceInput = require("../validation/addPlace");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -78,8 +79,13 @@ router.post("/", checkAuth, async (req, res, next) => {
       return res.status(400).json({ message: err.message });
     } else {
       try {
+        const { errors, isValid } = validateAddPlaceInput(req.body);
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+
         const { name, address, desc } = req.body;
-        //const userId = req.decoded.id; //If we want to store userId
+        const userId = req.decoded.id; //If we want to store userId
 
         console.log(req.file.transforms[0].location);
 
@@ -87,6 +93,7 @@ router.post("/", checkAuth, async (req, res, next) => {
           name: name,
           address: address,
           summary: desc,
+          userId: userId,
         });
 
         const newImage = await Image.create({
@@ -179,27 +186,31 @@ router.get("/filter", async (req, res, next) => {
       include: Image,
     });
 
-    var resPlaces = {}
+    var resPlaces = {};
 
-    allPlaces.forEach(
-      async (place) => {
-        const {latlon} = await axios.get(
-          "https://maps.googleapis.com/maps/api/geocode/json?address="+ place.dataValues.address.replace(' ','+') +"&key=YOUR_API_KEY"
-        )
-  
-        const lt = latlon.results.geometry.location.lat
-        const ln = latlon.results.geometry.location.lng
-  
-        const {data} = await axios.get(
-          "https://maps.googleapis.com/maps/api/geocode/json?latlng="+ lt +","+ ln +"&key=YOUR_API_KEY"
-        )
+    allPlaces.forEach(async (place) => {
+      const { latlon } = await axios.get(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          place.dataValues.address.replace(" ", "+") +
+          "&key=YOUR_API_KEY"
+      );
 
-        if(data.results.address_components[4].long_name == content) {
-          resPlaces = {...resPlaces, place}
-        }
+      const lt = latlon.results.geometry.location.lat;
+      const ln = latlon.results.geometry.location.lng;
+
+      const { data } = await axios.get(
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+          lt +
+          "," +
+          ln +
+          "&key=YOUR_API_KEY"
+      );
+
+      if (data.results.address_components[4].long_name == content) {
+        resPlaces = { ...resPlaces, place };
       }
-    )
-    
+    });
+
     res.status(200).send(resPlaces);
   } catch (err) {
     res.status(400).send("Some error occured");

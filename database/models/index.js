@@ -31,6 +31,9 @@ Like.belongsTo(User);
 Place.hasOne(Like);
 Like.belongsTo(Place);
 
+User.hasOne(Place);
+Place.belongsTo(User);
+
 module.exports = {
   User,
   Image,
