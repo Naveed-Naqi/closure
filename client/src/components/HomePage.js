@@ -89,13 +89,10 @@ class HomePage extends Component {
     }
   };
 
-  filterPlaces = async (params) => {
+  filterPlaces = async (borough) => {
     try {
-      const [sortType, whichWay] = params.split("-", 2);
-      const data = { sortType, whichWay };
-
-      const res = await axios.get("/api/places/sort", {
-        params: data,
+      const res = await axios.get("/api/places/filter", {
+        content: borough,
       });
 
       this.setState({
@@ -123,12 +120,12 @@ class HomePage extends Component {
           <Grid container spacing={4} alignItems="center" justify="center">
             <Grid item xs={4}>
               <Paper>
-                <Sort places={places} sortPlaces={this.sortPlaces} />
+                <Sort sortPlaces={this.sortPlaces} />
               </Paper>
             </Grid>
             <Grid item xs={4}>
               <Paper>
-                <Filter places={places} filterPlaces={this.filterPlaces} />
+                <Filter filterPlaces={this.filterPlaces} />
               </Paper>
             </Grid>
           </Grid>

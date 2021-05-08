@@ -216,20 +216,6 @@ router.get("/filter", async (req, res, next) => {
   } catch (err) {
     res.status(400).send("Some error occured");
   }
-  //   try {
-  //   const place = await Place.findAll({
-  //     where: {
-  //       address: {
-  //         [Op.iLike]: "%" + content + "%",
-  //       },
-  //     },
-  //     include: Image,
-  //   });
-
-  //   res.status(200).send(place);
-  // } catch (err) {
-  //   res.status(400).send("Some error occured");
-  // }
 });
 
 module.exports = router;

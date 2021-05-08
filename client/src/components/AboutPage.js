@@ -20,10 +20,6 @@ const styles = (theme) => ({
 });
 
 class AboutPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { classes } = this.props;
     return (

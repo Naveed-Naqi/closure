@@ -20,26 +20,7 @@ function Sort({ sortPlaces }) {
     setSort(event.target.value);
     sortPlaces(event.target.value);
   };
-  //if updating places is handled here then WIP
-  // console.log(`This is the sort status: ${sort}`)
-  // console.log('Do change here')
-  //     switch (sort) {
-  //         case 'Alphabetical':
-  //             console.log('Alphabetical');
-  //             console.log(props.places[0]);
-  //             break;
-  //         case 'Most Liked':
-  //             console.log(props.placedds.pop());
-  //             console.log('Most Liked');
-  //             console.log(props.places[1]);
-  //             break;
-  //         case 'Recently Added':
-  //             console.log('Recently Added');
-  //             console.log(props.places[2]);
-  //             break;
-  //         default:
-  //             console.log('No change');
-  //     }
+
   return (
     <div>
       <FormControl className={classes.formControl}>
