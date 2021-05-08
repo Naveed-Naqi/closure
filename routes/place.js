@@ -175,47 +175,56 @@ router.get("/sort", async (req, res, next) => {
 });
 
 router.get("/filter", async (req, res, next) => {
-  try {
-    const { content } = req.query;
-    //content are from a predefined set:
-    //["Bronx", "Brooklyn", "Queens", "Manhattan", "Staten Island"]
-    //Granted not all addresses have the borough in them
+  const { content } = req.query;
+  //content are from a predefined set:
+  //["Bronx", "Brooklyn", "Queens", "Manhattan", "Staten Island"]
+  //Granted not all addresses have the borough in them
 
-    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
+  //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
 
-    const allPlaces = await Place.findAll({
-      include: Image,
-    });
+  console.log("CONTENT", content);
 
-    var resPlaces = {};
+  const allPlaces = await Place.findAll({
+    include: Image,
+  });
 
-    allPlaces.forEach(async (place) => {
-      const { latlon } = await axios.get(
+  let resPlaces = [];
+
+  for (let i = 0; i < allPlaces.length; ++i) {
+    const place = allPlaces[i];
+
+    try {
+      let res = await axios.get(
         "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-          place.dataValues.address.replace(" ", "+") +
-          "&key=YOUR_API_KEY"
+          place.address.replace(" ", "+") +
+          "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
       );
 
-      const lt = latlon.results.geometry.location.lat;
-      const ln = latlon.results.geometry.location.lng;
+      const lt = res.data.results[0].geometry.location.lat;
+      const ln = res.data.results[0].geometry.location.lng;
 
-      const { data } = await axios.get(
+      res = await axios.get(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
           lt +
           "," +
           ln +
-          "&key=YOUR_API_KEY"
+          "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
       );
 
-      if (data.results.address_components[4].long_name == content) {
-        resPlaces = { ...resPlaces, place };
-      }
-    });
+      console.log(res.data.results[0].address_components[3].long_name);
 
-    res.status(200).send(resPlaces);
-  } catch (err) {
-    res.status(400).send("Some error occured");
+      if (res.data.results[0].address_components[3].long_name == content) {
+        console.log("Hi");
+        resPlaces.push(place);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+
+  console.log(resPlaces);
+
+  res.status(200).send(resPlaces);
 });
 
 module.exports = router;

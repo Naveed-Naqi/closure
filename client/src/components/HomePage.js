@@ -91,12 +91,19 @@ class HomePage extends Component {
 
   filterPlaces = async (borough) => {
     try {
+      console.log(borough);
+
+      this.setState({
+        loading: true,
+      });
+
       const res = await axios.get("/api/places/filter", {
-        content: borough,
+        params: { content: borough },
       });
 
       this.setState({
         places: res.data,
+        loading: false,
       });
     } catch (err) {
       console.log(err);

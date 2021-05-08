@@ -29,9 +29,9 @@ export default function Filter({ filterPlaces }) {
             <em>None</em>
           </MenuItem>
           <MenuItem value="manhattan">Manhattan</MenuItem>
-          <MenuItem value="brooklyn">Brooklyn</MenuItem>
+          <MenuItem value="Brooklyn">Brooklyn</MenuItem>
           <MenuItem value="bronx">Bronx</MenuItem>
-          <MenuItem value="queens">Queens</MenuItem>
+          <MenuItem value="Queens">Queens</MenuItem>
           <MenuItem value="staten island">Staten Island</MenuItem>
         </Select>
       </FormControl>
