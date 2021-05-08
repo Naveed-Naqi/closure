@@ -55,11 +55,11 @@ router.get("/places", checkAuth, async (req, res, next) => {
   try {
     const id = req.decoded.id;
 
-    const likes = await Place.findAll({
+    const places = await Place.findAll({
       where: {
         userId: id,
       },
-      include: { model: Place, include: Image },
+      include: Image,
       order: [["createdAt", "DESC"]],
     });
 

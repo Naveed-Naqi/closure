@@ -33,6 +33,7 @@ class ProfilePage extends Component {
     this.state = {
       liked: [],
       comments: [],
+      userPlaces: [],
       loading: false,
       open: false,
     };
@@ -73,6 +74,23 @@ class ProfilePage extends Component {
     }
   };
 
+  getUserPlaces = async () => {
+    try {
+      this.setState({
+        loading: true,
+      });
+
+      const res = await axios.get("/api/profile/places");
+
+      this.setState({
+        userPlaces: res.data,
+        loading: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   handleToggle = () => {
     this.setState({
       open: !this.state.open,
@@ -105,10 +123,11 @@ class ProfilePage extends Component {
   componentDidMount = async () => {
     await this.getLikedPlaces();
     await this.getCommentedPlaces();
+    await this.getUserPlaces();
   };
 
   render() {
-    const { liked, comments, loading, open } = this.state;
+    const { liked, comments, loading, open, userPlaces } = this.state;
     const { auth } = this.props;
     const { username, email } = auth.user;
 
@@ -350,8 +369,8 @@ class ProfilePage extends Component {
                                 alignItems="center"
                                 justify="center"
                               >
-                                {comments.length > 0 ? (
-                                  comments.map((elem) => {
+                                {userPlaces.length > 0 ? (
+                                  userPlaces.map((elem) => {
                                     const { name, address, images, id } = elem;
 
                                     return (
