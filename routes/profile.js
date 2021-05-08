@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Place, Comment, Image, Like } = require("../database/models");
+const { Place, Comment, Image, Like, Reply } = require("../database/models");
 const checkAuth = require("./middleware/checkAuth");
 
 router.get("/comments", checkAuth, async (req, res, next) => {
@@ -15,7 +15,15 @@ router.get("/comments", checkAuth, async (req, res, next) => {
       order: [["createdAt", "DESC"]],
     });
 
-    let places = comments.map((elem) => elem.place);
+    const replies = await Reply.findAll({
+      where: {
+        userId: id,
+      },
+      include: { model: Place, include: Image },
+      order: [["createdAt", "DESC"]],
+    });
+
+    let places = [...comments, ...replies].map((elem) => elem.place);
     places = Array.from(new Set(places.map((a) => a.id))).map((id) => {
       return places.find((a) => a.id === id);
     });
