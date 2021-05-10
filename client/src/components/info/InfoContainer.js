@@ -47,7 +47,7 @@ function Closure_Info(props) {
         <Grid item sm={6}>
           <button style={buttonStyles}
             className = "example"
-          onClick={() => setIsShown(!isShown)}
+          onClick={() => setIsShown(true)}
           onMouseOver ={() => changeOpacity(true)}
           onMouseLeave={() => changeOpacity(false)}>
             <Paper elevation={6} style={{ height: "50vh", width: "49vw" }}>
@@ -61,7 +61,7 @@ function Closure_Info(props) {
                 </CardContent>
                 <CardActions disableSpacing>
                   {auth.isAuthenticated && (
-                  <IconButton onClick={like}>
+                  <IconButton onClick={like} >
                     <FavoriteIcon
                       style={{ color: likedStatus ? "red" : "gray" }}
                     />
