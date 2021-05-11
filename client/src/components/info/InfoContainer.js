@@ -33,10 +33,7 @@ function Closure_Info(props) {
     padding: 0,
     border: "none",
     background: "none",
-  }
-
-  const backgroundDiv = {
-    background: "white",
+    width: "100%",
   }
   return (
     <div>
@@ -45,13 +42,8 @@ function Closure_Info(props) {
         direction="row"
       >
         <Grid item sm={6}>
-          <button style={buttonStyles}
-            className = "example"
-          onClick={() => setIsShown(!isShown)}
-          onMouseOver ={() => changeOpacity(true)}
-          onMouseLeave={() => changeOpacity(false)}>
-            <Paper elevation={6} style={{ height: "50vh", width: "49vw" }}>
           {isShown ? (
+            <Paper elevation={6} style={{ height: "46vh", width: "48vw" }}>
               <Card style={{ height: "100%", width: "100%", overflow: "auto" }}>
                 <CardHeader title={name} subheader={address} />
                 <CardContent>
@@ -61,7 +53,7 @@ function Closure_Info(props) {
                 </CardContent>
                 <CardActions disableSpacing>
                   {auth.isAuthenticated && (
-                  <IconButton onClick={like}>
+                  <IconButton onClick={like} style={{paddingBottom:"0px"}}>
                     <FavoriteIcon
                       style={{ color: likedStatus ? "red" : "gray" }}
                     />
@@ -74,21 +66,34 @@ function Closure_Info(props) {
                   </IconButton>
                 )}
                 </CardActions>
-              </Card>           
+                <div style={{paddingBottom:"10px"}}>
+                  <button style={buttonStyles}
+                  className = "example"
+                    onClick={() => setIsShown(!isShown)}
+                    onMouseOver ={() => changeOpacity(true)}
+                    onMouseLeave={() => changeOpacity(false)}>
+                      Click Here To Flip Over
+                    </button>
+                </div>
+              </Card> 
+              </Paper>         
           ) : (
+            <Paper elevation={6} style={{ height: "46vh", width: "48vw" }}>
+                <button style={buttonStyles}
+                className = "example"
+                  onClick={() => setIsShown(!isShown)}
+                  onMouseOver ={() => changeOpacity(true)}
+                  onMouseLeave={() => changeOpacity(false)}>
                 <img
                   src={props.restaurant_pic}
-                  style={{ height: "100%", width: "100%" }}
+                  style={{ height: "46vh", width: "48vw" }}
                 />
+                </button>
+              </Paper>
           )}
-          {opacity ? (
-              <div style={backgroundDiv}> Click To Flip Over</div>
-            ) : ( <div></div>) }
-          </Paper>
-        </button>
         </Grid>
         <Grid item sm ={6} >
-          <Paper elevation={6} style={{ height: "50vh", width: "49vw" }}>
+          <Paper elevation={6} style={{ height: "46vh", width: "49vw" }}>
             <MapContainer latitudeMap = {latitude} longitudeMap={longitude}/>
           </Paper>
         </Grid>

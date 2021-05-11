@@ -7,5 +7,8 @@
 .example:hover{
   opacity: .85;
   cursor: pointer;
+}
 
+.backgroundDiv{
+  background: black;
 }

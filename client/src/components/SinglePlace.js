@@ -31,7 +31,7 @@ export default class SinglePlace extends Component {
       replyCommentId: null,
       comment: "",
       latitude: 0,
-      longitude: 0,
+      longitude: 0
     };
 
     this.textInput = React.createRef();

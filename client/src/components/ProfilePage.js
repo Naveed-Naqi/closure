@@ -143,11 +143,11 @@ class ProfilePage extends Component {
           container
           justify="center"
           spacing={10}
-          style={{ paddingTop: "90px" }}
+          style={{ paddingTop: "10px" }}
         >
           <Grid item xs={3}>
             <Card
-              style={{ height: "55vh", position: "relative", overflow: "auto" }}
+              style={{ height: "85vh", position: "relative", overflow: "auto" }}
             >
               <CardHeader
                 action={
@@ -159,11 +159,12 @@ class ProfilePage extends Component {
                     Add a Place
                   </Button>
                 }
+                style={{margin:"auto", paddingBottom:"0px"}}
               />
               <CardContent>
                 <Avatar
                   src={unknownAvatar}
-                  style={{ height: "20vh", width: "20vh", margin: "auto" }}
+                  style={{ height: "24vh", width: "24vh", margin: "auto", paddingTop:"0px" }}
                 />
                 <Typography variant="h5" component="h2">
                   {username}
@@ -183,7 +184,7 @@ class ProfilePage extends Component {
                   justify="space-between"
                   style={{ height: "10vh", paddingTop: "10pt" }}
                 >
-                  <Grid item xs={12}>
+                <Grid item xs={12}>
                     <Typography>
                       Number of Liked Places
                       <br />
@@ -350,6 +351,7 @@ class ProfilePage extends Component {
                 </Card>
               </Grid>
 
+
               <Grid item xs={12}>
                 <Card style={{ height: "55vh", overflow: "auto" }}>
                   <CardHeader
@@ -369,6 +371,7 @@ class ProfilePage extends Component {
                                 alignItems="center"
                                 justify="center"
                               >
+
                                 {userPlaces.length > 0 ? (
                                   userPlaces.map((elem) => {
                                     const { name, address, images, id } = elem;
