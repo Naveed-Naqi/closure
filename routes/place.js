@@ -197,6 +197,10 @@ router.get("/filter", async (req, res, next) => {
     include: Image,
   });
 
+  if ((content = "")) {
+    return res.status(200).send(allPlaces);
+  }
+
   let resPlaces = [];
 
   for (let i = 0; i < allPlaces.length; ++i) {
