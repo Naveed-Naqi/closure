@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Loading from "./utils/Loading";
 import InfoIcon from "@material-ui/icons/Info";
@@ -17,10 +16,7 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
-  Paper,
-  Modal,
   Card,
-  CardActions,
   CardContent,
   Button,
   Typography,
@@ -31,21 +27,13 @@ import unknownAvatar from "../img/unknown_avatar.jpg";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  background: {
-    background: (0, 0, 0),
-  },
-});
-
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       liked: [],
       comments: [],
+      userPlaces: [],
       loading: false,
       open: false,
     };
@@ -86,6 +74,23 @@ class ProfilePage extends Component {
     }
   };
 
+  getUserPlaces = async () => {
+    try {
+      this.setState({
+        loading: true,
+      });
+
+      const res = await axios.get("/api/profile/places");
+
+      this.setState({
+        userPlaces: res.data,
+        loading: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   handleToggle = () => {
     this.setState({
       open: !this.state.open,
@@ -118,11 +123,12 @@ class ProfilePage extends Component {
   componentDidMount = async () => {
     await this.getLikedPlaces();
     await this.getCommentedPlaces();
+    await this.getUserPlaces();
   };
 
   render() {
-    const { liked, comments, loading, open } = this.state;
-    const { classes, auth } = this.props;
+    const { liked, comments, loading, open, userPlaces } = this.state;
+    const { auth } = this.props;
     const { username, email } = auth.user;
 
     return (
@@ -345,7 +351,8 @@ class ProfilePage extends Component {
                 </Card>
               </Grid>
 
-              {/* <Grid item xs={12}>
+
+              <Grid item xs={12}>
                 <Card style={{ height: "55vh", overflow: "auto" }}>
                   <CardHeader
                     style={{ backgroundColor: "#e7e7e7" }}
@@ -364,8 +371,9 @@ class ProfilePage extends Component {
                                 alignItems="center"
                                 justify="center"
                               >
-                                {comments.length > 0 ? (
-                                  comments.map((elem) => {
+
+                                {userPlaces.length > 0 ? (
+                                  userPlaces.map((elem) => {
                                     const { name, address, images, id } = elem;
 
                                     return (
@@ -415,8 +423,7 @@ class ProfilePage extends Component {
                     </TableContainer>
                   </CardContent>
                 </Card>
-              </Grid>                      */}
-
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

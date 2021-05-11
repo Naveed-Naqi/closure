@@ -1,84 +1,40 @@
 import React from "react";
-import {
-  Button,
-  MenuList,
-  MenuItem,
-  Menu,
-} from "@material-ui/core";
+import { Button, MenuList, MenuItem, Menu } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
+const useStyle = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 120,
+  },
+}));
 
-export default function SimpleMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function Filter({ filterPlaces }) {
+  const classes = useStyle();
+  const [filter, setFilter] = React.useState("");
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleChange = (event) => {
+    setFilter(event.target.value);
+    filterPlaces(event.target.value);
   };
 
   return (
     <div>
-        <Button 
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            variant="contained"
-            size="small"
-            paddingBottom="25px"
-            onClick={handleClick}
-        >
-            Filter by Borough
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuList>
-            <MenuItem
-                id="manhattan"
-                onClick={handleClose}
-                onClose={handleClose}
-            >
-                Manhattan
-            </MenuItem>
-
-            <MenuItem
-                id="Brooklyn" 
-                onClick={handleClose}
-                onClose={handleClose}
-            >
-                Brooklyn
-            </MenuItem>
-
-            <MenuItem
-                id="Queens" 
-                onClick={handleClose}
-                onClose={handleClose}
-            >
-                Queens
-            </MenuItem>
-
-            <MenuItem
-                id="Bronx" 
-                onClick={handleClose}
-                onClose={handleClose}
-            >
-                Bronx
-            </MenuItem>
-
-            <MenuItem
-                id="staten island" 
-                onClick={handleClose}
-                onClose={handleClose}
-            >
-                Staten Island
-            </MenuItem>
-        </MenuList>
-      </Menu>
+      <FormControl className={classes.formControl}>
+        <InputLabel>Filter by...</InputLabel>
+        <Select value={filter} onChange={handleChange}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="manhattan">Manhattan</MenuItem>
+          <MenuItem value="Brooklyn">Brooklyn</MenuItem>
+          <MenuItem value="bronx">Bronx</MenuItem>
+          <MenuItem value="Queens">Queens</MenuItem>
+          <MenuItem value="staten island">Staten Island</MenuItem>
+        </Select>
+      </FormControl>
     </div>
   );
 }

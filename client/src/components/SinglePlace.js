@@ -264,11 +264,7 @@ export default class SinglePlace extends Component {
     // console.log(longitude)
 
     return (
-      <Grid
-        container
-        direction="row"
-        spacing={5}
-      >
+      <Grid container direction="row" spacing={5}>
         <Grid item sm={6} md={12}>
           <InfoContainer
             restaurant_pic={images && images[0].link}

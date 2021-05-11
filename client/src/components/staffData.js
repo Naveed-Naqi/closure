@@ -1,4 +1,3 @@
-import React from "react";
 import Yash from "../staffImages/img_yash.jpg";
 import Harold from "../staffImages/img_harold.jpg";
 import Naveed from "../staffImages/img_naveed.jpg";

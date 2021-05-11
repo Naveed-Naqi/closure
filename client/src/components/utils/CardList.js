@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Loading from "./Loading";
 import { useHistory } from "react-router";
@@ -8,7 +8,6 @@ import {
   Card,
   CardHeader,
   CardMedia,
-  Typography,
   IconButton,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
@@ -41,7 +40,7 @@ export default function CardList({ loading, places }) {
               const { name, address, images, id } = elem;
 
               return (
-                <Grid item xs={3} key={index}>
+                <Grid item md={3} sm={6} xs={12} key={index}>
                   <Card>
                     <CardHeader
                       action={

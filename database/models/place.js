@@ -18,6 +18,12 @@ const Place = db.define("place", {
     type: Sequelize.STRING(1000),
     allowNull: false,
   },
+
+  userId: {
+    type: Sequelize.INTEGER,
+    foreignKey: true,
+    allowNull: true,
+  },
 });
 
 module.exports = Place;
