@@ -76,6 +76,8 @@ class HomePage extends Component {
     try {
       const [sortType, whichWay] = params.split("-", 2);
       const data = { sortType, whichWay };
+      const { places } = this.state;
+      data.ids = places.map((elem) => elem.id);
 
       const res = await axios.get("/api/places/sort", {
         params: data,

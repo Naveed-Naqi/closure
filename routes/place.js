@@ -118,7 +118,7 @@ router.post("/", checkAuth, async (req, res, next) => {
 
 router.get("/sort", async (req, res, next) => {
   try {
-    const { sortType, whichWay } = req.query;
+    const { sortType, whichWay, ids } = req.query;
     //sortType given Places column, we want to sort by: name, createdAt, updatedAt
     //sortType can be given other sorting type: likes, comments
     //whichWay indicates which way to sort: ASC, DESC
@@ -127,6 +127,9 @@ router.get("/sort", async (req, res, next) => {
 
     if (sortType == "likes") {
       const places = await Place.findAll({
+        where: {
+          id: { [Op.in]: ids },
+        },
         attributes: [
           "id",
           "name",
@@ -145,6 +148,9 @@ router.get("/sort", async (req, res, next) => {
       res.status(200).send(places);
     } else if (sortType == "comments") {
       const places = await Place.findAll({
+        where: {
+          id: { [Op.in]: ids },
+        },
         attributes: [
           "id",
           "name",
@@ -163,6 +169,9 @@ router.get("/sort", async (req, res, next) => {
       res.status(200).send(places);
     } else {
       const places = await Place.findAll({
+        where: {
+          id: { [Op.in]: ids },
+        },
         order: [[sortType, whichWay]],
         include: Image,
       });
