@@ -197,7 +197,7 @@ router.get("/filter", async (req, res, next) => {
     include: Image,
   });
 
-  if ((content = "")) {
+  if (content === "") {
     return res.status(200).send(allPlaces);
   }
 
