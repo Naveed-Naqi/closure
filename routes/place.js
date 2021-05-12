@@ -206,6 +206,36 @@ router.get("/filter", async (req, res, next) => {
   for (let i = 0; i < allPlaces.length; ++i) {
     const place = allPlaces[i];
 
+    // try {
+    //   let res = await axios.get(
+    //     "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+    //       place.address.replace(" ", "+") +
+    //       "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
+    //   );
+
+    //   const lt = res.data.results[0].geometry.location.lat;
+    //   const ln = res.data.results[0].geometry.location.lng;
+
+    //   res = await axios.get(
+    //     "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+    //       lt +
+    //       "," +
+    //       ln +
+    //       "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
+    //   );
+
+    //   console.log(res.data.results[0].address_components[3].long_name);
+
+    //   if (res.data.results[0].address_components[3].long_name == content) {
+    //     console.log("Hi");
+    //     resPlaces.push(place);
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    
+    let done = false;
+    
     try {
       let res = await axios.get(
         "https://maps.googleapis.com/maps/api/geocode/json?address=" +
@@ -213,23 +243,17 @@ router.get("/filter", async (req, res, next) => {
           "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
       );
 
-      const lt = res.data.results[0].geometry.location.lat;
-      const ln = res.data.results[0].geometry.location.lng;
-
-      res = await axios.get(
-        "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-          lt +
-          "," +
-          ln +
-          "&key=AIzaSyCVPTG5ZTA0E6LEpfp_9rRNDS0H8xv2Y4g"
-      );
-
       console.log(res.data.results[0].address_components[3].long_name);
 
-      if (res.data.results[0].address_components[3].long_name == content) {
-        console.log("Hi");
-        resPlaces.push(place);
-      }
+      res.data.results[0].address_components.forEach(comp => {
+        if (comp.long_name == content && !done) {
+          console.log("Hi");
+          resPlaces.push(place);
+          done = true;
+        }
+      });
+
+      done = false;
     } catch (err) {
       console.log(err);
     }
